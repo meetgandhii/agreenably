@@ -1,0 +1,609 @@
+{
+    "answer1": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer2": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer3": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer4": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer5": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer6": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer7": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer8": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer9": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Canada",
+                "Puerto Rico",
+                "United States"
+            ],
+            "value": ""
+        }
+    },
+    "answer10": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer11": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer12": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer13": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer14": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer15": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer16": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer17": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer18": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer19": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer20": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer21": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer22": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer23": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer24": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer25": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer26": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer27": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer28": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer29": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer30": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer31": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer32": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer33": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer34": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer35": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer36": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer37": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer38": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer39": {
+        "options": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Yes",
+                "No"
+            ],
+            "value": ""
+        }
+    },
+    "answer40": {
+        "file_upload": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": ""
+        }
+    },
+    "answer41": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer42": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer43": {
+        "file_upload": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": ""
+        }
+    },
+    "answer44": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer45": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer46": {
+        "multi_select": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "US",
+                "Canada",
+                "Australia",
+                "Brazil",
+                "China",
+                "European Union",
+                "Japan",
+                "Mexico",
+                "Russia",
+                "United Kingdom",
+                "Middle East Region",
+                "Latin America",
+                "Southeast Asia",
+                "Africa",
+                "Other"
+            ],
+            "value": []
+        }
+    },
+    "answer47": {
+        "multi_select": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Company Website",
+                "Amazon",
+                "Specialized Online Only Store (e.g. Thrive, Dermstore, iHerb, Vitacost)",
+                "Grocery Store (e.g. Kroger, HEB, Sprouts, Wegmans)",
+                "Big Box Store (e.g. Target, Walmart, TJ Maxx, Homegoods)",
+                "Specialized Grocery Store (e.g. Whole Foods, Mom Organic Market)",
+                "Pharmacy (e.g. CVS, Walgreens, Rite Aid)",
+                "Specialty Beauty Store (e.g. Sephora, Ulta, Bluemercury)",
+                "My house",
+                "Spa",
+                "Salon",
+                "Duty Free - Caribbean Islands",
+                "In our showroom/physical location",
+                "Specialty Boutiques",
+                "Gift Shop",
+                "Garden Shop",
+                "Social media",
+                "Other"
+            ],
+            "value": []
+        }
+    },
+    "answer48": {
+        "multi_select": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Companion Animal Grooming Care"
+            ],
+            "value": []
+        }
+    },
+    "answer49": {
+        "multi_select": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Color Cosmetics",
+                "Lip Care",
+                "Nail Care"
+            ],
+            "value": []
+        }
+    },
+    "answer50": {
+        "multi_select": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Aromatherapy",
+                "Baby Care",
+                "Bath Bubbles and Salts",
+                "Body Care",
+                "Condoms/Lubricants",
+                "Dental Care",
+                "Deodorant",
+                "Eye Care",
+                "Face Care",
+                "Feminine Hygiene",
+                "Hair Care",
+                "Hair Color or Permanent",
+                "Hair Styling",
+                "Hand Sanitizers",
+                "Insect Repellent",
+                "Maternity",
+                "Men's Products",
+                "Self Tanner",
+                "Shampoo/Conditioner",
+                "Shaving/Depilatory",
+                "Soap",
+                "Sun Care"
+            ],
+            "value": []
+        }
+    },
+    "answer51": {
+        "multi_select": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "options": [
+                "Bathroom Cleaner",
+                "Bleach",
+                "Car Care",
+                "Carpet Cleaner",
+                "Dish Detergent",
+                "Floor Cleaner",
+                "Fruit & Vegetable Wash",
+                "Furniture Polish",
+                "Home Fragrance",
+                "Household Cleaner",
+                "Laundry"
+            ],
+            "value": []
+        }
+    },
+    "answer52": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer53": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer54": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer55": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    },
+    "answer56": {
+        "text": {
+            "on_use": {
+                "$numberInt": "1"
+            },
+            "value": []
+        }
+    }
+}
