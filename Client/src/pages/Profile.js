@@ -18,7 +18,7 @@ function Profile() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/users/profile/${user.username}`
+          `https://agreenably-website-server.onrender.com/api/users/profile/${user.username}`
         );
         setUserData(response.data);
  
@@ -40,7 +40,7 @@ function Profile() {
   const handleSave = async () => {
     try {
       await axios.put(
-        `http://localhost:4000/api/users/profile/${user.username}`,
+        `https://agreenably-website-server.onrender.com/api/users/profile/${user.username}`,
         {
           email: editedEmail,
           password: editedPassword,

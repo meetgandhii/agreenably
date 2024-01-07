@@ -14,7 +14,7 @@ function Register() {
 
   useEffect(() => {
     // Fetch certifications from your API endpoint
-    fetch("http://localhost:4000/api/certifications/getallcertifications")
+    fetch("https://agreenably-website-server.onrender.com/api/certifications/getallcertifications")
       .then((response) => response.json())
       .then((data) => {
         // Assuming data is an array of certification objects with a 'name' property

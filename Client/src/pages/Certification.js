@@ -170,7 +170,7 @@ function BookingCar() {
   const goToEdit = async () => {
     const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
     try {
-      const response = await axios.post("http://localhost:4000/api/certification/records/addcertificationrecord", {
+      const response = await axios.post("https://agreenably-website-server.onrender.com/api/certification/records/addcertificationrecord", {
         user_id: user._id,
         timestamp: timestamp,
         ongoing: "1",
@@ -178,7 +178,7 @@ function BookingCar() {
       });
 
       console.log("POST response:", response.data);
-      const updateUserResponse = await axios.put("http://localhost:4000/api/users/begincertificate", {
+      const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/begincertificate", {
         userId: user._id,
         certificateId: certification._id
       });
@@ -225,7 +225,7 @@ function BookingCar() {
 
       console.log("AnswerArray: ", answersArray);
 
-      const response = await axios.put("http://localhost:4000/api/certification/records/editcertificationrecord", {
+      const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
         user_id: user._id,
         certification_response: answersArray,
         timestamp: timestamp,
@@ -235,7 +235,7 @@ function BookingCar() {
 
       console.log("PUT response:", response.data);
 
-      const updateUserResponse = await axios.put("http://localhost:4000/api/users/submitcertificate", {
+      const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/submitcertificate", {
         userId: user._id,
         certificateId: certification._id
       });
@@ -255,7 +255,7 @@ function BookingCar() {
   useEffect(() => {
     const fetchCertificate = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/certifications/certificate/${id}`);
+        const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${id}`);
         console.log("Certificate is: ", response.data);
         setCertification(response.data);
       } catch (error) {
@@ -270,7 +270,7 @@ function BookingCar() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/certification/questions/getallcertificationquestions`);
+        const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certification/questions/getallcertificationquestions`);
         console.log("Questions are: ", response.data);
         setQuestions(response.data);
       } catch (error) {

@@ -9,7 +9,7 @@ export const userLogin = (reqObj) => async (dispatch) => {
     console.log(reqObj);
 
     const response = await axios.post(
-      "http://localhost:4000/api/users/login",
+      "https://agreenably-website-server.onrender.com/api/users/login",
       reqObj
     );
     
@@ -39,7 +39,7 @@ export const userRegister = (reqObj) => async (dispatch) => {
 
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/users/register",
+      "https://agreenably-website-server.onrender.com/api/users/register",
       reqObj
     );
     message.success("Registration successfull");
