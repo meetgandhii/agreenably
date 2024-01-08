@@ -338,7 +338,7 @@ function BookingCar() {
                         updateAnswers={(updatedAnswer) => handleAnswer('question3', updatedAnswer)}
                       />
 
-                      {answers.question3 && answers.question3[question.question3] === "Yes" && (
+                      {answers.question3 && answers.question3[question.question3] === "No" && (
                         <>
                           <SingleChoiceQuestion
                             heading={"Registration"}
@@ -346,7 +346,7 @@ function BookingCar() {
                             options={["Yes", "No"]}
                             updateAnswers={(updatedAnswer) => handleAnswer('question4', updatedAnswer)}
                           />
-                          {answers.question4 && answers.question4[question.question4] === "No" && (
+                          {answers.question4 && answers.question4[question.question4] === "Yes" && (
                             <div>
                               <TextBoxQuestion
                                 heading={"Registration"}
