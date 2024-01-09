@@ -87,7 +87,7 @@ exports.updateDetailsAfterBegin = async (req, res) => {
       // Save the updated user
       await user.save();
     } else {
-      return res.status(400).json({ message: 'Certificate already in ongoing certifications' });
+      return res.json({ message: 'Certificate already in ongoing certifications' });
     }
     res.json(user);
   } catch (error) {
