@@ -79,11 +79,16 @@ exports.updateDetailsAfterBegin = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-  user.ongoing_certification.push(certificateId);
 
-    // Save the updated user
-    await user.save();
+  if (!user.ongoing_certification.includes(certificateId)) {
+      // If not present, push the new certificateId
+      user.ongoing_certification.push(certificateId);
 
+      // Save the updated user
+      await user.save();
+    } else {
+      return res.status(400).json({ message: 'Certificate already in ongoing certifications' });
+    }
     res.json(user);
   } catch (error) {
     console.error('Error updating user data:', error);

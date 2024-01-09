@@ -11,6 +11,7 @@ import CertificateNav from "../components/CertificateNav";
 import CertificateNav2 from "../components/CertificateNav2";
 import { useNavigate } from "react-router-dom";
 
+
 const questionStyle = {
   border: '1px solid #ddd',
   padding: '10px',
@@ -165,7 +166,7 @@ function BookingCar() {
   const [answers, setAnswers] = useState({});
   const [submitMode, setSubmitMode] = useState(false);
   const [review, setReview] = useState({});
-
+  let qCount = 3;
   const [certification, setCertification] = useState({});
   const goToEdit = async () => {
     const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
@@ -195,6 +196,10 @@ function BookingCar() {
   };
 
   const goToReview = () => {
+    const answeredQuestions = Object.values(answers).flatMap((nestedObject) =>
+    Object.values(nestedObject)
+  );
+   if( answeredQuestions.length == qCount) {
     const answersArray = Object.entries(answers).flatMap(([something, nestedObject]) => {
       const entries = Object.entries(nestedObject);
       return entries.map(([question, answer]) => ({
@@ -205,6 +210,10 @@ function BookingCar() {
     setReview(answersArray);
     console.log("New State", answersArray);
     setSubmitMode(true);
+  }
+   else {
+    alert("Please fill all questions");
+   }
 
   };
   const editData = async () => {
@@ -340,6 +349,7 @@ function BookingCar() {
 
                       {answers.question3 && answers.question3[question.question3] === "No" && (
                         <>
+                          <div style = {{display: "none"}}>{qCount+=1}</div>
                           <SingleChoiceQuestion
                             heading={"Registration"}
                             question={question.question4}
@@ -348,6 +358,7 @@ function BookingCar() {
                           />
                           {answers.question4 && answers.question4[question.question4] === "Yes" && (
                             <div>
+                              <div style = {{display: "none"}}>{qCount+=50}</div>
                               <TextBoxQuestion
                                 heading={"Registration"}
                                 question={question.question5}
@@ -490,12 +501,15 @@ function BookingCar() {
                                 updateAnswers={(updatedAnswer) => handleAnswer('question26', updatedAnswer)}
                               />
                               {((answers.question23 && answers.question23[question.question23] === "Yes") || (answers.question24 && answers.question24[question.question24] === "Yes") || (answers.question25 && answers.question25[question.question25] === "Yes") || (answers.question26 && answers.question26[question.question26] === "Yes")) && (
-                                <SingleChoiceQuestion
-                                  heading={"Registration"}
-                                  question={question.question27}
-                                  options={["Yes", "No"]}
-                                  updateAnswers={(updatedAnswer) => handleAnswer('question27', updatedAnswer)}
-                                />
+                                <>
+                                  <div style = {{display: "none"}}>{qCount+=1}</div>
+                                  <SingleChoiceQuestion
+                                    heading={"Registration"}
+                                    question={question.question27}
+                                    options={["Yes", "No"]}
+                                    updateAnswers={(updatedAnswer) => handleAnswer('question27', updatedAnswer)}
+                                  />
+                                </>
                               )}
 
                               <SingleChoiceQuestion
@@ -575,11 +589,14 @@ function BookingCar() {
                               />
 
                               {answers.question39 && answers.question39[question.question39] === "Yes" && (
-                                <FileUploadQuestion
-                                  heading={"Registration"}
-                                  question={question.question40}
-                                  updateAnswers={(updatedAnswer) => handleAnswer('question40', updatedAnswer)}
-                                />
+                                <>
+                                  <div style = {{display: "none"}}>{qCount+=1}</div>
+                                  <FileUploadQuestion
+                                    heading={"Registration"}
+                                    question={question.question40}
+                                    updateAnswers={(updatedAnswer) => handleAnswer('question40', updatedAnswer)}
+                                  />
+                                </>
                               )}
 
                               <TextBoxQuestion
