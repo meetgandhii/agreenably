@@ -1,165 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Form, Input, Select, Divider } from "antd";
+import { Row, Divider } from "antd";
 import axios from "axios";
 import moment from "moment";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import DefaultLayout from "../components/DefaultLayout";
 import Spinner from "../components/Spinner";
 import '../Stylesheet/certifications.css';
 import CertificateNav from "../components/CertificateNav";
 import CertificateNav2 from "../components/CertificateNav2";
 import { useNavigate } from "react-router-dom";
+import SingleChoiceQuestion from "./CertificationComponents/SingleChoiceQuestion";
+import MultiChoiceQuestion from "./CertificationComponents/MultiChoiceQuestion";
+import TextBoxQuestion from "./CertificationComponents/TextBoxQuestion";
+import FileUploadQuestion from "./CertificationComponents/FileUploadQuestion";
+import { get } from "react-scroll/modules/mixins/scroller";
 
-
-const questionStyle = {
-  border: '1px solid #ddd',
-  padding: '10px',
-  margin: '10px',
-};
-const labelStyle = {
-  alignItems: 'center',
-  margin: '8px 8px',
-};
-
-const inputStyle = {
-  marginRight: '4px', // Add right margin for spacing
-};
-const sectionStyle = {
-  marginBottom: '20px',
-  padding: '20px',
-  border: '1px solid #aaaaaa'
-};
-
-function SingleChoiceQuestion({ heading, question, options, updateAnswers }) {
-  const [answer, setAnswer] = useState(null);
-  const [isAnswered, setIsAnswered] = useState(false);
-
-  const handleOptionChange = (event) => {
-    const selectedAnswer = event.target.value;
-    setAnswer(selectedAnswer);
-    updateAnswers({ [question]: selectedAnswer });
-    setIsAnswered(true);
-  };
-
-  return (
-    <div style={sectionStyle}>
-      <h4 style={{ textAlign: "start" }}>{heading}</h4>
-      <div style={questionStyle}>
-        <h6>{question}</h6>
-        {options.map((option, index) => (
-          <label key={index} style={labelStyle}>
-            <input
-              type="radio"
-              value={option}
-              checked={answer === option}
-              onChange={handleOptionChange}
-              style={inputStyle}
-            />
-            {option}
-          </label>
-        ))}
-        {!isAnswered && <p style={{ color: 'red' }}>Please answer this question</p>}
-      </div>
-    </div>
-  );
-}
-
-// MultiChoiceQuestion component
-function MultiChoiceQuestion({ heading, question, options, updateAnswers }) {
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [isAnswered, setIsAnswered] = useState(false);
-
-  const handleMultiChoiceChange = (event) => {
-    const option = event.target.value;
-    setSelectedOptions((prevSelectedOptions) => {
-      const updatedOptions = prevSelectedOptions.includes(option)
-        ? prevSelectedOptions.filter((selected) => selected !== option)
-        : [...prevSelectedOptions, option];
-      updateAnswers({ [question]: updatedOptions });
-      setIsAnswered(true);
-      return updatedOptions;
-    });
-  };
-
-  return (
-    <div style={sectionStyle}>
-      <h4 style={{ textAlign: "start" }}>{heading}</h4>
-      <div style={questionStyle}>
-        <h6>{question}</h6>
-        {options.map((option, index) => (
-          <label key={index} style={labelStyle}>
-            <input
-              type="checkbox"
-              value={option}
-              checked={selectedOptions.includes(option)}
-              onChange={handleMultiChoiceChange}
-              style={inputStyle}
-            />
-            {option}
-          </label>
-        ))}
-        {!isAnswered && <p style={{ color: 'red' }}>Please answer this question</p>}
-
-      </div>
-    </div>
-  );
-}
-
-// TextBoxQuestion component
-function TextBoxQuestion({ heading, question, updateAnswers }) {
-  const [answer, setAnswer] = useState('');
-  const [isAnswered, setIsAnswered] = useState(false);
-
-  const handleInputChange = (event) => {
-    const answer = event.target.value;
-    setAnswer(answer);
-    updateAnswers({ [question]: answer });
-    setIsAnswered(true);
-  };
-
-  return (
-    <div style={sectionStyle}>
-      <h4 style={{ textAlign: "start" }}>{heading}</h4>
-      <div style={questionStyle}>
-        <h6>{question}</h6>
-        <input type="text" value={answer} onChange={handleInputChange} />
-        {!isAnswered && <p style={{ color: 'red' }}>Please answer this question</p>}
-
-      </div>
-    </div>
-  );
-}
-
-// FileUploadQuestion component
-function FileUploadQuestion({ heading, question, updateAnswers }) {
-  const [file, setFile] = useState(null);
-  const [isAnswered, setIsAnswered] = useState(false);
-
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-    updateAnswers({ [question]: selectedFile });
-    setIsAnswered(true);
-  };
-
-  return (
-    <div style={sectionStyle}>
-      <h4 style={{ textAlign: "start" }}>{heading}</h4>
-      <div style={questionStyle}>
-        <h6>{question}</h6>
-        <input type="file" onChange={handleFileChange} />
-        {!isAnswered && <p style={{ color: 'red' }}>Please answer this question</p>}
-
-      </div>
-    </div>
-  );
-}
-
-
-function BookingCar() {
+function FillCertification() {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.alertsReducer);
   const [editMode, setEditMode] = useState(false);
@@ -171,19 +29,35 @@ function BookingCar() {
   const goToEdit = async () => {
     const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
     try {
-      const response = await axios.post("https://agreenably-website-server.onrender.com/api/certification/records/addcertificationrecord", {
+      const getCertificateOptions = await axios.get("http://localhost:4000/api/certification/records/getcertificationrecord", {
+        params: {
+          user_id: user._id,
+          certification_id: certification._id
+        }
+      });
+
+      const dbAnswers = getCertificateOptions.data.certification_response;
+      const response = await axios.post("http://localhost:4000/api/certification/records/addcertificationrecord", {
         user_id: user._id,
         timestamp: timestamp,
         ongoing: "1",
         certification_id: certification._id,
+        certification_response: dbAnswers
       });
 
-      console.log("POST response:", response.data);
-      const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/begincertificate", {
+      const updateUserResponse = await axios.put("http://localhost:4000/api/users/begincertificate", {
         userId: user._id,
         certificateId: certification._id
       });
-      console.log("PUT response for user update:", updateUserResponse.data);
+
+      const certification_response = getCertificateOptions.data.certification_response;
+
+      const transformedAnswers = certification_response.reduce((acc, { _id, question, answer }, index) => {
+        acc[`question${index + 1}`] = { [question]: answer };
+        return acc;
+      }, {});
+
+      setAnswers(transformedAnswers);
       setEditMode(true);
     } catch (error) {
       console.error("Error while adding certification record:", error);
@@ -193,33 +67,36 @@ function BookingCar() {
   const backToCertificate = () => {
     setSubmitMode(false);
     setEditMode(false);
+
   };
 
   const goToReview = () => {
     const answeredQuestions = Object.values(answers).flatMap((nestedObject) =>
-    Object.values(nestedObject)
-  );
-   if( answeredQuestions.length == qCount) {
-    const answersArray = Object.entries(answers).flatMap(([something, nestedObject]) => {
-      const entries = Object.entries(nestedObject);
-      return entries.map(([question, answer]) => ({
-        question,
-        answer,
-      }));
-    });
-    setReview(answersArray);
-    console.log("New State", answersArray);
-    setSubmitMode(true);
-  }
-   else {
-    alert("Please fill all questions");
-   }
-
+      Object.values(nestedObject)
+    );
+    if (answeredQuestions.length === qCount) {
+      const answersArray = Object.entries(answers).flatMap(([something, nestedObject]) => {
+        const entries = Object.entries(nestedObject);
+        return entries.map(([question, answer]) => ({
+          question,
+          answer,
+        }));
+      });
+      setReview(answersArray);
+      setSubmitMode(true);
+    } else {
+      alert("Please fill all questions");
+    }
   };
+
   const editData = async () => {
     setEditMode(true);
     setSubmitMode(false);
-  }
+
+  };
+
+
+
   const saveData = async () => {
     const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
 
@@ -232,8 +109,6 @@ function BookingCar() {
         }));
       });
 
-      console.log("AnswerArray: ", answersArray);
-
       const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
         user_id: user._id,
         certification_response: answersArray,
@@ -242,13 +117,10 @@ function BookingCar() {
         certification_id: certification._id,
       });
 
-      console.log("PUT response:", response.data);
-
       const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/submitcertificate", {
         userId: user._id,
         certificateId: certification._id
       });
-      console.log("PUT response for user update:", updateUserResponse.data);
     } catch (error) {
       console.error("Error while editing certification record:", error);
     } finally {
@@ -265,7 +137,6 @@ function BookingCar() {
     const fetchCertificate = async () => {
       try {
         const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${id}`);
-        console.log("Certificate is: ", response.data);
         setCertification(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -280,7 +151,6 @@ function BookingCar() {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certification/questions/getallcertificationquestions`);
-        console.log("Questions are: ", response.data);
         setQuestions(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -291,9 +161,44 @@ function BookingCar() {
   }, []);
 
 
-  const handleAnswer = (question, answer) => {
-    setAnswers((prevAnswers) => ({ ...prevAnswers, [question]: answer }));
+  const handleAnswer = async (question, answer) => {
+
+
+    setAnswers((prevAnswers) => {
+      const updatedAnswers = { ...prevAnswers, [question]: answer };
+      return updatedAnswers;
+    });
   };
+
+  useEffect(() => {
+    const updateCertificationRecord = async () => {
+      try {
+        if (answers !== null && Object.keys(answers).length > 0) {   // Check if answers is not null
+
+          const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
+          const answersArray = Object.entries(answers).flatMap(([something, nestedObject]) => {
+            const entries = Object.entries(nestedObject);
+            return entries.map(([question, answer]) => ({
+              question,
+              answer,
+            }));
+          });
+          const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
+            user_id: user._id,
+            certification_response: answersArray,
+            timestamp: timestamp,
+            ongoing: "1",
+            certification_id: certification._id,
+          });
+        }
+      } catch (error) {
+        console.error("Error while editing certification record:", error);
+      }
+    };
+
+    updateCertificationRecord();
+  }, [answers]);
+
 
   return (
     <div className="booking-car-container">
@@ -325,40 +230,47 @@ function BookingCar() {
                 <h4>Enter Information</h4>
                 <div>
                   {questions.map((question, index) => (
-                    <div>
+
+                    <div key={index}>
                       <SingleChoiceQuestion
                         heading={"Registration"}
                         question={question.question1}
                         options={["Yes", "No"]}
-                        updateAnswers={(updatedAnswer) => handleAnswer('question1', updatedAnswer)}
+                        updateAnswers={(updatedAnswer) => handleAnswer('question1', updatedAnswer)} markedAnswer={answers['question1'] && answers['question1'][question.question1]}
+
                       />
 
                       <SingleChoiceQuestion
                         heading={"Registration"}
                         question={question.question2}
                         options={["Yes", "No"]}
-                        updateAnswers={(updatedAnswer) => handleAnswer('question2', updatedAnswer)}
+                        updateAnswers={(updatedAnswer) => handleAnswer('question2', updatedAnswer)} markedAnswer={answers['question2'] && answers['question2'][question.question2]}
+
                       />
 
                       <SingleChoiceQuestion
                         heading={"Registration"}
                         question={question.question3}
                         options={["Yes", "No"]}
-                        updateAnswers={(updatedAnswer) => handleAnswer('question3', updatedAnswer)}
+                        updateAnswers={(updatedAnswer) => handleAnswer('question3', updatedAnswer)} markedAnswer={answers['question3'] && answers['question3'][question.question3]}
+
                       />
 
                       {answers.question3 && answers.question3[question.question3] === "No" && (
                         <>
-                          <div style = {{display: "none"}}>{qCount+=1}</div>
+                          <div style={{ display: "none" }}>{qCount += 1}</div>
                           <SingleChoiceQuestion
                             heading={"Registration"}
                             question={question.question4}
                             options={["Yes", "No"]}
                             updateAnswers={(updatedAnswer) => handleAnswer('question4', updatedAnswer)}
+                            markedAnswer={answers['question4'] && answers['question4'][question.question4]}
                           />
+
+
                           {answers.question4 && answers.question4[question.question4] === "Yes" && (
                             <div>
-                              <div style = {{display: "none"}}>{qCount+=50}</div>
+                              <div style={{ display: "none" }}>{qCount += 50}</div>
                               <TextBoxQuestion
                                 heading={"Registration"}
                                 question={question.question5}
@@ -502,7 +414,7 @@ function BookingCar() {
                               />
                               {((answers.question23 && answers.question23[question.question23] === "Yes") || (answers.question24 && answers.question24[question.question24] === "Yes") || (answers.question25 && answers.question25[question.question25] === "Yes") || (answers.question26 && answers.question26[question.question26] === "Yes")) && (
                                 <>
-                                  <div style = {{display: "none"}}>{qCount+=1}</div>
+                                  <div style={{ display: "none" }}>{qCount += 1}</div>
                                   <SingleChoiceQuestion
                                     heading={"Registration"}
                                     question={question.question27}
@@ -590,11 +502,11 @@ function BookingCar() {
 
                               {answers.question39 && answers.question39[question.question39] === "Yes" && (
                                 <>
-                                  <div style = {{display: "none"}}>{qCount+=1}</div>
+                                  <div style={{ display: "none" }}>{qCount += 1}</div>
                                   <FileUploadQuestion
                                     heading={"Registration"}
                                     question={question.question40}
-                                    updateAnswers={(updatedAnswer) => handleAnswer('question40', updatedAnswer)}
+                                    updateAnswers={(updatedAnswer) => handleAnswer('question40', updatedAnswer)} markedAnswer={answers['question40'] && Object.values(answers["question40"])[0]}
                                   />
                                 </>
                               )}
@@ -614,7 +526,7 @@ function BookingCar() {
                               <FileUploadQuestion
                                 heading={"Registration"}
                                 question={question.question43}
-                                updateAnswers={(updatedAnswer) => handleAnswer('question43', updatedAnswer)}
+                                updateAnswers={(updatedAnswer) => handleAnswer('question43', updatedAnswer)} markedAnswer={answers['question43'] && Object.values(answers["question43"])[0]}
                               />
 
                               <TextBoxQuestion
@@ -703,10 +615,12 @@ function BookingCar() {
                             </div>)}
                         </>
                       )}
+                      <button onClick={goToReview}>Go next step</button>
                     </div>
+
                   ))}
                 </div>
-                <button onClick={goToReview}>Go next step</button>
+
               </div>
             </>
           )}
@@ -759,4 +673,4 @@ function BookingCar() {
   );
 }
 
-export default BookingCar;
+export default FillCertification;

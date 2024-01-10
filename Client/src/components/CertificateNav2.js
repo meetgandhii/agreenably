@@ -29,8 +29,8 @@ function CertificateNav(props) {
                             </h6>
                         </li>
                         <li>
-                            <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px" }}>
-                                 - Review Information
+                            <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px", fontWeight: "600" }}>
+                                 Review Information
                             </h6>
                         </li>
                     </ul>

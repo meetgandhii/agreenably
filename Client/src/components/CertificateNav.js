@@ -24,7 +24,7 @@ function CertificateNav(props) {
                     </li>
                     <ul style={{listStyle: "initial", textAlign: "start", paddingLeft: "20px"}}>
                         <li style={{ margin: "60px 0 0 0" }}>
-                            <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px" }}>
+                            <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px", fontWeight: "600" }}>
                                 Enter Information
                             </h6>
                         </li>

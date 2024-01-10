@@ -46,6 +46,16 @@ function DefaultLayout(props) {
           <CertificationsNavigation />
         </li>
         <li style={{ marginTop: "auto" }}>
+        {user && (
+        <button
+          onClick={() => {
+            localStorage.removeItem("user");
+            window.location.href = "/";
+          }}
+        >
+          Logout
+        </button>
+      )}
           <div>{user ? <div>
             <img src="/images/pfpPlaceholder.png" width="25px" alt="Dashboard" />
             {"\n" + user.name + "\n" + user._id}</div> : "Welcome"}

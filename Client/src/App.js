@@ -5,7 +5,7 @@ import { Route, BrowserRouter, Routes, Navigate, useNavigate } from "react-route
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import BookingCar from "./pages/Certification.js";
+import FillCertification from "./pages/Certification.js";
 import UserBooking from "./pages/UserBooking";
 import AddCar from "./pages/AddCar";
 import EditCar from "./pages/EditCar";
@@ -65,7 +65,7 @@ function App() {
             exact
             element={
               <ProtectedRoute>
-                <BookingCar />
+                <FillCertification />
               </ProtectedRoute>
             }
           ></Route>
