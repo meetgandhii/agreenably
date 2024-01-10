@@ -29,7 +29,7 @@ function FillCertification() {
   const goToEdit = async () => {
     const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
     try {
-      const getCertificateOptions = await axios.get("http://localhost:4000/api/certification/records/getcertificationrecord", {
+      const getCertificateOptions = await axios.get("https://agreenably-website-server.onrender.com/api/certification/records/getcertificationrecord", {
         params: {
           user_id: user._id,
           certification_id: certification._id
@@ -37,7 +37,7 @@ function FillCertification() {
       });
 
       const dbAnswers = getCertificateOptions.data.certification_response;
-      const response = await axios.post("http://localhost:4000/api/certification/records/addcertificationrecord", {
+      const response = await axios.post("https://agreenably-website-server.onrender.com/api/certification/records/addcertificationrecord", {
         user_id: user._id,
         timestamp: timestamp,
         ongoing: "1",
@@ -45,7 +45,7 @@ function FillCertification() {
         certification_response: dbAnswers
       });
 
-      const updateUserResponse = await axios.put("http://localhost:4000/api/users/begincertificate", {
+      const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/begincertificate", {
         userId: user._id,
         certificateId: certification._id
       });
