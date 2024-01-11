@@ -44,7 +44,7 @@ export const userRegister = (reqObj) => async (dispatch) => {
     );
     message.success("Registration successfull");
     setTimeout(() => {
-      window.location.href = "/login";
+      window.location.href = "/Login";
     }, 500);
 
     dispatch({ type: "LOADING", payload: false });
