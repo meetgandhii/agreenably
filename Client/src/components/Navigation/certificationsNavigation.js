@@ -15,13 +15,13 @@ function CertificationsNavigation() {
             </li>
             <li>
                 <img src="/images/Environmental.png" width="15px" alt="Environmental" />
-                <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px" }}>
+                <h6 className='user-menu'>
                     Environmental
                 </h6>
             </li>
             <li>
                 <img src="/images/Social.png" width="15px" alt="Social" />
-                <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px" }}>
+                <h6 className='user-menu'>
                     Social
                 </h6>
             </li>

@@ -11,16 +11,18 @@ function DefaultLayout(props) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <div className="d-flex" style={{ height: "100vh" }}>
+    <div className="d-flex">
 
       <ul className="kanbas-navigation-ul" style={{ padding: "0 25px", height: "100%", display: "flex", flexDirection: "column" }}>
         <li className="kanbas-navigation-li">
-          <img src="/images/logo.png" width="25px" alt="Logoo" />
-          <h3 className='logo-heading' style={{ display: "inline", marginLeft: "20px" }}>
-            <span className='first'>a</span>
-            <span className='second'>green</span>
-            <span className='first'>ably</span>
-          </h3>
+          <a href="/">
+            <img src="/images/logo.png" width="25px" alt="Logoo" />
+            <h3 className='logo-heading' style={{ display: "inline", marginLeft: "20px" }}>
+              <span className='first'>a</span>
+              <span className='second'>green</span>
+              <span className='first'>ably</span>
+            </h3>
+          </a>
         </li>
         <li style={{ margin: "60px 0" }}>
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -45,22 +47,41 @@ function DefaultLayout(props) {
         <li>
           <CertificationsNavigation />
         </li>
-        <li style={{ marginTop: "auto" }}>
-        {user && (
+        <li style={{ display: 'flex', alignItems: 'center', marginTop: 'auto' }}>
+      {user && (
         <button
+          className="logout-btn"
           onClick={() => {
-            localStorage.removeItem("user");
-            window.location.href = "/";
+            localStorage.removeItem('user');
+            window.location.href = '/';
           }}
         >
           Logout
         </button>
       )}
-          <div>{user ? <div>
-            <img src="/images/pfpPlaceholder.png" width="25px" alt="Dashboard" />
-            {"\n" + user.name + "\n" + user._id}</div> : "Welcome"}
+      </li>
+        <li style={{ display: 'flex', alignItems: 'center', marginTop: '' }}>
+      
+      <div className="end-nav-div">
+        {user ? (
+          <div className="end-nav-div">
+            <img
+              src="/images/pfpPlaceholder.png"
+              width="25px"
+              height="25px"
+              className="profile-pic"
+              alt="Profile"
+            />
+            <div>
+              <p className="user-name">{user.name}</p>
+              <p className="user-company">{user._id}</p>
+            </div>
           </div>
-        </li>
+        ) : (
+          <p style={{ margin: '0' }}>Welcome, please login</p>
+        )}
+      </div>
+    </li>
       </ul>
 
 

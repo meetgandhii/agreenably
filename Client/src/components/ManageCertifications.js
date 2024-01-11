@@ -53,96 +53,100 @@ function ManageCertifications(props) {
         setVisiblePopup(false);
     };
     return (
-        <div style={{ width: "100%" }}>
-            <h1>ManageCertifications</h1>
-            <Row gutter={[16, 16]} style={{ padding: "10px 20px" }}>
+        <div className="managecertifications" style={{ width: "100%" }}>
+            <h1 className="heading_managecertifications">Manage Certifications</h1>
+            <Row gutter={[16, 16]}>
                 {totalCertifications.map((certification, index) => {
                     return (
                         <Col key={index} xl={24} lg={24} md={24} sm={24} xs={24}>
-                            <div>
-                                <div className="certificationCard">
-                                    <div>
+                            <div className="certificationCard">
+                                <div className="certification-container">
+                                    <div className="logo-container">
                                         {certification.image ? (
-                                            <img src={certification.image} alt={certification.name} width="50px" className="carimg" />
+                                            <img src={certification.image} alt={certification.name} width="100px" className="certification_image" />
                                         ) : (
-                                            <img src="/images/pfpPlaceholder.png" alt="Placeholder" width="50px" className="carimg" />
+                                            <img src="/images/CertificateImage.png" alt="Placeholder" width="100px" className="certification_image" />
                                         )}
                                     </div>
-                                    <Link to={`/certification/${certification._id}`}>
-                                        <h1>
-                                            {certification.name}
-                                        </h1>
-                                        <h4 style={{ color: "green" }}>
-                                            In Progress
-                                        </h4>
-                                    </Link>
-                                    <Divider />
-                                    <Row>
-                                        <Col xl={12} xs={12}>
-
-                                            <h3>
-                                                To Do
-                                            </h3>
-                                            <Divider />
-                                            <ul>
-                                                {/* 
-                                <ul>
-                                        {certification.todos.slice(0, 2).map((todo, todoIndex) => (
-                                            <li key={todoIndex}>{todo}</li>
-                                        ))}
-                                        {certification.todos.length > 2 && (
-                                            <li>
-                                                <button onClick={() => toggleReadMore(certification)}>
-                                                    Read More...
-                                                </button>
-                                            </li>
-                                        )}
-                                    </ul>
-                                */}
-                                                {/* map li for displaying all, use .length for if else in more button */}
-                                                <li>
-                                                    Update Supplier List for Leaping Bunny
-                                                </li>
-                                                <li>
-                                                    Update Supplier List for Leaping Bunny
-                                                </li>
-                                                <li>
-                                                    <button onClick={() => toggleReadMore(certification)}>
-                                                        Read More...
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </Col>
-                                        <Col xl={12} xs={12}>
-
-                                            <h3>
-                                                News Feed
-                                            </h3>
-                                            <Divider />
-                                            <ul>
-                                                {/* map li for displaying all, use .length for if else in more button */}
-                                                <li>
-                                                    Update Supplier List for Leaping Bunny
-                                                </li>
-                                                <li>
-                                                    Update Supplier List for Leaping Bunny
-                                                </li>
-                                                <li>
-                                                    <button onClick={toggleReadMore}>
-                                                        Read More...
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </Col>
-                                    </Row>
-
-
-
+                                    <div className="certification-details">
+                                        <Link className="certification-info" to={`/certification/${certification._id}`}>
+                                            <h1 className="certification-name">
+                                                {certification.name}
+                                            </h1>
+                                            <h4 className="status-in-progress">
+                                                In Progress
+                                            </h4>
+                                        </Link>
+                                    </div>
                                 </div>
+
+                                <Divider className="todo-news-divider" />
+                                <Row className="todo-news-container">
+                                    <Col xl={11} xs={11} className="todo-news-column">
+                                        <h3 className="todo-news-header">
+                                            To Do
+                                        </h3>
+                                        <Divider className="todo-news-divider" />
+                                        <ul>
+
+                                            {/* <ul>
+                                                {certification.todos.slice(0, 2).map((todo, todoIndex) => (
+                                                    <li key={todoIndex}>{todo}</li>
+                                                ))}
+                                                {certification.todos.length > 2 && (
+                                                    <li>
+                                                        <button onClick={() => toggleReadMore(certification)}>
+                                                            Read More...
+                                                        </button>
+                                                    </li>
+                                                )}w
+                                            </ul> */}
+
+                                            {/* map li for displaying all, use .length for if else in more button */}
+                                            <li className="todo-news-item">
+                                                Update Supplier List for Leaping Bunny
+                                            </li>
+                                            <li className="todo-news-item">
+                                                Update Supplier List for Leaping Bunny
+                                            </li>
+                                            <li className="readMoreButton">
+                                                <button className="readMoreButton" onClick={toggleReadMore}>
+                                            View All Tasks
+                                        </button>
+                                            </li>
+                                        </ul>
+                                        
+                                    </Col>
+                                    <Col xl={2} xs={2}><span className="spacer">
+                                                
+                                            </span></Col>
+                                    <Col xl={11} xs={11} className="todo-news-column">
+                                        <h3 className="todo-news-header">
+                                            News Feed
+
+                                        </h3>
+                                        <Divider className="todo-news-divider" />
+                                        <ul>
+                                            <li className="todo-news-item">
+                                                Update Supplier List for Leaping Bunny
+                                            </li>
+                                            <li className="todo-news-item">
+                                                Update Supplier List for Leaping Bunny
+                                            </li>
+                                            <li className="readMoreButton">
+                                                <button className="readMoreButton" onClick={toggleReadMore}>
+                                            View All News
+                                        </button>
+                                            </li>
+                                        </ul>
+                                        
+                                    </Col>
+                                </Row>
                             </div>
                         </Col>
                     );
-                })}</Row>
+                })}
+            </Row>
             <Modal
                 title="Certification Todos"
                 visible={visiblePopup}
@@ -153,7 +157,6 @@ function ManageCertifications(props) {
                     {/* {selectedCertification && selectedCertification.todos.map((todo, todoIndex) => ( */}
                     {/* <li key={todoIndex}>{todo}</li> */}
                     {/* ))} */}
-
                     <li>
                         Update Supplier List for Leaping Bunny
                     </li>
@@ -178,7 +181,6 @@ function ManageCertifications(props) {
                     <li>
                         Update Supplier List for Leaping Bunny
                     </li>
-
                 </ul>
             </Modal>
         </div>

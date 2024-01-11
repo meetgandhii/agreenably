@@ -208,8 +208,17 @@ function FillCertification() {
             <>
               <CertificateNav2 />
               <div className="booking-car-content">
-                <div><button onClick={backToCertificate}>Back</button><h3>{certification.name}</h3></div>
-                <h4>Review Information</h4>
+                <div>
+                  <button onClick={backToCertificate}>
+                    Back
+                  </button>
+                  <h3>
+                    {certification.name}
+                  </h3>
+                </div>
+                <h4>
+                  Review Information
+                </h4>
 
                 {review.map((item, index) => (
                   <div key={index}>
@@ -225,7 +234,14 @@ function FillCertification() {
             <>
               <CertificateNav />
               <div className="booking-car-content">
-                <div><button onClick={backToCertificate}>Back</button><h3>{certification.name}</h3></div>
+                <div>
+                  <button onClick={backToCertificate}>
+                    Back
+                  </button>
+                  <h3>
+                    {certification.name}
+                  </h3>
+                </div>
                 <h4>Enter Information</h4>
                 <div>
                   {questions.map((question, index) => (
@@ -676,47 +692,59 @@ function FillCertification() {
 
         </>
       ) : (
-        <>
+        <div style={{ display: "flex", width: "100%" }}>
           <DefaultLayout />
-          <div className="booking-car-content">
-            <h3>Get Certified</h3>
+          <div className="managecertifications certificateCard">
+            <h1 className="heading_managecertifications">Get Certified</h1>
             {loading && <Spinner />}
 
             {certification && (
               <>
                 <Row justify="center" className="certification-card">
-                  {certification.image ? (
-                    <img src={certification.image} alt={certification.name} width="50px" className="carimg" />
-                  ) : (
-                    <img src="/images/pfpPlaceholder.png" alt="Placeholder" width="50px" className="carimg" />
-                  )}
-                  <div className="certification-details">
-                    <h1>{certification.name}</h1>
-                    <h4>Time: 30mins</h4>
+                  <div className="certificationCard2">
+                    <div className="certification-container">
+                      <div className="logo-container">
+                        {certification.image ? (
+                          <img src={certification.image} alt={certification.name} width="80px" className="certification_image" />
+                        ) : (
+                          <img src="/images/CertificateImage.png" alt="Placeholder" width="80px" className="certification_image" />
+                        )}
+                      </div>
+                      <div className="certification-details">
+                        <div className="certification-info">
+                          <h1 className="certification-name">
+                            {certification.name}
+                          </h1>
+                          <h4 className="certificate-duration">
+                            Time: 30mins
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+
                   <Divider />
-                  <div style={{ display: "block" }}>
-                    <ul style={{ display: "block", textAlign: "start", }}>
-                      <li>Registration</li>
-                      <li>Business Details</li>
-                      <li>Fixed Cut Off Date</li>
-                      <li>Supplier Monitoring System</li>
-                      <li>Distributor Agreement</li>
-                      <li>Brand Details</li>
-                      <li>Signatory Details</li>
+                  <div>
+                    <ul className="certification-process-ul">
+                      <li className="certification-process-li">Registration</li>
+                      <li className="certification-process-li">Business Details</li>
+                      <li className="certification-process-li">Fixed Cut Off Date</li>
+                      <li className="certification-process-li">Supplier Monitoring System</li>
+                      <li className="certification-process-li">Distributor Agreement</li>
+                      <li className="certification-process-li">Brand Details</li>
+                      <li className="certification-process-li" id="certification-process-li-last">Signatory Details</li>
                     </ul>
-                    <button onClick={goToEdit} style={{ display: "block" }}>
-                      Begin
-                    </button></div>
+                  </div>
                 </Row>
-
-
-
+                <button onClick={goToEdit} className="agreenably-btn">
+                  Begin
+                </button>
               </>
             )}
             {!certification && <Spinner />}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

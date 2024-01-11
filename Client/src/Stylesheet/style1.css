@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
 * {
     font-family: 'Lato', sans-serif;
@@ -290,6 +290,183 @@ select {
 }
 
 .certificationCard {
-    border: 0.5px #000 solid;
     width: 100%;
+}
+
+/* Add this to your stylesheet */
+
+li.profile-container {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+}
+
+button.logout-btn {
+    margin-right: 10px;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer,
+}
+
+img.profile-pic {
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+div.end-nav-div {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    font-family: 'Instrument Sans';
+    font-size: 14px;
+    margin: 0;
+}
+
+.user-company {
+    font-size: 12px;
+    font-family: 'Instrument Sans';
+    margin: 0;
+}
+
+/* Add this class to the div containing user information */
+
+
+
+/* Manage Certification Page */
+
+.certificationCard {
+    padding: 30px 50px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin-bottom: 16px;
+}
+
+.heading_managecertifications {
+    text-align: left;
+    text-align: start;
+}
+
+.certification-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container {
+    margin-right: 10px;
+}
+
+.certification-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.certification-name {
+    font-size: 25px;
+    font-weight: 500;
+    font-family: Instrument Sans;
+    margin: 0 0 0 20px;
+}
+
+.status-in-progress {
+    font-size: 15px;
+    font-family: Instrument Sans;
+    font-weight: 300;
+    margin: 10px 0 0 20px;
+    color: green;
+    vertical-align: bottom;
+}
+
+.todo-news-container {
+    margin-top: 16px;
+}
+
+.todo-news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-news-divider {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin: 16px 0 35px 0;
+}
+
+* {
+    font-family: Instrument Sans;
+}
+
+.todo-news-column {
+    padding: 10px 10px;
+    width: 40%;
+
+}
+
+.spacer {
+    display: inline;
+    width: 20px;
+}
+
+.todo-news-item {
+    text-align: left;
+    margin-bottom: 8px;
+    font-size: 22px;
+}
+
+.managecertifications {
+    padding: 60px 55px 0px 55px;
+}
+
+.heading_managecertifications {
+    font-family: Instrument Sans;
+}
+
+/* Read More Button */
+.readMoreButton {
+    text-align: right;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: green;
+    font-size: 16px;
+}
+
+.certification-info {
+    text-align: left;
+    margin-left: 0px;
+}
+
+.certification_image {
+    border: 1px solid #B9B9B9;
+}
+
+body,
+html,
+#root {
+    height: 100%;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.kanbas-navigation-ul {
+    list-style: none;
+    padding: 0 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* Make the ul element grow to fill the remaining height */
+}
+
+
+/* defaultnav */
+
+.user-menu {
+    display: inline;
+    margin-left: 15px
 }

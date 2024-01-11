@@ -1,19 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
 .booking-car-container {
   display: flex;
 }
 
 .booking-car-content {
-  margin: 20px; /* Adjust margin as needed */
+  margin: 20px;
   width: 100%;
 }
 
 .certification-card {
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
-  background-color: #f5f5f5; /* Set your desired background color */
+  border: 1px solid #B9b9b9;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -26,7 +27,6 @@
   display: inline;
 }
 
-/* Updated styles for the list */
 .certification-card ul {
   list-style-type: none;
   padding: 0;
@@ -35,17 +35,79 @@
 
 .certification-card li {
   position: relative;
-  padding-left: 20px;
-  margin-bottom: 10px;
+  padding-left: 20px; 
 }
 
-.certification-card li::before {
-  content: '';
+.certificateCard {
+  width: 60%;
+}
+
+.certificate-duration {
+  font-family: Instrument Sans;
+  font-size: 23px;
+  margin: 10px 0 0 20px;
+  color: #5e5e5e;
+  vertical-align: bottom;
+  font-weight: 200;
+}
+
+.certificationCard2 {
+  padding: 10px 50px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.certification-process-ul {
+  text-align: start;
+}
+
+.certification-process-li {
+font-size: 32px;
+}
+
+.certification-process-li {
+  position: relative;
+  margin-bottom: 0px;
+  padding-left: 20px;
+}
+
+.certification-process-li:before {
+  content: "";
   position: absolute;
-  left: -10px;
-  top: 5px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #1890ff; /* Set your desired dot color */
+  top: 18px;
+  left: 10px; 
+  width: 15px; 
+  height: 15px; 
+  border: 1px solid #b9b9b9; 
+  border-radius: 50%; 
+  margin-left: -25px; 
+}
+
+.certification-process-li:after {
+  content: "";
+  position: absolute;
+  top: 35px;
+  height: 35px;
+  left: -8px; 
+  bottom: 0;
+  width: 1px; 
+  background-color: #b9b9b9; 
+  margin-top: -2px; 
+}
+
+#certification-process-li-last:after{
+  height: 0px;
+}
+
+.agreenably-btn {
+  padding: 10px 120px 10px 20px;
+  background-color: #00BC62;
+  color: #fff;
+  text-align: start;
+  border: 0;
+  border-radius: 5px;
+  display: flex;
+  margin-left: auto;
+  margin-top: 22px;
+  margin-bottom: 32px;
 }

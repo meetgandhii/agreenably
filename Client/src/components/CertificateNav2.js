@@ -11,18 +11,20 @@ function CertificateNav(props) {
     const user = JSON.parse(localStorage.getItem("user"));
 
     return (
-        <div className="d-flex" style={{ height: "100vh" }}>
+        <div className="d-flex">
             <div>
                 <ul className="kanbas-navigation-ul" style={{ padding: "0 25px", height: "100%", display: "flex", flexDirection: "column" }}>
                     <li className="kanbas-navigation-li">
-                        <img src="/images/logo.png" width="25px" alt="Logoo" />
-                        <h3 className='logo-heading' style={{ display: "inline", marginLeft: "20px" }}>
-                            <span className='first'>a</span>
-                            <span className='second'>green</span>
-                            <span className='first'>ably</span>
-                        </h3>
+                        <a href="/">
+                            <img src="/images/logo.png" width="25px" alt="Logoo" />
+                            <h3 className='logo-heading' style={{ display: "inline", marginLeft: "20px" }}>
+                                <span className='first'>a</span>
+                                <span className='second'>green</span>
+                                <span className='first'>ably</span>
+                            </h3>
+                        </a>
                     </li>
-                    <ul style={{listStyle: "initial", textAlign: "start", paddingLeft: "20px"}}>
+                    <ul style={{ listStyle: "initial", textAlign: "start", paddingLeft: "20px" }}>
                         <li style={{ margin: "60px 0 0 0" }}>
                             <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px" }}>
                                 Enter Information
@@ -30,7 +32,7 @@ function CertificateNav(props) {
                         </li>
                         <li>
                             <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px", fontWeight: "600" }}>
-                                 Review Information
+                                Review Information
                             </h6>
                         </li>
                     </ul>
