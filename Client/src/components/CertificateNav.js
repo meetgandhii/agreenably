@@ -24,18 +24,19 @@ function CertificateNav(props) {
                             </h3>
                         </a>
                     </li>
-                    <ul style={{ listStyle: "initial", textAlign: "start", paddingLeft: "20px" }}>
+                    <ul style={{ listStyle: "none", textAlign: "start", paddingLeft: "20px" }}>
                         <li style={{ margin: "60px 0 0 0" }}>
-                            <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px", fontWeight: "600" }}>
+                            <h1 className='user-menu-nav active-menu-item'>
                                 Enter Information
-                            </h6>
+                            </h1>
                         </li>
                         <li>
-                            <h6 className='user-menu' style={{ display: "inline", marginLeft: "5px" }}>
+                            <h1 className='user-menu-nav'>
                                 Review Information
-                            </h6>
+                            </h1>
                         </li>
                     </ul>
+
 
                     <li style={{ marginTop: "auto" }}>
                         <div>{user ? <div>

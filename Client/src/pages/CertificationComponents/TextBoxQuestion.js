@@ -1,17 +1,7 @@
 // TextBoxQuestion.js
 import React, { useState } from "react";
-
-const questionStyle = {
-  border: '1px solid #ddd',
-  padding: '10px',
-  margin: '10px',
-};
-
-const sectionStyle = {
-  marginBottom: '20px',
-  padding: '20px',
-  border: '1px solid #aaaaaa'
-};
+import '../../Stylesheet/certifications.css';
+import { Divider } from "antd";
 
 const TextBoxQuestion = ({ heading, question, updateAnswers, markedAnswer }) => {
   const [answer, setAnswer] = useState('');
@@ -25,12 +15,16 @@ const TextBoxQuestion = ({ heading, question, updateAnswers, markedAnswer }) => 
   };
 
   return (
-    <div style={sectionStyle}>
-      <h4 style={{ textAlign: "start" }}>{heading}</h4>
-      <div style={questionStyle}>
-        <h6>{question}</h6>
-        <input type="text" value={markedAnswer || answer} onChange={handleInputChange} />
-        {(!isAnswered && !markedAnswer) && <p style={{ color: 'red' }}>Please answer this question</p>}
+    <div className="sectionStyle"> 
+      <h1 className="question-type">{heading}</h1> 
+      <Divider className="todo-news-divider"/>
+      <div className="questionStyle">
+      <h6 className="question">{question}</h6>
+       <div className="answer-area">
+        <input type="text" value={markedAnswer || answer} onChange={handleInputChange} className="inputStyleText" placeholder="Enter text here..."/>
+       </div>
+        
+        {(!isAnswered && !markedAnswer) && <p className="errorText">Please answer this question</p>}
       </div>
     </div>
   );

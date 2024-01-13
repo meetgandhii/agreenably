@@ -205,3 +205,30 @@ font-size: 32px;
   display: inline;
   
 }
+
+.inputStyleText {
+  border: 1px solid #b9b9b9; /* Set border color to #fdfdfd */
+  border-radius: 2px;
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 15px;
+  font-family: Instrument Sans;
+  background-color: #fdfdfd; /* Set background color to #fdfdfd */
+  /* Add any additional styling as needed */
+}
+
+.inputStyleText::placeholder {
+  color: #b9b9b9; 
+}
+
+input.inputStyleFile[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #b9b9b9;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 12px;
+}

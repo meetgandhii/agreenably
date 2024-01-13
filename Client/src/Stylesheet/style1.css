@@ -470,3 +470,62 @@ html,
     display: inline;
     margin-left: 15px
 }
+
+
+.questionReview {
+    text-align: left;
+    font-size: 17px;
+    font-weight: 400;
+    font-family: Instrument Sans;
+}
+
+.answerReview {
+    text-align: left;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 400;
+    font-family: Instrument Sans;
+}
+
+.reviewBox {
+    border: 1px solid #b9b9b9;
+    margin: 10px 5px;
+    padding: 10px 10px;
+    border-radius: 5px;
+}
+
+.agreenably-btn-edit {
+    padding: 10px 20px 10px 20px;
+    background-color: #001CE2;
+    color: #fff;
+    text-align: start;
+    border: 0;
+    border-radius: 5px;
+    margin: 0 5px 5px 5px;
+}
+
+.agreenably-btn-submit {
+    padding: 10px 20px 10px 20px;
+    background-color: #00BC62;
+    color: #fff;
+    text-align: start;
+    border: 0;
+    border-radius: 5px;
+    margin: 0 5px 5px 5px;
+}
+
+.user-menu-nav {
+    display: "inline";
+    margin-left: "5px";
+    font-weight: "400";
+    font-family: Instrument Sans;
+    font-size: 15px;
+}
+
+.active-menu-item {
+    /* background-color: #00BC62;  */
+    /* color: #ffffff;  */
+    font-weight: bold; 
+    width: fit-content;
+    
+}

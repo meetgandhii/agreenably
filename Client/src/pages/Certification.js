@@ -36,7 +36,7 @@ function FillCertification() {
           certification_id: certification._id
         }
       });
-
+      console.log(getCertificateOptions.response);
       const dbAnswers = getCertificateOptions.data.certification_response;
       const response = await axios.post("https://agreenably-website-server.onrender.com/api/certification/records/addcertificationrecord", {
         user_id: user._id,
@@ -85,6 +85,8 @@ function FillCertification() {
       setReview(answersArray);
       setSubmitMode(true);
     } else {
+      console.log("answeredQuestions.length: ", answeredQuestions.length);
+      console.log("qCount: ", qCount);
       alert("Please fill all questions");
     }
   };
@@ -209,26 +211,28 @@ function FillCertification() {
             <>
               <CertificateNav2 />
               <div className="booking-car-content">
-                <div>
-                  <button onClick={backToCertificate}>
-                    Back
+                <div style={{ position: 'sticky', top: 0, backgroundColor: '#f2f1f2', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <button onClick={backToCertificate} style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                    <FaArrowLeft style={{ fontSize: '1.5rem', marginRight: '10px' }} />
                   </button>
-                  <h3>
-                    {certification.name}
-                  </h3>
+                  <h1 className="certification-name" style={{ margin: 0 }}> {certification.name}</h1>
+                  <div style={{ width: '1.5rem' }}></div>
                 </div>
-                <h4>
-                  Review Information
-                </h4>
+                <div className="certificate_questionnaire">
+                  <h1 className="heading_managecertifications certificate_questionnaire_heading">
+                    Review Information
+                  </h1>
 
-                {review.map((item, index) => (
-                  <div key={index}>
-                    <p>{item.question}</p>
-                    <p>{item.answer}</p>
-                  </div>
-                ))}
-                <button onClick={editData}>Edit</button>
-                <button onClick={saveData}>Submit</button>
+                  {review.map((item, index) => (
+                    <div key={index}>
+                      <div className="reviewBox">
+                        <h6 className="questionReview">{`Question ${index + 1}`}: {item.question}</h6>
+                        <h6 className="answerReview">{`Answer ${index + 1}`}: {item.answer}</h6>
+                      </div>
+                    </div>
+                  ))}</div>
+                <button onClick={editData}className="agreenably-btn-edit">Edit</button>
+                <button onClick={saveData}className="agreenably-btn-submit">Submit</button>
               </div>
             </>
           ) : (
@@ -677,80 +681,80 @@ function FillCertification() {
                                   question={question.question56}
                                   updateAnswers={(updatedAnswer) => handleAnswer('question56', updatedAnswer)}
                                   markedAnswer={answers['question56'] && answers['question56'][question.question56]}
-                                  />
-                                  </div>)}
-                              </>
-                            )}
-                            <button onClick={goToReview}>Go next step</button>
-                          </div>
-    
-                        ))}
+                                />
+                              </div>)}
+                          </>
+                        )}
+                        <button onClick={goToReview} className="agreenably-btn">Go next step</button>
                       </div>
-                    </div>
-    
-    
+
+                    ))}
                   </div>
-                </>
-              )}
-    
-            </>
-          ) : (
-          <div style={{ display: "flex", width: "100%" }}>
-            <DefaultLayout />
-            <div className="managecertifications certificateCard" style={{ height: "100vh" }}>
-              <h1 className="heading_managecertifications">Get Certified</h1>
-              {loading && <Spinner />}
+                </div>
 
-              {certification && (
-                <>
-                  <Row justify="center" className="certification-card">
-                    <div className="certificationCard2">
-                      <div className="certification-container">
-                        <div className="logo-container">
-                          {certification.image ? (
-                            <img src={certification.image} alt={certification.name} width="80px" className="certification_image" />
-                          ) : (
-                            <img src="/images/CertificateImage.png" alt="Placeholder" width="80px" className="certification_image" />
-                          )}
-                        </div>
-                        <div className="certification-details">
-                          <div className="certification-info">
-                            <h1 className="certification-name">
-                              {certification.name}
-                            </h1>
-                            <h4 className="certificate-duration">
-                              Time: 30mins
-                            </h4>
-                          </div>
+
+              </div>
+            </>
+          )}
+
+        </>
+      ) : (
+        <div style={{ display: "flex", width: "100%" }}>
+          <DefaultLayout />
+          <div className="managecertifications certificateCard" style={{ height: "100vh" }}>
+            <h1 className="heading_managecertifications">Get Certified</h1>
+            {loading && <Spinner />}
+
+            {certification && (
+              <>
+                <Row justify="center" className="certification-card">
+                  <div className="certificationCard2">
+                    <div className="certification-container">
+                      <div className="logo-container">
+                        {certification.image ? (
+                          <img src={certification.image} alt={certification.name} width="80px" className="certification_image" />
+                        ) : (
+                          <img src="/images/CertificateImage.png" alt="Placeholder" width="80px" className="certification_image" />
+                        )}
+                      </div>
+                      <div className="certification-details">
+                        <div className="certification-info">
+                          <h1 className="certification-name">
+                            {certification.name}
+                          </h1>
+                          <h4 className="certificate-duration">
+                            Time: 30mins
+                          </h4>
                         </div>
                       </div>
                     </div>
+                  </div>
 
 
-                    <Divider className="todo-news-divider" />
-                    <div>
-                      <ul className="certification-process-ul">
-                        <li className="certification-process-li">Registration</li>
-                        <li className="certification-process-li">Business Details</li>
-                        <li className="certification-process-li">Fixed Cut Off Date</li>
-                        <li className="certification-process-li">Supplier Monitoring System</li>
-                        <li className="certification-process-li">Distributor Agreement</li>
-                        <li className="certification-process-li">Brand Details</li>
-                        <li className="certification-process-li" id="certification-process-li-last">Signatory Details</li>
-                      </ul>
-                    </div>
-                  </Row>
-                  <button onClick={goToEdit} className="agreenably-btn">
-                    Begin
-                  </button>
-                </>
-              )}
-              {!certification && <Spinner />}
-            </div>
+                  <Divider className="todo-news-divider" />
+                  <div>
+                    <ul className="certification-process-ul">
+                      <li className="certification-process-li">Registration</li>
+                      <li className="certification-process-li">Business Details</li>
+                      <li className="certification-process-li">Fixed Cut Off Date</li>
+                      <li className="certification-process-li">Supplier Monitoring System</li>
+                      <li className="certification-process-li">Distributor Agreement</li>
+                      <li className="certification-process-li">Brand Details</li>
+                      <li className="certification-process-li" id="certification-process-li-last">Signatory Details</li>
+                    </ul>
+                  </div>
+                </Row>
+                <button onClick={goToEdit} className="agreenably-btn">
+                  Begin
+                </button>
+              </>
+            )}
+            {!certification && <Spinner />}
           </div>
-      )}
         </div>
-      );
+      )}
+    </div>
+  );
 }
 
-      export default FillCertification;
+export default FillCertification;

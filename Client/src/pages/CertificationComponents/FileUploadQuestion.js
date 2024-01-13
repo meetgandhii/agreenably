@@ -1,16 +1,6 @@
+import { Divider } from "antd";
 import React, { useState } from "react";
-
-const questionStyle = {
-  border: '1px solid #ddd',
-  padding: '10px',
-  margin: '10px',
-};
-
-const sectionStyle = {
-  marginBottom: '20px',
-  padding: '20px',
-  border: '1px solid #aaaaaa'
-};
+import '../../Stylesheet/certifications.css';
 
 const FileUploadQuestion = ({ heading, question, updateAnswers, markedAnswer }) => {
   const [file, setFile] = useState(null);
@@ -24,17 +14,23 @@ const FileUploadQuestion = ({ heading, question, updateAnswers, markedAnswer }) 
   };
 
   return (
-    <div style={sectionStyle}>
-      <h4 style={{ textAlign: "start" }}>{heading}</h4>
-      <div style={questionStyle}>
-        <h6>{question}</h6>
-        <input type="file" onChange={handleFileChange} />
+    <div className="sectionStyle">
+      <h1 className="question-type">{heading}</h1>
+      <Divider className="todo-news-divider" />
+      <div className="questionStyle">
+        <h6 className="question">{question}</h6>
+        <div className="answer-area">
+        <label class="custom-file-upload">
+          <input type="file" onChange={handleFileChange} className="inputStyleFile"/>
+          Choose a File
+          </label>
         {markedAnswer && (
           <p style={{ marginTop: '8px' }}>
             Selected File: {markedAnswer} 
           </p>
         )}
-        {!isAnswered && !markedAnswer && <p style={{ color: 'red' }}>Please answer this question</p>}
+        </div>
+        {(!isAnswered && !markedAnswer) && <p className="errorText">Please answer this question</p>}
       </div>
     </div>
   );
