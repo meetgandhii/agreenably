@@ -1,24 +1,7 @@
 // SingleChoiceQuestion.js
+import { Divider } from "antd";
 import React, { useState } from "react";
-
-const questionStyle = {
-  border: '1px solid #ddd',
-  padding: '10px',
-  margin: '10px',
-};
-const labelStyle = {
-  alignItems: 'center',
-  margin: '8px 8px',
-};
-
-const inputStyle = {
-  marginRight: '4px', // Add right margin for spacing
-};
-const sectionStyle = {
-  marginBottom: '20px',
-  padding: '20px',
-  border: '1px solid #aaaaaa'
-};
+import '../../Stylesheet/certifications.css';
 
 const SingleChoiceQuestion = ({ heading, question, options, updateAnswers, markedAnswer }) => {
   const [answer, setAnswer] = useState(null);
@@ -31,23 +14,25 @@ const SingleChoiceQuestion = ({ heading, question, options, updateAnswers, marke
   };
 
   return (
-    <div style={sectionStyle}>
-      <h4 style={{ textAlign: "start" }}>{heading}</h4>
-      <div style={questionStyle}>
-        <h6>{question}</h6>
+    <div className="sectionStyle"> 
+      <h1 className="question-type">{heading}</h1> 
+      <Divider className="todo-news-divider"/>
+      <div className="questionStyle">
+        <h6 className="question">{question}</h6>
+       <div className="answer-area">
         {options.map((option, index) => (
-          <label key={index} style={labelStyle}>
+          <label key={index} className="labelStyle">
             <input
               type="radio"
               value={option}
               checked={answer === option || markedAnswer === option}
               onChange={handleOptionChange}
-              style={inputStyle}
+              className="inputStyle"
             />
             {option}
           </label>
-        ))}
-        {(!isAnswered && !markedAnswer) && <p style={{ color: 'red' }}>Please answer this question</p>}
+        ))}</div>
+        {(!isAnswered && !markedAnswer) && <p className="errorText">Please answer this question</p>}
       </div>
     </div>
   );

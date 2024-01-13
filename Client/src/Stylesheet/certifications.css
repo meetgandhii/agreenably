@@ -5,7 +5,7 @@
 }
 
 .booking-car-content {
-  margin: 20px;
+  
   width: 100%;
 }
 
@@ -110,4 +110,98 @@ font-size: 32px;
   margin-left: auto;
   margin-top: 22px;
   margin-bottom: 32px;
+}
+
+.certificate_questionnaire{
+  padding: 20px 80px 5px 80px;
+}
+.certificate_questionnaire_heading {
+  margin-top: 10px;
+}
+
+/* Question cards for questionnaire */
+
+/* SingleChoiceQuestion.css */
+.sectionStyle {
+  margin-bottom: 20px;
+  border: 1px solid #B9b9b9;
+  padding: 40px;
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.questionStyle {
+  padding-top: 10px;
+  
+}
+
+.inputStyle {
+  margin-right: 4px;
+  appearance: none;  
+}
+.inputStyle::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #d9d9d9; 
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.inputStyle:checked::before {
+  background-color: #d9d9d9; 
+  border-color: #d9d9d9; 
+}
+.errorText {
+  color: red;
+}
+.question-type {
+  text-align: left;
+  font-size: 25px;
+    font-weight: 500;
+    font-family: Instrument Sans;
+    
+}
+.question {
+  text-align: left;
+  font-size: 25px;
+    font-weight: 400;
+    font-family: Instrument Sans;
+}
+
+.answer-area {
+  text-align: left;
+  font-size: 20px;
+  font-family: Instrument Sans;
+  margin-top: 30px;
+}
+.labelStyle {
+  margin: 0 40px 0 0;
+}
+
+.inputStyleMulti {
+  margin-right: 4px;
+  appearance: none;  
+}
+.inputStyleMulti::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #d9d9d9; 
+  
+  margin-right: 8px;
+}
+
+.inputStyleMulti:checked::before {
+  background-color: #d9d9d9; 
+  border-color: #d9d9d9; 
+  content: '\2713'; 
+  line-height: 1; /* Ensure the line height is normal */
+  vertical-align: middle; /* Align vertically in the middle */
+  color: #000; /* Color for the checkmark */
+  font-size: smaller;
+  display: inline;
+  
 }
