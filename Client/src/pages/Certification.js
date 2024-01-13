@@ -74,7 +74,7 @@ function FillCertification() {
     const answeredQuestions = Object.values(answers).flatMap((nestedObject) =>
       Object.values(nestedObject)
     );
-    if (answeredQuestions.length === qCount) {
+    // if (answeredQuestions.length === qCount) {
       const answersArray = Object.entries(answers).flatMap(([something, nestedObject]) => {
         const entries = Object.entries(nestedObject);
         return entries.map(([question, answer]) => ({
@@ -84,11 +84,11 @@ function FillCertification() {
       });
       setReview(answersArray);
       setSubmitMode(true);
-    } else {
-      console.log("answeredQuestions.length: ", answeredQuestions.length);
-      console.log("qCount: ", qCount);
-      alert("Please fill all questions");
-    }
+    // } else {
+    //   console.log("answeredQuestions.length: ", answeredQuestions.length);
+    //   console.log("qCount: ", qCount);
+    //   alert("Please fill all questions");
+    // }
   };
 
   const editData = async () => {
