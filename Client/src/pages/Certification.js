@@ -306,8 +306,14 @@ function FillCertification() {
                             options={["Yes", "No"]}
                             updateAnswers={(updatedAnswer) => {
                               handleAnswer('question3', updatedAnswer);
+                              const startQuestionIndex = 4; 
+                              const endQuestionIndex = 56; 
+
                               if (updatedAnswer[question.question3] === "Yes") {
-                                handleAnswer('question4', "");
+                                for (let i = startQuestionIndex; i <= endQuestionIndex; i++) {
+                                  const questionKey = `question${i}`;
+                                  handleAnswer(questionKey, "");
+                                }
                               }
                             }
                             } markedAnswer={answers['question3'] && answers['question3'][question.question3]}
@@ -321,7 +327,19 @@ function FillCertification() {
                                 heading={"Registration"}
                                 question={question.question4}
                                 options={["Yes", "No"]}
-                                updateAnswers={(updatedAnswer) => handleAnswer('question4', updatedAnswer)}
+                                updateAnswers={(updatedAnswer) => {
+                                  handleAnswer('question4', updatedAnswer);
+                                  const startQuestionIndex = 5; 
+                                  const endQuestionIndex = 56; 
+    
+                                  if (updatedAnswer[question.question3] === "No") {
+                                    for (let i = startQuestionIndex; i <= endQuestionIndex; i++) {
+                                      const questionKey = `question${i}`;
+                                      handleAnswer(questionKey, "");
+                                    }
+                                  }
+                                }
+                                }
                                 markedAnswer={answers['question4'] && answers['question4'][question.question4]}
                               />
                             </>
