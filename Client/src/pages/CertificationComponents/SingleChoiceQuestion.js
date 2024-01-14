@@ -14,27 +14,27 @@ const SingleChoiceQuestion = ({ heading, question, options, updateAnswers, marke
   };
 
   return (
-    <div className="sectionStyle">
-      <h1 className="question-type">{heading}</h1>
-      <Divider className="todo-news-divider" />
-      <div className="questionStyle">
-        <h6 className="question">{question}</h6>
-        <div className="answer-area">
-          {options.map((option, index) => (
-            <label key={index} className="labelStyle">
-              <input
-                type="radio"
-                value={option}
-                checked={answer === option || markedAnswer === option}
-                onChange={handleOptionChange}
-                className="inputStyle"
-              />
-              {option}
-            </label>
-          ))}</div>
-        {(!isAnswered && !markedAnswer) && <p className="errorText">Please answer this question</p>}
+
+    <div className="questionStyle">
+      <h6 className="question">{question}</h6>
+      <div className="answer-area">
+        {options.map((option, index) => (
+          <label key={index} className="labelStyle">
+            <input
+              type="radio"
+              value={option}
+              checked={answer === option || markedAnswer === option}
+              onChange={handleOptionChange}
+              className="inputStyle"
+            />
+            {option}
+          </label>
+        ))}
       </div>
+      {(!isAnswered && !markedAnswer) && <p className="errorText">Please answer this question</p>}
+      <Divider />
     </div>
+
   );
 };
 

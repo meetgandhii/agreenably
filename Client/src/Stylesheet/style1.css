@@ -529,3 +529,7 @@ html,
     width: fit-content;
     
 }
+
+.questionInCertification {
+    margin: 10px 0;
+}

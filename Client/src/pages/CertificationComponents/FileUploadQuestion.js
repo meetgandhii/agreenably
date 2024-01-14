@@ -14,9 +14,7 @@ const FileUploadQuestion = ({ heading, question, updateAnswers, markedAnswer }) 
   };
 
   return (
-    <div className="sectionStyle">
-      <h1 className="question-type">{heading}</h1>
-      <Divider className="todo-news-divider" />
+    
       <div className="questionStyle">
         <h6 className="question">{question}</h6>
         <div className="answer-area">
@@ -31,7 +29,7 @@ const FileUploadQuestion = ({ heading, question, updateAnswers, markedAnswer }) 
         )}
         </div>
         {(!isAnswered && !markedAnswer) && <p className="errorText">Please answer this question</p>}
-      </div>
+        <Divider />
     </div>
   );
 };

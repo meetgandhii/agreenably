@@ -20,9 +20,7 @@ const MultiChoiceQuestion = ({ heading, question, options, updateAnswers, marked
   };
 
   return (
-    <div className="sectionStyle">
-      <h1 className="question-type">{heading}</h1>
-      <Divider className="todo-news-divider" />
+    
       <div className="questionStyle">
         <h6 className="question">{question}</h6>
         <div className="answer-area">
@@ -40,7 +38,7 @@ const MultiChoiceQuestion = ({ heading, question, options, updateAnswers, marked
           ))}
         </div>
         {(!isAnswered && !markedAnswer) && <p style={{ color: 'red' }}>Please answer this question</p>}
-      </div>
+        <Divider />
     </div>
   );
 };
