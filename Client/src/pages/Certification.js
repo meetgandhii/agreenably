@@ -228,7 +228,61 @@ function FillCertification() {
     updateCertificationRecord();
   }, [answers]);
 
+  const [button1, setButton1] = useState(false);
+  const [button2, setButton2] = useState(false);
+  const [button3, setButton3] = useState(false);
+  const [button4, setButton4] = useState(false);
+  const [button5, setButton5] = useState(false);
+  const [button6, setButton6] = useState(false);
+  const [button7, setButton7] = useState(false);
+  const [button8, setButton8] = useState(false);
+  const [button9, setButton9] = useState(false);
+  const [button10, setButton10] = useState(false);
+  const [button11, setButton11] = useState(false);
 
+  const showMoreSupplier1 = () => {
+    setButton1(true);
+  };
+
+  const showMoreSupplier2 = () => {
+    setButton2(true);
+  };
+
+  const showMoreSupplier3 = () => {
+    setButton3(true);
+  };
+
+  const showMoreSupplier4 = () => {
+    setButton4(true);
+  };
+
+  const showMoreSupplier5 = () => {
+    setButton5(true);
+  };
+
+  const showMoreSupplier6 = () => {
+    setButton6(true);
+  };
+
+  const showMoreSupplier7 = () => {
+    setButton7(true);
+  };
+
+  const showMoreSupplier8 = () => {
+    setButton8(true);
+  };
+
+  const showMoreSupplier9 = () => {
+    setButton9(true);
+  };
+
+  const showMoreSupplier10 = () => {
+    setButton10(true);
+  };
+
+  const showMoreSupplier11 = () => {
+    setButton11(true);
+  };
   return (
     <div className="booking-car-container">
       {editMode ? (
@@ -306,8 +360,8 @@ function FillCertification() {
                             options={["Yes", "No"]}
                             updateAnswers={(updatedAnswer) => {
                               handleAnswer('question3', updatedAnswer);
-                              const startQuestionIndex = 4; 
-                              const endQuestionIndex = 56; 
+                              const startQuestionIndex = 4;
+                              const endQuestionIndex = 56;
 
                               if (updatedAnswer[question.question3] === "Yes") {
                                 for (let i = startQuestionIndex; i <= endQuestionIndex; i++) {
@@ -329,9 +383,9 @@ function FillCertification() {
                                 options={["Yes", "No"]}
                                 updateAnswers={(updatedAnswer) => {
                                   handleAnswer('question4', updatedAnswer);
-                                  const startQuestionIndex = 5; 
-                                  const endQuestionIndex = 56; 
-    
+                                  const startQuestionIndex = 5;
+                                  const endQuestionIndex = 56;
+
                                   if (updatedAnswer[question.question3] === "No") {
                                     for (let i = startQuestionIndex; i <= endQuestionIndex; i++) {
                                       const questionKey = `question${i}`;
@@ -601,6 +655,85 @@ function FillCertification() {
                                 updateAnswers={(updatedAnswer) => handleAnswer('question34', updatedAnswer)}
                                 markedAnswer={answers['question34'] && answers['question34'][question.question34]}
                               />
+                              {button1 ? (
+                                <>
+                                  <p>Supplier 1</p>
+                                  {button2 ? (
+                                    <>
+                                      <p>Supplier 2</p>
+                                      {button3 ? (
+                                        <>
+                                          <p>Supplier 3</p>
+                                          {button4 ? (
+                                            <>
+                                              <p>Supplier 4</p>
+                                              {button5 ? (
+                                                <>
+                                                  <p>Supplier 5</p>
+                                                  {button6 ? (
+                                                    <>
+                                                      <p>Supplier 6</p>
+                                                      {button7 ? (
+                                                        <>
+                                                          <p>Supplier 7</p>
+                                                          {button8 ? (
+                                                            <>
+                                                              <p>Supplier 8</p>
+                                                              {button9 ? (
+                                                                <>
+                                                                  <p>Supplier 9</p>
+                                                                  {button10 ? (
+                                                                    <>
+                                                                      <p>Supplier 10</p>
+                                                                      {button11 ? (
+                                                                        <>
+                                                                          <p>Supplier 11</p>
+                                                                        </>
+                                                                      ) : (
+                                                                        <button className="agreenably-btn-add-more" onClick={showMoreSupplier11}>Add Ingredient Supplier</button>
+                                                                      )}
+                                                                    </>
+                                                                  ) : (
+                                                                    <button className="agreenably-btn-add-more" onClick={showMoreSupplier10}>Add Ingredient Supplier</button>
+                                                                  )}
+                                                                </>
+                                                              ) : (
+                                                                <button className="agreenably-btn-add-more" onClick={showMoreSupplier9}>Add Ingredient Supplier</button>
+                                                              )}
+                                                            </>
+                                                          ) : (
+                                                            <button className="agreenably-btn-add-more" onClick={showMoreSupplier8}>Add Ingredient Supplier</button>
+                                                          )}
+                                                        </>
+                                                      ) : (
+                                                        <button className="agreenably-btn-add-more" onClick={showMoreSupplier7}>Add Ingredient Supplier</button>
+                                                      )}
+                                                    </>
+                                                  ) : (
+                                                    <button className="agreenably-btn-add-more" onClick={showMoreSupplier6}>Add Ingredient Supplier</button>
+                                                  )}
+                                                </>
+                                              ) : (
+                                                <button className="agreenably-btn-add-more" onClick={showMoreSupplier5}>Add Ingredient Supplier</button>
+                                              )}
+                                            </>
+                                          ) : (
+                                            <button className="agreenably-btn-add-more" onClick={showMoreSupplier4}>Add Ingredient Supplier</button>
+                                          )}
+                                        </>
+                                      ) : (
+                                        <button className="agreenably-btn-add-more" onClick={showMoreSupplier3}>Add Ingredient Supplier</button>
+                                      )}
+                                    </>
+                                  ) : (
+                                    <button className="agreenably-btn-add-more" onClick={showMoreSupplier2}>Add Ingredient Supplier</button>
+                                  )}
+                                </>
+                              ) : (
+                                <button className="agreenably-btn-add-more" onClick={showMoreSupplier1}>Add Ingredient Supplier</button>
+                              )}
+
+
 
                               <TextBoxQuestion
                                 heading={"Registration"}

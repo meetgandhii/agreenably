@@ -97,9 +97,9 @@ exports.updateDetailsAfterBegin = async (req, res) => {
 }
 exports.updateDetails = async (req, res) => {
   try {
-    const username = req.params.username;
-    const { email, password, phone } = req.body;
-    const updatedUser = await User.findOneAndUpdate({ username }, { email, password, phone }, { new: true });
+    const id = req.params.id;
+    const { name, password, company, interested_certifications } = req.body;
+    const updatedUser = await User.findOneAndUpdate({ id }, { name, password, company, interested_certifications }, { new: true });
 
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });

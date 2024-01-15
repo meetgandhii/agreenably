@@ -6,10 +6,14 @@ import { FaSearch } from 'react-icons/fa';
 import UserNavigation from './Navigation/userNavigation.js';
 import CertificationsNavigation from './Navigation/certificationsNavigation.js';
 import '../Stylesheet/style1.css';
+import { useNavigate } from 'react-router-dom';
 
 function DefaultLayout(props) {
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
-
+  const redirectToProfile = () => {
+    navigate(`/profile/${user._id}`);
+  };
   return (
     <div className="d-flex">
 
@@ -62,7 +66,7 @@ function DefaultLayout(props) {
       </li>
         <li style={{ display: 'flex', alignItems: 'center', marginTop: '' }}>
       
-      <div className="end-nav-div">
+      <div className="end-nav-div" onClick={redirectToProfile}>
         {user ? (
           <div className="end-nav-div">
             <img

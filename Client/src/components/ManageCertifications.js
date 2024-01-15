@@ -53,7 +53,7 @@ function ManageCertifications(props) {
         setVisiblePopup(false);
     };
     return (
-        <div className="managecertifications" style={{ width: "100%" }}>
+        <div className="managecertifications" style={{ width: "100%", height: totalCertifications.length === 1 ? "100vh" : "auto" }}>
             <h1 className="heading_managecertifications">Manage Certifications</h1>
             <Row gutter={[16, 16]}>
                 {totalCertifications.map((certification, index) => {
@@ -111,15 +111,15 @@ function ManageCertifications(props) {
                                             </li>
                                             <li className="readMoreButton">
                                                 <button className="readMoreButton" onClick={toggleReadMore}>
-                                            View All Tasks
-                                        </button>
+                                                    View All Tasks
+                                                </button>
                                             </li>
                                         </ul>
-                                        
+
                                     </Col>
                                     <Col xl={2} xs={2}><span className="spacer">
-                                                
-                                            </span></Col>
+
+                                    </span></Col>
                                     <Col xl={11} xs={11} className="todo-news-column">
                                         <h3 className="todo-news-header">
                                             News Feed
@@ -135,11 +135,11 @@ function ManageCertifications(props) {
                                             </li>
                                             <li className="readMoreButton">
                                                 <button className="readMoreButton" onClick={toggleReadMore}>
-                                            View All News
-                                        </button>
+                                                    View All News
+                                                </button>
                                             </li>
                                         </ul>
-                                        
+
                                     </Col>
                                 </Row>
                             </div>

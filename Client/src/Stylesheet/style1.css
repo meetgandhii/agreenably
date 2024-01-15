@@ -525,11 +525,23 @@ html,
 .active-menu-item {
     /* background-color: #00BC62;  */
     /* color: #ffffff;  */
-    font-weight: bold; 
+    font-weight: bold;
     width: fit-content;
-    
+
 }
 
 .questionInCertification {
     margin: 10px 0;
+}
+
+.agreenably-btn-add-more {
+    padding: 10px 20px 10px 20px;
+    background-color: #fff;
+    color: #00BC62;
+    text-align: start;
+    border: 1px solid #2d2d2d;
+    border-radius: 5px;
+    margin: 0 5px 5px 5px;
+    display: flex;
+    margin-left: auto;
 }

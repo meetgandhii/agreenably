@@ -14,9 +14,11 @@ function UserNavigation() {
             </li>
             <li>
                 <img src="/images/Dashboard.png" width="15px" alt="Dashboard" />
-                <h6 className='user-menu'>
-                    Dashboard
-                </h6>
+                <a href="/">
+                    <h6 className='user-menu'>
+                        Dashboard
+                    </h6>
+                </a>
             </li>
             <li>
                 <img src="/images/Recommendations.png" width="15px" alt="Recommendations" />
