@@ -1,0 +1,52 @@
+/* Profile.css */
+
+/* Common styles */
+.inputStyleProfile {
+    width: 100%;
+    background-color: #fff;
+    margin: 10px;
+    border: 1px solid #2d2d2d;
+    border-radius: 2px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-family: "Instrument Sans";
+  }
+  
+  .labelStyleProfile {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  tr, table {
+    text-align: left;
+    width: 100%;
+  }
+  td:nth-child(2n) {
+    width: 100%;
+  }
+  .readOnlyInputStyleProfile {
+    cursor: not-allowed;
+    background-color: #f2f2f2;
+    margin: 10px;
+    border: 1px solid #b9b9b9;
+    border-radius: 2px;
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-family: "Instrument Sans";
+  }
+  .contains_table {
+    width: 100%;
+    padding: 0 40px;
+  }
+
+  .interested_certifications {
+    margin: 0 10px;
+    border: 1px dotted rgba(40, 40, 40, 0.4);
+    padding: 10px;
+  }
+
+  .interested_certifications_label {
+    margin: 0 5px;
+  }
