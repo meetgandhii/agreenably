@@ -98,8 +98,8 @@ exports.updateDetailsAfterBegin = async (req, res) => {
 exports.updateDetails = async (req, res) => {
   try {
     const id = req.params.id;
-    const { name, password, company, interested_certifications } = req.body;
-    const updatedUser = await User.findOneAndUpdate({ id }, { name, password, company, interested_certifications }, { new: true });
+    const { name, password, company_name, interested_certifications } = req.body;
+    const updatedUser = await User.findOneAndUpdate({ _id: id }, { name, password, company_name, interested_certifications }, { new: true });
 
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
@@ -111,6 +111,7 @@ exports.updateDetails = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 }
+
 
 exports.getDetails = async (req, res) => {
   try {
