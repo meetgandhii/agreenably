@@ -316,6 +316,7 @@ img.profile-pic {
 }
 
 div.end-nav-div {
+    cursor: pointer;
     display: flex;
     align-items: center;
 }

@@ -13,7 +13,7 @@ function ManageCertifications(props) {
     const user = JSON.parse(localStorage.getItem("user"));
     const getUserDetails = async (userId) => {
         try {
-            const response = await axios.get(`https://agreenably-website-server.onrender.com/api/users/getUserDetails/${user._id}`);
+            const response = await axios.get(`https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`);
             setUserDetails(response.data);
             console.log("User Details:", response.data);
         } catch (error) {
