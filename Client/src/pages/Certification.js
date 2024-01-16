@@ -291,7 +291,7 @@ function FillCertification() {
           {submitMode ? (
             <>
               <CertificateNav2 />
-              <div className="booking-car-content">
+              <div className="booking-car-content" style={{height: review.length < 7 ? "100vh" : "auto"}}>
                 <div style={{ position: 'sticky', top: 0, backgroundColor: '#f2f1f2', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <button onClick={backToCertificate} style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                     <FaArrowLeft style={{ fontSize: '1.5rem', marginRight: '10px' }} />
@@ -386,7 +386,7 @@ function FillCertification() {
                                   const startQuestionIndex = 5;
                                   const endQuestionIndex = 56;
 
-                                  if (updatedAnswer[question.question3] === "No") {
+                                  if (updatedAnswer[question.question4] === "No") {
                                     for (let i = startQuestionIndex; i <= endQuestionIndex; i++) {
                                       const questionKey = `question${i}`;
                                       handleAnswer(questionKey, "");

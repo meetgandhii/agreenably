@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Divider } from "antd";
+import { Row, Divider, Modal } from "antd";
 import Spinner from "../components/Spinner";
 import '../Stylesheet/profile.css'
 import '../Stylesheet/certifications.css';
@@ -15,7 +15,30 @@ function Profile() {
   const [editedPassword, setEditedPassword] = useState("");
   const [editedCompanyName, setEditedCompanyName] = useState("");
   const [editedInterestedCertifications, setEditedInterestedCertifications] = useState([]);
-  
+  const [selectedCertification, setSelectedCertification] = useState([]);
+  const [visiblePopup, setVisiblePopup] = useState(false);
+  const [selectedCertificationData, setSelectedCertificationData] = useState([]);
+
+  const getCertificationData = async (certificationId) => {
+    const getCertificateOptions = await axios.get("https://agreenably-website-server.onrender.com/api/certification/records/getcertificationrecord", {
+      params: {
+        user_id: user._id,
+        certification_id: certificationId
+      }
+    });
+    const dbAnswers = getCertificateOptions.data.certification_response;
+    setSelectedCertificationData(dbAnswers);
+  }
+
+  const toggleReadMore = (certification) => {
+    setSelectedCertification(certification);
+    getCertificationData(certification._id);
+    setVisiblePopup(true);
+  };
+
+  const handlePopupCancel = () => {
+    setVisiblePopup(false);
+  };
   const handleCertificationChange = (certification) => {
     setEditedInterestedCertifications((prevSelected) =>
       prevSelected.includes(certification)
@@ -207,18 +230,18 @@ function Profile() {
                       <td>
                         {editMode ? (
                           certifications
-                          .filter((certification) => !userData.completed_certification.includes(certification._id))
-                          .map((certification) => (
-                            <span key={certification.name} className="interested_certifications">
-                              <input
-                                type="checkbox"
-                                id={`certification-${certification.name}`}
-                                checked={editedInterestedCertifications.includes(certification._id)}
-                                onChange={() => handleCertificationChange(certification._id)}
-                              />
-                              <label className="interested_certifications_label" htmlFor={`certification-${certification.name}`}>{certification.name}</label>
-                            </span>
-                          ))
+                            .filter((certification) => !userData.completed_certification.includes(certification._id))
+                            .map((certification) => (
+                              <span key={certification.name} className="interested_certifications">
+                                <input
+                                  type="checkbox"
+                                  id={`certification-${certification.name}`}
+                                  checked={editedInterestedCertifications.includes(certification._id)}
+                                  onChange={() => handleCertificationChange(certification._id)}
+                                />
+                                <label className="interested_certifications_label" htmlFor={`certification-${certification.name}`}>{certification.name}</label>
+                              </span>
+                            ))
                         ) : (
                           <input
                             value={totalCertifications.map((certification) => certification.name).join(', ')}
@@ -248,16 +271,21 @@ function Profile() {
                         <label className="labelStyleProfile">Completed Certifications:</label>
                       </td>
                       <td>
-                        <input
-                          value={userData.completed_certification.length > 0
-                            ? certifications
-                              .filter((certification) => userData.completed_certification.includes(certification._id))
-                              .map((certification) => certification.name)
-                              .join(', ')
-                            : 'None'}
-                          readOnly
-                          className="readOnlyInputStyleProfile"
-                        />
+                        {userData.completed_certification.length > 0
+                          ? certifications
+                            .filter((certification) => userData.completed_certification.includes(certification._id))
+                            .map((certification) => (
+                              <button className="completed_certifications" onClick={() => toggleReadMore(certification)}>
+                                {certification.name}
+                              </button>
+                            )) : (<input
+                              value={
+                                'None'}
+                              readOnly
+                              className="readOnlyInputStyleProfile"
+                            />)}
+
+
                       </td>
                     </tr>
                   </table>
@@ -278,6 +306,22 @@ function Profile() {
           )}
         </div>
       </div>
+      <Modal
+        title={selectedCertification.name}
+        visible={visiblePopup}
+        onCancel={handlePopupCancel}
+        footer={null}
+      >
+        {console.log("selectedCertification: ", selectedCertification)}
+        {selectedCertificationData.map((item, index) => (
+          <div key={index}>
+            <div className="reviewBox">
+              <h6 className="questionReview">{`Question ${index + 1}`}: {item.question}</h6>
+              <h6 className="answerReview">{`Answer ${index + 1}`}: {item.answer}</h6>
+            </div>
+          </div>
+        ))}
+      </Modal>
     </div>
   );
 }

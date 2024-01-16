@@ -184,7 +184,7 @@ p {
 }
 .ant-picker-range {
   padding: 12px !important;
-  background-color: #60047aec !important;
+  background-color: #00BC62 !important;
   color: white !important;
   border: 1px solid white;
 }
@@ -193,10 +193,10 @@ p {
   color: white !important;
 }
 .ant-modal-title {
-  color: #7e2796 !important;
+  color: #00BC62 !important;
 }
 .rcw-title {
-  color: #60047aec;
+  color: #00BC62;
 }
 /* ---------------------------------------------------------------------------------- */
 /************************ Footer *********************/

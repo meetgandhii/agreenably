@@ -50,3 +50,17 @@
   .interested_certifications_label {
     margin: 0 5px;
   }
+
+  .completed_certifications {
+    background-color: #f2f2f2;
+    margin: 10px;
+    border: 1px solid #b9b9b9;
+    border-radius: 2px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-family: "Instrument Sans";
+    text-align: left;
+    cursor: pointer;
+    color: green;
+    font-size: 16px;
+  }
