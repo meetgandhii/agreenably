@@ -11,7 +11,7 @@ function Login() {
     console.log(values);
   }
   return (
-    <div className="login">
+    <div className="login" style={{height: "100vh"}}>
       <Row gutter={8}>
         <Col lg={8} className="text-left p-5">
           <Form
@@ -42,9 +42,9 @@ function Login() {
                 className="p-2"
               />
             </Form.Item>
-            <button className="btn2 mt-2 mb-3">Login</button>
-            <br />
-            <Link to="/register">Click here to Register</Link>
+            <button className="agreenably-btn mt-2 mb-3">Login</button>
+     
+            <Link className="registerRedirect" to="/register">Click here to Register</Link>
           </Form>
         </Col>
       </Row>

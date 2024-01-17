@@ -75,7 +75,7 @@ function Register() {
               rules={[{ required: true }]}
             >
               <Select
-                mode="multiple"
+                mode="multiple" className="registerAddCertificate"
                 placeholder="Select Interested Certifications"
                 style={{ width: '100%' }}
               >
@@ -109,9 +109,9 @@ function Register() {
               />
             </Form.Item>
 
-            <button className="btn2 mt-2 mb-3">Register</button>
-            <br />
-            <Link to="/Login">Click here to Login</Link>
+            <button className="agreenably-btn mt-2 mb-3">Register</button>
+
+            <Link className="registerRedirect" to="/Login">Click here to Login</Link>
           </Form>
         </Col>
       </Row>

@@ -35,12 +35,8 @@ function DefaultLayout(props) {
       <ul className="kanbas-navigation-ul" style={{ padding: "0 25px", height: "100%", display: "flex", flexDirection: "column" }}>
         <li className="kanbas-navigation-li">
           <a href="/">
-            <img src="/images/logo.png" width="25px" alt="Logoo" />
-            <h3 className='logo-heading' style={{ display: "inline", marginLeft: "20px" }}>
-              <span className='first'>a</span>
-              <span className='second'>green</span>
-              <span className='first'>ably</span>
-            </h3>
+            <img src="/images/agreenably_logo.svg" width="25px" alt="Logoo" />
+            <img src="/images/agreenably_name.svg" style={{ display: "inline", marginLeft: "20px" }}/>
           </a>
         </li>
         <li style={{ margin: "60px 0" }}>

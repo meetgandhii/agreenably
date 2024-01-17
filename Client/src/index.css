@@ -84,11 +84,12 @@ p {
   justify-content: center;
 }
 .login label {
-  color: #f3cdfeec !important;
+  color: #28a745 !important;
   font-weight: 500;
 }
 .login-form {
-  background-color: #7e2796ec;
+  border: 1px solid #2d2d2d;
+  background-color: #fdfdfd;
   height: fit-content;
   width: fit-content;
   border-radius: 5px;
@@ -101,17 +102,24 @@ p {
   height: 40px;
 }
 .login-heading {
-  color: rgb(255, 245, 245) !important;
+  color: #28a745 !important;
 }
 
-.login a {
-  color: white !important;
-  opacity: 0.8;
+.registerAddCertificate, .ant-select-selector {
+  background-color: #e6e4e4 !important;
+}
+
+.registerRedirect {
+  color: #28a745;
+}
+span.ant-select-selection-placeholder{
+  color: rgb(120, 120, 120);
+  padding: 5px 0;
 }
 .btn2 {
   box-shadow: none !important;
   background-color: white;
-  color: #4B0082;
+  color: #28a745;
   border: 1px solid #959595 !important;
   height: 2rem;
   padding: 5px 16px;
