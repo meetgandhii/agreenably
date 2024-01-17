@@ -228,61 +228,34 @@ function FillCertification() {
     updateCertificationRecord();
   }, [answers]);
 
-  const [button1, setButton1] = useState(false);
-  const [button2, setButton2] = useState(false);
-  const [button3, setButton3] = useState(false);
-  const [button4, setButton4] = useState(false);
-  const [button5, setButton5] = useState(false);
-  const [button6, setButton6] = useState(false);
-  const [button7, setButton7] = useState(false);
-  const [button8, setButton8] = useState(false);
-  const [button9, setButton9] = useState(false);
-  const [button10, setButton10] = useState(false);
-  const [button11, setButton11] = useState(false);
+  const [newSupplierQuestions, setNewSupplierQuestions] = useState({});
+  const [supplierNumber, setSupplierNumber] = useState(2);
+  const addNewSupplierQuestions = () => {
+    setSupplierNumber((prevSupplierNumber) => prevSupplierNumber + 1);
+    console.log(supplierNumber);
+    setNewSupplierQuestions((prevQuestions) => ({
+      ...prevQuestions,
+      [`question31_${supplierNumber}`]: `Supplier ${supplierNumber} Company Name`,
+      [`question32_${supplierNumber}`]: `Supplier ${supplierNumber} First Name`,
+      [`question33_${supplierNumber}`]: `Supplier ${supplierNumber} Last Name`,
+      [`question34_${supplierNumber}`]: `Supplier ${supplierNumber} Email Address`,
+    }));
+  }
 
-  const showMoreSupplier1 = () => {
-    setButton1(true);
-  };
+  const [newManufacturerQuestions, setNewManufacturerQuestions] = useState({});
+  const [manufacturerNumber, setManufacturerNumber] = useState(2);
+  const addNewManufacturerQuestions = () => {
+    setManufacturerNumber((prevManufacturerNumber) => prevManufacturerNumber + 1);
+    console.log(manufacturerNumber);
+    setNewManufacturerQuestions((prevQuestions) => ({
+      ...prevQuestions,
+      [`question31_${manufacturerNumber}`]: `Manufacturer ${manufacturerNumber} Company Name`,
+      [`question32_${manufacturerNumber}`]: `Manufacturer ${manufacturerNumber} First Name`,
+      [`question33_${manufacturerNumber}`]: `Manufacturer ${manufacturerNumber} Last Name`,
+      [`question34_${manufacturerNumber}`]: `Manufacturer ${manufacturerNumber} Email Address`,
+    }));
+  }
 
-  const showMoreSupplier2 = () => {
-    setButton2(true);
-  };
-
-  const showMoreSupplier3 = () => {
-    setButton3(true);
-  };
-
-  const showMoreSupplier4 = () => {
-    setButton4(true);
-  };
-
-  const showMoreSupplier5 = () => {
-    setButton5(true);
-  };
-
-  const showMoreSupplier6 = () => {
-    setButton6(true);
-  };
-
-  const showMoreSupplier7 = () => {
-    setButton7(true);
-  };
-
-  const showMoreSupplier8 = () => {
-    setButton8(true);
-  };
-
-  const showMoreSupplier9 = () => {
-    setButton9(true);
-  };
-
-  const showMoreSupplier10 = () => {
-    setButton10(true);
-  };
-
-  const showMoreSupplier11 = () => {
-    setButton11(true);
-  };
   return (
     <div className="booking-car-container">
       {editMode ? (
@@ -291,7 +264,7 @@ function FillCertification() {
           {submitMode ? (
             <>
               <CertificateNav2 />
-              <div className="booking-car-content" style={{height: review.length < 7 ? "100vh" : "auto"}}>
+              <div className="booking-car-content" style={{ height: review.length < 7 ? "100vh" : "auto" }}>
                 <div style={{ position: 'sticky', top: 0, backgroundColor: '#f2f1f2', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <button onClick={backToCertificate} style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                     <FaArrowLeft style={{ fontSize: '1.5rem', marginRight: '10px' }} />
@@ -631,7 +604,9 @@ function FillCertification() {
                               <TextBoxQuestion
                                 heading={"Registration"}
                                 question={question.question31}
-                                updateAnswers={(updatedAnswer) => handleAnswer('question31', updatedAnswer)}
+                                updateAnswers={(updatedAnswer) => {
+                                  handleAnswer('question31', updatedAnswer);
+                                }}
                                 markedAnswer={answers['question31'] && answers['question31'][question.question31]}
                               />
 
@@ -655,84 +630,24 @@ function FillCertification() {
                                 updateAnswers={(updatedAnswer) => handleAnswer('question34', updatedAnswer)}
                                 markedAnswer={answers['question34'] && answers['question34'][question.question34]}
                               />
-                              {button1 ? (
+                              {Object.keys(newSupplierQuestions).length === 0 && (<button className="agreenably-btn-add-more" onClick={addNewSupplierQuestions}>Add Ingredient Supplier</button>)}
+                              {Object.keys(newSupplierQuestions).length > 0 && (
                                 <>
-                                  <p>Supplier 1</p>
-                                  {button2 ? (
-                                    <>
-                                      <p>Supplier 2</p>
-                                      {button3 ? (
-                                        <>
-                                          <p>Supplier 3</p>
-                                          {button4 ? (
-                                            <>
-                                              <p>Supplier 4</p>
-                                              {button5 ? (
-                                                <>
-                                                  <p>Supplier 5</p>
-                                                  {button6 ? (
-                                                    <>
-                                                      <p>Supplier 6</p>
-                                                      {button7 ? (
-                                                        <>
-                                                          <p>Supplier 7</p>
-                                                          {button8 ? (
-                                                            <>
-                                                              <p>Supplier 8</p>
-                                                              {button9 ? (
-                                                                <>
-                                                                  <p>Supplier 9</p>
-                                                                  {button10 ? (
-                                                                    <>
-                                                                      <p>Supplier 10</p>
-                                                                      {button11 ? (
-                                                                        <>
-                                                                          <p>Supplier 11</p>
-                                                                        </>
-                                                                      ) : (
-                                                                        <button className="agreenably-btn-add-more" onClick={showMoreSupplier11}>Add Ingredient Supplier</button>
-                                                                      )}
-                                                                    </>
-                                                                  ) : (
-                                                                    <button className="agreenably-btn-add-more" onClick={showMoreSupplier10}>Add Ingredient Supplier</button>
-                                                                  )}
-                                                                </>
-                                                              ) : (
-                                                                <button className="agreenably-btn-add-more" onClick={showMoreSupplier9}>Add Ingredient Supplier</button>
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <button className="agreenably-btn-add-more" onClick={showMoreSupplier8}>Add Ingredient Supplier</button>
-                                                          )}
-                                                        </>
-                                                      ) : (
-                                                        <button className="agreenably-btn-add-more" onClick={showMoreSupplier7}>Add Ingredient Supplier</button>
-                                                      )}
-                                                    </>
-                                                  ) : (
-                                                    <button className="agreenably-btn-add-more" onClick={showMoreSupplier6}>Add Ingredient Supplier</button>
-                                                  )}
-                                                </>
-                                              ) : (
-                                                <button className="agreenably-btn-add-more" onClick={showMoreSupplier5}>Add Ingredient Supplier</button>
-                                              )}
-                                            </>
-                                          ) : (
-                                            <button className="agreenably-btn-add-more" onClick={showMoreSupplier4}>Add Ingredient Supplier</button>
-                                          )}
-                                        </>
-                                      ) : (
-                                        <button className="agreenably-btn-add-more" onClick={showMoreSupplier3}>Add Ingredient Supplier</button>
-                                      )}
-                                    </>
-                                  ) : (
-                                    <button className="agreenably-btn-add-more" onClick={showMoreSupplier2}>Add Ingredient Supplier</button>
-                                  )}
-                                </>
-                              ) : (
-                                <button className="agreenably-btn-add-more" onClick={showMoreSupplier1}>Add Ingredient Supplier</button>
-                              )}
+                                  {Object.keys(newSupplierQuestions).map((questionKey, index) => (
+                                    <TextBoxQuestion
+                                      key={questionKey}
+                                      heading={"Registration"}
+                                      question={newSupplierQuestions[questionKey]}
+                                      updateAnswers={(updatedAnswer) => handleAnswer(questionKey, updatedAnswer)}
+                                      markedAnswer={answers[`question${index + 57}`] && answers[`question${index + 57}`][newSupplierQuestions[questionKey]]}
+                                    />
+                                  ))}
 
+                                  <button className="agreenably-btn-add-more" onClick={addNewSupplierQuestions}>
+                                    Add Ingredient Supplier {supplierNumber}
+                                  </button>
+                                </>
+                              )}
 
 
                               <TextBoxQuestion
@@ -762,6 +677,24 @@ function FillCertification() {
                                 updateAnswers={(updatedAnswer) => handleAnswer('question38', updatedAnswer)}
                                 markedAnswer={answers['question38'] && answers['question38'][question.question38]}
                               />
+                              {Object.keys(newManufacturerQuestions).length === 0 && (<button className="agreenably-btn-add-more" onClick={addNewManufacturerQuestions}>Add Manufacturer</button>)}
+                              {Object.keys(newManufacturerQuestions).length > 0 && (
+                                <>
+                                  {Object.keys(newManufacturerQuestions).map((questionKey, index) => (
+                                    <TextBoxQuestion
+                                      key={questionKey}
+                                      heading={"Registration"}
+                                      question={newManufacturerQuestions[questionKey]}
+                                      updateAnswers={(updatedAnswer) => handleAnswer(questionKey, updatedAnswer)}
+                                      markedAnswer={answers[`question${index + 61}`] && answers[`question${index + 61}`][newManufacturerQuestions[questionKey]]}
+                                    />
+                                  ))}
+
+                                  <button className="agreenably-btn-add-more" onClick={addNewManufacturerQuestions}>
+                                    Add Ingredient Manufacturer {supplierNumber}
+                                  </button>
+                                </>
+                              )}
                             </div>
 
                             <div className="sectionStyle">
