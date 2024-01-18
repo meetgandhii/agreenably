@@ -496,6 +496,15 @@ html,
     border-radius: 5px;
 }
 
+.open-pdf {
+    color: #fff;
+    background-color: #00BC62;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px transparent solid;
+    border-radius: 4px;
+}
+
 .agreenably-btn-edit {
     padding: 10px 20px 10px 20px;
     background-color: #001CE2;

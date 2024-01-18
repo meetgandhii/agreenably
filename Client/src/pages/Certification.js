@@ -24,7 +24,7 @@ function FillCertification() {
   const [editMode, setEditMode] = useState(false);
   const [answers, setAnswers] = useState({});
   const [submitMode, setSubmitMode] = useState(false);
-  const [review, setReview] = useState({});
+  const [review, setReview] = useState([]);
   let qCount = 3;
   const [aCount, setACount] = useState({});
   const [certification, setCertification] = useState({});
@@ -89,6 +89,7 @@ function FillCertification() {
   };
 
   const goToReview = () => {
+    console.log(review);
     const answeredQuestions = Object.values(answers).flatMap((nestedObject) =>
       Object.values(nestedObject)
     );
@@ -119,6 +120,36 @@ function FillCertification() {
     setEditMode(true);
     setSubmitMode(false);
 
+  };
+
+  const handleFileUpload = async (file, question, questionNumber) => {
+    console.log("uploading")
+    try {
+      const formData = new FormData();
+      formData.append('pdf', file);
+
+      const response = await axios.post("https://agreenably-website-server.onrender.com/api/document/upload", formData);
+      const pdfUrl = response.data.pdfUrl;
+
+      // Extract and store relevant information in the review state
+      setReview((prevReview) => [
+        ...prevReview,
+        { question: question, answer: pdfUrl }
+      ]);
+
+      console.log("questionNumber: ", questionNumber);
+      console.log("question: ", question);
+      console.log("pdfUrl: ", pdfUrl);
+      // Extract and store relevant information in the answers state
+      setAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [questionNumber]: { [question]: pdfUrl },
+      }));
+
+      console.log('PDF uploaded successfully. URL:', pdfUrl);
+    } catch (error) {
+      console.error("Error uploading PDF:", error);
+    }
   };
 
 
@@ -241,6 +272,16 @@ function FillCertification() {
       [`question34_${supplierNumber}`]: `Supplier ${supplierNumber} Email Address`,
     }));
   }
+  const openPdfInNewTab = async (pdfUrl) => {
+    try {
+      const response = await axios.get(`https://agreenably-website-server.onrender.com/api/document/${pdfUrl}`, { responseType: 'arraybuffer' });
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+    } catch (error) {
+      console.error("Error fetching PDF:", error);
+    }
+  };
 
   const [newManufacturerQuestions, setNewManufacturerQuestions] = useState({});
   const [manufacturerNumber, setManufacturerNumber] = useState(2);
@@ -281,7 +322,12 @@ function FillCertification() {
                     <div key={index}>
                       <div className="reviewBox">
                         <h6 className="questionReview">{`Question ${index + 1}`}: {item.question}</h6>
-                        <h6 className="answerReview">{`Answer ${index + 1}`}: {item.answer}</h6>
+                        <h6 className="answerReview">{`Answer ${index + 1}`}: 
+                        {item.answer && item.answer.startsWith('/pdf/') ? (
+                          <a href="#" onClick={() => openPdfInNewTab(item.answer)}>Open PDF</a>
+                        ) : (
+                          <p>{item.answer}</p>
+                        )}</h6>
                       </div>
                     </div>
                   ))}</div>
@@ -714,6 +760,7 @@ function FillCertification() {
                                   <FileUploadQuestion
                                     heading={"Registration"}
                                     question={question.question40}
+                                    handleFileUpload={(file) => handleFileUpload(file, question.question40, 'question40')}
                                     updateAnswers={(updatedAnswer) => handleAnswer('question40', updatedAnswer)} markedAnswer={answers['question40'] && Object.values(answers["question40"])[0]}
                                   />
                                 </>
@@ -738,6 +785,7 @@ function FillCertification() {
 
                               <FileUploadQuestion
                                 heading={"Registration"}
+                                handleFileUpload={(file) => handleFileUpload(file, question.question43, 'question43')}
                                 question={question.question43}
                                 updateAnswers={(updatedAnswer) => handleAnswer('question43', updatedAnswer)} markedAnswer={answers['question43'] && Object.values(answers["question43"])[0]}
                               />

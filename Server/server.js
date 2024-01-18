@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const app = express();
 const dbConnection = require("./Db/db");
 
@@ -18,6 +17,8 @@ app.use("/api/certifications/", require("./Routes/certificationRoute"));
 app.use("/api/users/", require("./Routes/usersRoutes"));
 app.use("/api/certification/questions/", require("./Routes/certificationQuestionRoute"));
 app.use("/api/certification/records/", require("./Routes/certificationRecordRoute"));
+app.use("/api/document/", require("./Routes/pdfRoute"));
+
 //refresh error
 // app.use("/booking/api/cars/", require("./Routes/carsRoutes"));
 // app.use("/editcar/api/cars/", require("./Routes/carsRoutes"));
