@@ -14,7 +14,6 @@ import SingleChoiceQuestion from "./CertificationComponents/SingleChoiceQuestion
 import MultiChoiceQuestion from "./CertificationComponents/MultiChoiceQuestion";
 import TextBoxQuestion from "./CertificationComponents/TextBoxQuestion";
 import FileUploadQuestion from "./CertificationComponents/FileUploadQuestion";
-import { get } from "react-scroll/modules/mixins/scroller";
 import { FaArrowLeft } from 'react-icons/fa';
 
 function FillCertification() {
@@ -131,7 +130,6 @@ function FillCertification() {
       const response = await axios.post("https://agreenably-website-server.onrender.com/api/document/upload", formData);
       const pdfUrl = response.data.pdfUrl;
 
-      // Extract and store relevant information in the review state
       setReview((prevReview) => [
         ...prevReview,
         { question: question, answer: pdfUrl }
@@ -140,7 +138,6 @@ function FillCertification() {
       console.log("questionNumber: ", questionNumber);
       console.log("question: ", question);
       console.log("pdfUrl: ", pdfUrl);
-      // Extract and store relevant information in the answers state
       setAnswers((prevAnswers) => ({
         ...prevAnswers,
         [questionNumber]: { [question]: pdfUrl },

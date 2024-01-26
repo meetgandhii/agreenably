@@ -18,6 +18,7 @@ app.use("/api/users/", require("./Routes/usersRoutes"));
 app.use("/api/certification/questions/", require("./Routes/certificationQuestionRoute"));
 app.use("/api/certification/records/", require("./Routes/certificationRecordRoute"));
 app.use("/api/document/", require("./Routes/pdfRoute"));
+app.use("/api/recommendation/", require("./Routes/recommendationRoute"));
 
 //refresh error
 // app.use("/booking/api/cars/", require("./Routes/carsRoutes"));

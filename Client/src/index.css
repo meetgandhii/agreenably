@@ -105,7 +105,7 @@ p {
   color: #28a745 !important;
 }
 
-.registerAddCertificate, .ant-select-selector {
+.registerAddCertificate .ant-select-selector {
   background-color: #e6e4e4 !important;
 }
 
@@ -395,7 +395,7 @@ ul {
 }
 /* -------------------------------------Admin pages--------------------------------- */
 .ant-form-item-required {
-  color: white !important;
+  color: white;
 }
 /* --------------------------------------Services----------------------------------- */
 section {

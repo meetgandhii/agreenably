@@ -22,9 +22,10 @@ function UserNavigation() {
             </li>
             <li>
                 <img src="/images/Recommendations.png" width="15px" alt="Recommendations" />
-                <h6 className='user-menu'>
-                    Recommendations
-                </h6>
+                <a href='/get-recommendation'>
+                    <h6 className='user-menu'>
+                        Recommendations
+                    </h6></a>
             </li>
             <li>
                 <img src="/images/Manage.png" width="15px" alt="Manage" />

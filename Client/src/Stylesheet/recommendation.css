@@ -1,0 +1,23 @@
+.recommendationMultiple .ant-select-selector {
+    background-color: #fff !important;
+    text-align: left;
+    /* color: ; */
+}
+
+.recommendationMultiple .ant-select-selector .ant-select-selection-overflow {
+    padding: 6px 0;
+    text-align: left;
+}
+
+.agreenably-btn-getInTouch {
+    padding: 10px 20px 10px 20px;
+    background-color: #001CE2;
+    color: #fff;
+    text-align: start;
+    border: 0;
+    border-radius: 5px;
+    margin: 0 5px 5px 5px;
+    display: flex;
+    margin-left: auto;
+
+}
