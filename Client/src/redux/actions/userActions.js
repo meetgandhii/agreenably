@@ -18,7 +18,7 @@ export const userLogin = (reqObj) => async (dispatch) => {
     const lastClickedURL = localStorage.getItem("lastClickedURL");
     const bookingURL = lastClickedURL
         ? lastClickedURL
-        : "/";
+        : "/get-recommendation";
     message.success("Login success");
     dispatch({ type: "LOADING", payload: false });
     setTimeout(() => {

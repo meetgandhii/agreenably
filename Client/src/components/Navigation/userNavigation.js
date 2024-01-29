@@ -29,9 +29,11 @@ function UserNavigation() {
             </li>
             <li>
                 <img src="/images/Manage.png" width="15px" alt="Manage" />
-                <h6 className='user-menu'>
-                    Manage
-                </h6>
+                <a href="/">
+                    <h6 className='user-menu'>
+                        Manage
+                    </h6>
+                </a>
             </li>
         </ul>
     );
