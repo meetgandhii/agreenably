@@ -12,16 +12,16 @@ function Register() {
   const dispatch = useDispatch();
   const [certifications, setCertifications] = useState([]);
 
-  useEffect(() => {
-    fetch("https://agreenably-website-server.onrender.com/api/certifications/getallcertifications")
-      .then((response) => response.json())
-      .then((data) => {
-        setCertifications(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching certifications:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://agreenably-website-server.onrender.com/api/certifications/getallcertifications")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setCertifications(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching certifications:", error);
+  //     });
+  // }, []);
   function onFinish(values) {
     if (
       values.password.length >= 8 &&
@@ -69,7 +69,7 @@ function Register() {
                 className="p-2"
               />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               name="interested_certifications"
               label="Interested Certifications"
               rules={[{ required: true }]}
@@ -85,7 +85,7 @@ function Register() {
                   </Option>
                 ))}
               </Select>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               name="email_address"
               label="Email Address"

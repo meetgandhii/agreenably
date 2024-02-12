@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
     const newuser = new User({
       ...req.body,
       _id: id, 
-      interested_certifications: interestedCertifications,
+      interested_certifications: [],
       completed_certification: [],
       ongoing_certification: []
     });
