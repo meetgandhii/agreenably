@@ -13,7 +13,7 @@ function Register() {
   const [certifications, setCertifications] = useState([]);
 
   // useEffect(() => {
-  //   fetch("http://localhost:4000/api/certifications/getallcertifications")
+  //   fetch("https://agreenably-website-server.onrender.com/api/certifications/getallcertifications")
   //     .then((response) => response.json())
   //     .then((data) => {
   //       setCertifications(data);

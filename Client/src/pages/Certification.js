@@ -31,14 +31,14 @@ function FillCertification() {
   const goToEdit = async () => {
     const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
     try {
-      const getCertificateOptions = await axios.get("http://localhost:4000/api/certification/records/getcertificationrecord", {
+      const getCertificateOptions = await axios.get("https://agreenably-website-server.onrender.com/api/certification/records/getcertificationrecord", {
         params: {
           user_id: user._id,
           certification_id: certification._id
         }
       });
       const dbAnswers = getCertificateOptions.data.certification_response;
-      const response = await axios.post("http://localhost:4000/api/certification/records/addcertificationrecord", {
+      const response = await axios.post("https://agreenably-website-server.onrender.com/api/certification/records/addcertificationrecord", {
         user_id: user._id,
         timestamp: timestamp,
         ongoing: "1",
@@ -46,7 +46,7 @@ function FillCertification() {
         certification_response: dbAnswers
       });
 
-      const updateUserResponse = await axios.put("http://localhost:4000/api/users/begincertificate", {
+      const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/begincertificate", {
         userId: user._id,
         certificateId: certification._id
       });
@@ -127,7 +127,7 @@ function FillCertification() {
       const formData = new FormData();
       formData.append('pdf', file);
 
-      const response = await axios.post("http://localhost:4000/api/document/upload", formData);
+      const response = await axios.post("https://agreenably-website-server.onrender.com/api/document/upload", formData);
       const pdfUrl = response.data.pdfUrl;
 
       setReview((prevReview) => [
@@ -163,7 +163,7 @@ function FillCertification() {
         }));
       });
 
-      const response = await axios.put("http://localhost:4000/api/certification/records/editcertificationrecord", {
+      const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
         user_id: user._id,
         certification_response: answersArray,
         timestamp: timestamp,
@@ -171,7 +171,7 @@ function FillCertification() {
         certification_id: certification._id,
       });
 
-      const updateUserResponse = await axios.put("http://localhost:4000/api/users/submitcertificate", {
+      const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/submitcertificate", {
         userId: user._id,
         certificateId: certification._id
       });
@@ -190,7 +190,7 @@ function FillCertification() {
   useEffect(() => {
     const fetchCertificate = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/certifications/certificate/${id}`);
+        const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${id}`);
         setCertification(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -204,7 +204,7 @@ function FillCertification() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/certification/questions/getallcertificationquestions`);
+        const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certification/questions/getallcertificationquestions`);
         setQuestions(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -240,7 +240,7 @@ function FillCertification() {
               answer,
             }));
           });
-          const response = await axios.put("http://localhost:4000/api/certification/records/editcertificationrecord", {
+          const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
             user_id: user._id,
             certification_response: answersArray,
             timestamp: timestamp,
@@ -271,7 +271,7 @@ function FillCertification() {
   }
   const openPdfInNewTab = async (pdfUrl) => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/document/${pdfUrl}`, { responseType: 'arraybuffer' });
+      const response = await axios.get(`https://agreenably-website-server.onrender.com/api/document/${pdfUrl}`, { responseType: 'arraybuffer' });
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       window.open(url, '_blank');

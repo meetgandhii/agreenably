@@ -22,7 +22,7 @@ function Women_Business_Enterprise_Review() {
     const formDataArray = Object.entries(formData);
     const fetchCertificate = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/api/certifications/certificate/${slug}`);
+            const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${slug}`);
             const fetchedCertification = response.data;
             setCertification(fetchedCertification);
 
@@ -41,7 +41,7 @@ function Women_Business_Enterprise_Review() {
         try {
           
     
-          const response = await axios.put("http://localhost:4000/api/certification/records/editcertificationrecord", {
+          const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
             user_id: user._id,
             certification_response: formData,
             timestamp: timestamp,
@@ -49,7 +49,7 @@ function Women_Business_Enterprise_Review() {
             certification_id: certification._id,
           });
     
-          const updateUserResponse = await axios.put("http://localhost:4000/api/users/submitcertificate", {
+          const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/submitcertificate", {
             userId: user._id,
             certificateId: certification._id
           });

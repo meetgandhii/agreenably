@@ -25,7 +25,7 @@ function Women_Business_Enterprise_Fill() {
     const user = JSON.parse(localStorage.getItem("user"));
     const getAllQuestions = async () => {
         try {
-            const response = await axios.get("http://localhost:4000/api/certification/questions/getallcertificationquestions");
+            const response = await axios.get("https://agreenably-website-server.onrender.com/api/certification/questions/getallcertificationquestions");
             return response.data;
         } catch (error) {
             console.error("Error fetching questions:", error);
@@ -46,7 +46,7 @@ function Women_Business_Enterprise_Fill() {
     useEffect(() => {
         const fetchCertificateRecords = async () => {
             try {
-                const certificationResponse = await axios.get("http://localhost:4000/api/certification/records/getcertificationrecord", {
+                const certificationResponse = await axios.get("https://agreenably-website-server.onrender.com/api/certification/records/getcertificationrecord", {
                     params: {
                         user_id: user._id,
                         certification_id: "65ca9a5286e7f38dadf2200e"
@@ -71,7 +71,7 @@ function Women_Business_Enterprise_Fill() {
 
     const fetchCertificate = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/api/certifications/certificate/${slug}`);
+            const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${slug}`);
             const fetchedCertification = response.data;
             setCertification(fetchedCertification);
 
@@ -226,7 +226,7 @@ function Women_Business_Enterprise_Fill() {
             if (Object.keys(formValues).length > 0) {
                 try {
                     const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
-                    const response = await axios.put("http://localhost:4000/api/certification/records/editcertificationrecord", {
+                    const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
                         user_id: user._id,
                         certification_response: formValues,
                         timestamp: timestamp,

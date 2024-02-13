@@ -20,7 +20,7 @@ function Profile() {
   const [selectedCertificationData, setSelectedCertificationData] = useState([]);
 
   const getCertificationData = async (certificationId) => {
-    const getCertificateOptions = await axios.get("http://localhost:4000/api/certification/records/getcertificationrecord", {
+    const getCertificateOptions = await axios.get("https://agreenably-website-server.onrender.com/api/certification/records/getcertificationrecord", {
       params: {
         user_id: user._id,
         certification_id: certificationId
@@ -57,7 +57,7 @@ function Profile() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/users/profile/${user._id}`
+          `https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`
         );
         console.log(response.data[0]);
         setUserData(response.data[0]);
@@ -97,7 +97,7 @@ function Profile() {
     console.log(editedPassword);
     try {
       await axios.put(
-        `http://localhost:4000/api/users/profile/${user._id}`,
+        `https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`,
         {
           name: editedName,
           password: editedPassword,
