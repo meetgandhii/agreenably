@@ -29,8 +29,8 @@ const recommendationSchema = new mongoose.Schema(
                 { type: "String" }
             ],
     },
-    { collection: "Recommendation_Records" }
+    { collection: "Recommended_Certifications" }
 
 );
-const recommendationModel = mongoose.model("Recommendation_Records", recommendationSchema);
+const recommendationModel = mongoose.model("Recommended_Certifications", recommendationSchema);
 module.exports = recommendationModel;

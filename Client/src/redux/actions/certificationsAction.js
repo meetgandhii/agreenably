@@ -6,7 +6,7 @@ export const getAllCertifications = () => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      "https://agreenably-website-server.onrender.com/api/certifications/getallcertifications"
+      "http://localhost:4000/api/certifications/getallcertifications"
     );
 
     console.log("Certifications Response:", response.data);
@@ -24,7 +24,7 @@ export const getAllCertifications = () => async (dispatch) => {
 
 //   try {
 //     await axios.post(
-//       "https://agreenably-website-server.onrender.com/api/cars/addcar",
+//       "http://localhost:4000/api/cars/addcar",
 //       reqObj
 //     );
 
@@ -44,7 +44,7 @@ export const getAllCertifications = () => async (dispatch) => {
 
 //   try {
 //     await axios.put(
-//       "https://agreenably-website-server.onrender.com/api/cars/editcar",
+//       "http://localhost:4000/api/cars/editcar",
 //       reqObj
 //     );
 
@@ -64,7 +64,7 @@ export const getAllCertifications = () => async (dispatch) => {
 
 //   try {
 //     await axios.post(
-//       "https://agreenably-website-server.onrender.com/api/cars/deletecar",
+//       "http://localhost:4000/api/cars/deletecar",
 //       reqObj
 //     );
 

@@ -15,8 +15,8 @@ const getInTouchSchema = new mongoose.Schema(
             type: "String"
         },
     },
-    { collection: "Get_In_Touch_Response" }
+    { collection: "Get_In_Touch" }
 
 );
-const getInTouchModel = mongoose.model("Get_In_Touch_Response", getInTouchSchema);
+const getInTouchModel = mongoose.model("Get_In_Touch", getInTouchSchema);
 module.exports = getInTouchModel;

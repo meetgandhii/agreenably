@@ -67,7 +67,16 @@ const certificationSchema = new mongoose.Schema(
         },
         geo_scope: {
             type: "String"
-        }
+        },
+        slug: {
+            type: "String"
+        },
+        "questions-in-cert": [{
+            type: "String"
+        }],
+        workflow: [{
+            type: "String"
+        }],
     },
     { collection: "Certifications" }
 

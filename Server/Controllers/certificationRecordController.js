@@ -3,8 +3,6 @@ const Certification_Record = require("../Models/certificationRecordModel");
 exports.addCertificationRecord = async (req, res) => {
   try {
     const { user_id, certification_id } = req.body;
-
-    // Check if a record already exists for the given user_id and certification_id
     const existingRecord = await Certification_Record.findOne({
       user_id,
       certification_id,
@@ -18,7 +16,6 @@ exports.addCertificationRecord = async (req, res) => {
       await existingRecord.save();
       res.send("Certification record updated successfully");
     } else {
-      // If no record exists
       const newCertificationRecord = new Certification_Record({
         ...req.body,
       });
@@ -42,12 +39,12 @@ exports.editCertificationRecord = async (req, res) => {
 
     if (existingRecord) {
       existingRecord.certification_response = req.body.certification_response;
-      existingRecord.ongoing = '0';
+      existingRecord.ongoing = req.body.ongoing;
       existingRecord.timestamp = req.body.timestamp;
 
       await existingRecord.save();
       res.send("Certification record updated successfully");
-    } 
+    }
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -59,9 +56,9 @@ exports.getCertificationRecord = async (req, res) => {
 
     // Find the certification record for the specified user and certification ID
     const existingRecord = await Certification_Record.findOne({
-      user_id,
-      certification_id,
-    }, 
+      user_id: user_id,
+      certification_id: certification_id,
+    },
     );
 
     if (existingRecord) {

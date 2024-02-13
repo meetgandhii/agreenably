@@ -20,13 +20,14 @@ function Profile() {
   const [selectedCertificationData, setSelectedCertificationData] = useState([]);
 
   const getCertificationData = async (certificationId) => {
-    const getCertificateOptions = await axios.get("https://agreenably-website-server.onrender.com/api/certification/records/getcertificationrecord", {
+    const getCertificateOptions = await axios.get("http://localhost:4000/api/certification/records/getcertificationrecord", {
       params: {
         user_id: user._id,
         certification_id: certificationId
       }
     });
     const dbAnswers = getCertificateOptions.data.certification_response;
+    console.log("!!", dbAnswers)
     setSelectedCertificationData(dbAnswers);
   }
 
@@ -56,7 +57,7 @@ function Profile() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`
+          `http://localhost:4000/api/users/profile/${user._id}`
         );
         console.log(response.data[0]);
         setUserData(response.data[0]);
@@ -96,7 +97,7 @@ function Profile() {
     console.log(editedPassword);
     try {
       await axios.put(
-        `https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`,
+        `http://localhost:4000/api/users/profile/${user._id}`,
         {
           name: editedName,
           password: editedPassword,
@@ -313,11 +314,11 @@ function Profile() {
         footer={null}
       >
         {console.log("selectedCertification: ", selectedCertification)}
-        {selectedCertificationData.map((item, index) => (
+        {Object.entries(selectedCertificationData).map(([key, value], index) => (
           <div key={index}>
             <div className="reviewBox">
-              <h6 className="questionReview">{`Question ${index + 1}`}: {item.question}</h6>
-              <h6 className="answerReview">{`Answer ${index + 1}`}: {item.answer}</h6>
+              <h6 className="questionReview">{`Question ${index + 1}`}: {key}</h6>
+              <h6 className="answerReview">{`Answer ${index + 1}`}: {value}</h6>
             </div>
           </div>
         ))}

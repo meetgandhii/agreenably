@@ -12,7 +12,8 @@ exports.getAllcertifications = async (req, res) => {
 exports.getCertificate = async (req, res) => {
   try {
     const { id } = req.params;
-    const certificate = await Certification.findById(id);
+    const certificate = await Certification.findOne({ slug: id });
+
 
     if (!certificate) {
       return res.status(404).json({ message: 'Certificate not found' });

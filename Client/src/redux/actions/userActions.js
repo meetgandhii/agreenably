@@ -9,16 +9,14 @@ export const userLogin = (reqObj) => async (dispatch) => {
     console.log(reqObj);
 
     const response = await axios.post(
-      "https://agreenably-website-server.onrender.com/api/users/login",
+      "http://localhost:4000/api/users/login",
       reqObj
     );
-    
+
     const { name, _id } = response.data;
     localStorage.setItem("user", JSON.stringify({ name, _id }));
-    const lastClickedURL = localStorage.getItem("lastClickedURL");
-    const bookingURL = lastClickedURL
-        ? lastClickedURL
-        : "/get-recommendation";
+    
+    const bookingURL = true ? "/get-recommendation" : "/"
     message.success("Login success");
     dispatch({ type: "LOADING", payload: false });
     setTimeout(() => {
@@ -39,7 +37,7 @@ export const userRegister = (reqObj) => async (dispatch) => {
 
   try {
     const response = await axios.post(
-      "https://agreenably-website-server.onrender.com/api/users/register",
+      "http://localhost:4000/api/users/register",
       reqObj
     );
     message.success("Registration successfull");

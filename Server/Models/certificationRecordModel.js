@@ -19,22 +19,17 @@ const certificationRecordSchema = new mongoose.Schema(
             type: "String",
 
         },
-        certification_response: [
-            {
-                question: {
-                    type: "String"
-                },
-                answer: {
-                    type: mongoose.Schema.Types.Mixed
-                }
-            }
-        ]
+        certification_response: {
+            type: Map,
+            of: mongoose.Schema.Types.Mixed,
+        }
+        
     },
     {
-        collection: "Certification_Records",
+        collection: "Certification_Response",
         versionKey: false
     }
 
 );
-const certificationRecordModel = mongoose.model("Certification_Records", certificationRecordSchema);
+const certificationRecordModel = mongoose.model("Certification_Response", certificationRecordSchema);
 module.exports = certificationRecordModel;

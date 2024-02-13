@@ -6,7 +6,7 @@ export const bookCar = (reqObj) => async (dispatch) => {
   try {
     console.log(reqObj);
     await axios.post(
-      "https://agreenably-website-server.onrender.com/api/bookings/bookcar",
+      "http://localhost:4000/api/bookings/bookcar",
       reqObj
     );
 
@@ -27,7 +27,7 @@ export const getAllBookings = () => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      "https://agreenably-website-server.onrender.com/api/bookings/getallbookings"
+      "http://localhost:4000/api/bookings/getallbookings"
     );
     dispatch({ type: "GET_ALL_BOOKINGS", payload: response.data });
     dispatch({ type: "LOADING", payload: false });

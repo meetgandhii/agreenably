@@ -4,19 +4,19 @@ import axios from "axios";
 import moment from "moment";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import DefaultLayout from "../components/DefaultLayout";
-import Spinner from "../components/Spinner";
-import '../Stylesheet/certifications.css';
-import CertificateNav from "../components/CertificateNav";
-import CertificateNav2 from "../components/CertificateNav2";
+import DefaultLayout from "../../components/DefaultLayout";
+import Spinner from "../../components/Spinner";
+import '../../Stylesheet/certifications.css';
+import CertificateNav from "../../components/CertificateNav";
+import CertificateNav2 from "../../components/CertificateNav2";
 import { useNavigate } from "react-router-dom";
-import SingleChoiceQuestion from "./CertificationComponents/SingleChoiceQuestion";
-import MultiChoiceQuestion from "./CertificationComponents/MultiChoiceQuestion";
-import TextBoxQuestion from "./CertificationComponents/TextBoxQuestion";
-import FileUploadQuestion from "./CertificationComponents/FileUploadQuestion";
+import SingleChoiceQuestion from "../CertificationComponents/SingleChoiceQuestion";
+import MultiChoiceQuestion from "../CertificationComponents/MultiChoiceQuestion";
+import TextBoxQuestion from "../CertificationComponents/TextBoxQuestion";
+import FileUploadQuestion from "../CertificationComponents/FileUploadQuestion";
 import { FaArrowLeft } from 'react-icons/fa';
 
-function FillCertification() {
+function Usda_Organic() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.alertsReducer);
@@ -961,4 +961,4 @@ function FillCertification() {
   );
 }
 
-export default FillCertification;
+export default Usda_Organic;

@@ -2,7 +2,6 @@ import React from "react";
 import { Route, BrowserRouter, Routes, Navigate, useNavigate } from "react-router-dom";
 import "./App.css";
 import "antd/dist/antd.css";
-import logo from "./logo.svg";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,14 +13,16 @@ import AdminHome from "./pages/AdminHome";
 import Contact from "./components/Contact";
 import Profile from "./pages/Profile";
 import Recommendation from "./pages/Recommendations.js";
-
+import Usda_Organic from "./pages/Certifications/usda-organic.js";
+import Women_Business_Enterprise from "./pages/Certifications/women-business-enterprise.js";
+import Women_Business_Enterprise_Fill from "./pages/Certifications/Edit/women-business-enterprise-fill.js";
+import Women_Business_Enterprise_Review from "./pages/Certifications/Review/women-business-enterprise-review.js";
 function App() {
   function ProtectedRoute({ children }) {
     const auth = localStorage.getItem("user");
-    const navigate = useNavigate();
 
     if (!auth) {
-      localStorage.setItem("lastClickedURL", window.location.pathname);
+      
       return <Navigate to="/login" />;
     }
 
@@ -39,7 +40,10 @@ function App() {
           <Route path="/register" exact element={<Register />} />
           <Route path="/certification" exact element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/profile/:username" exact element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/certification/:id" exact element={<ProtectedRoute><FillCertification /></ProtectedRoute>} />
+          <Route path="/certification/usda-organic" exact element={<ProtectedRoute><Usda_Organic /></ProtectedRoute>} />
+          <Route path="/certification/women-business-enterprise" exact element={<ProtectedRoute><Women_Business_Enterprise /></ProtectedRoute>} />
+          <Route path="/certification/women-business-enterprise/fill-questionnaire" exact element={<ProtectedRoute><Women_Business_Enterprise_Fill /></ProtectedRoute>} />
+          <Route path="/certification/women-business-enterprise/fill-questionnaire/review" exact element={<ProtectedRoute><Women_Business_Enterprise_Review /></ProtectedRoute>} />
           <Route path="/userbookings" exact element={<ProtectedRoute><UserBooking /></ProtectedRoute>} />
           <Route path="/userbookings/:id" exact element={<ProtectedRoute><UserBooking /></ProtectedRoute>} />
           <Route path="/addcar" exact element={<ProtectedRoute><AddCar /></ProtectedRoute>} />

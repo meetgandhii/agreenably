@@ -64,7 +64,7 @@ const Recommendation = () => {
                 return; // Do not proceed if any required field is not filled
             }
             // Send the email to the new 'Get in Touch' API endpoint
-            const response = await axios.post('https://agreenably-website-server.onrender.com/api/recommendation/getintouch', {
+            const response = await axios.post('http://localhost:4000/api/recommendation/getintouch', {
                 userId: user._id,
                 timeStamp: timestamp, email, website
             });
@@ -93,7 +93,7 @@ const Recommendation = () => {
                     preferences: values.preferences.join(', '),
                 }
             );
-            const response = await axios.post("https://agreenably-website-server.onrender.com/api/recommendation/addrecommendation", {
+            const response = await axios.post("http://localhost:4000/api/recommendation/addrecommendation", {
                 userId: user._id,
                 timeStamp: timestamp,
                 ...values,

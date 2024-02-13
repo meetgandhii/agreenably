@@ -4,11 +4,12 @@ const pdfSchema = new mongoose.Schema({
     title: String,
     content: Buffer,
     fileName: String,
+    q_id: String
 },
 {
-    collection: "Pdf_Records",
+    collection: "PDF_Response",
     versionKey: false
 });
 
-const PdfModel = mongoose.model('Pdf_Records', pdfSchema);
+const PdfModel = mongoose.model('PDF_Response', pdfSchema);
 module.exports = PdfModel; // Export the PdfModel, not pdfSchema

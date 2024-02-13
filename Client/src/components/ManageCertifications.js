@@ -13,7 +13,7 @@ function ManageCertifications(props) {
     const user = JSON.parse(localStorage.getItem("user"));
     const getUserDetails = async (userId) => {
         try {
-            const response = await axios.get(`https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`);
+            const response = await axios.get(`http://localhost:4000/api/users/profile/${user._id}`);
             setUserDetails(response.data);
             console.log("User Details:", response.data);
         } catch (error) {
@@ -35,6 +35,22 @@ function ManageCertifications(props) {
     }, []);
 
     useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:4000/api/users/profile/${user._id}`
+                );
+                console.log(response.data[0]);
+
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    useEffect(() => {
         if (userDetails && userDetails[0]?.interested_certifications && Array.isArray(certifications)) {
             const userInterestedCertifications = userDetails[0].interested_certifications;
             const filteredCertifications = certifications.filter(certification =>
@@ -48,12 +64,103 @@ function ManageCertifications(props) {
         setSelectedCertification(certification);
         setVisiblePopup(true);
     };
-
+    const handleCertificationChange = (certification) => {
+        setEditedInterestedCertifications((prevSelected) =>
+            prevSelected.includes(certification)
+                ? prevSelected.filter((item) => item !== certification)
+                : [...prevSelected, certification]
+        );
+    };
     const handlePopupCancel = () => {
         setVisiblePopup(false);
     };
+
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/api/users/profile/${user._id}`
+        );
+        console.log(response.data[0]);
+        setUserData(response.data[0]);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+    const [editMode, setEditMode] = useState(false);
+    const [editedInterestedCertifications, setEditedInterestedCertifications] = useState([]);
+    useEffect(() => {
+        const initialEditedInterestedCertifications = totalCertifications.map(certification => certification._id);
+        setEditedInterestedCertifications(initialEditedInterestedCertifications);
+      }, [totalCertifications]);
+    const saveThis = async () => {
+        try {
+            await axios.put(
+                `http://localhost:4000/api/users/profile/${user._id}`,
+                {
+                    interested_certifications: editedInterestedCertifications,
+                }
+            );
+            setEditMode(!editMode)
+            window.location.reload();
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    }
     return (
-        <div className="managecertifications" style={{ width: "100%", height: totalCertifications.length === 1 ? "100vh" : "auto" }}>
+        <div className="managecertifications" style={{ width: "100%", height: totalCertifications.length < 2 ? "100vh" : "auto" }}>
+            <table>
+                <tr>
+                    <td width={"30%"}>
+                        <label className="labelStyleProfile">Want to add more certifications?</label>
+                    </td>
+                    <td>
+                        {editMode ? (
+                            <>
+                                {certifications.filter((certification) => !userData.completed_certification.includes(certification._id)).map((certification) => {
+                                    console.log("certification._id: ", certification._id);
+                                    console.log("total cert: ", totalCertifications);
+                                    return (
+                                        <span key={certification.name} className="interested_certifications">
+                                            <input
+                                                type="checkbox"
+                                                id={`certification-${certification.name}`}
+                                                checked={editedInterestedCertifications.includes(certification._id)}
+                                                onChange={() => handleCertificationChange(certification._id)}
+                                            />
+                                            <label className="interested_certifications_label" htmlFor={`certification-${certification.name}`}>
+                                                {certification.name}
+                                            </label>
+                                        </span>
+                                    );
+                                })}
+
+                                <button onClick={saveThis}>
+                                    Save
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <input
+                                    value={totalCertifications.map((certification) => certification.name).join(', ')}
+                                    readOnly
+                                    className="readOnlyInputStyleProfile"
+                                    style={{ width: "50%" }}
+                                />
+                                <button onClick={() => setEditMode(!editMode)}>
+                                    Add more certifications
+                                </button>
+                            </>
+                        )}
+
+
+                    </td>
+                </tr>
+            </table>
             <h1 className="heading_managecertifications">Manage Certifications</h1>
             <Row gutter={[16, 16]}>
                 {totalCertifications.map((certification, index) => {
@@ -69,7 +176,7 @@ function ManageCertifications(props) {
                                         )}
                                     </div>
                                     <div className="certification-details">
-                                        <Link className="certification-info" to={`/certification/${certification._id}`}>
+                                        <Link className="certification-info" to={`/certification/${certification.slug}`}>
                                             <h1 className="certification-name">
                                                 {certification.name}
                                             </h1>
@@ -104,7 +211,7 @@ function ManageCertifications(props) {
 
                                             {/* map li for displaying all, use .length for if else in more button */}
                                             <li className="todo-news-item">
-                                                Update Supplier List for Leaping Bunny
+                                                Update Supplier List for Leaping Bunny Leaping Bunny
                                             </li>
                                             <li className="todo-news-item">
                                                 Update Supplier List for Leaping Bunny
