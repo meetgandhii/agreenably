@@ -12,6 +12,8 @@ import { FaArrowLeft } from 'react-icons/fa';
 import './style.css'
 import { useNavigate } from "react-router-dom";
 
+const { Dragger } = Upload;
+
 function Women_Business_Enterprise_Fill() {
     const slug = 'women-business-enterprise'
     const navigate = useNavigate();
@@ -106,12 +108,32 @@ function Women_Business_Enterprise_Fill() {
 
     const [formValues, setFormValues] = useState({});
 
-    const handleInputChange = (question, value) => {
+    const handleInputChange = async (question, value) => {
         if (question.type === 'file') {
-            setFormValues(prevValues => ({
-                ...prevValues,
-                [question._id]: value.name,
-            }));
+            const file = value;
+            const fileName = file.name;
+            const uploadData = {
+                user_id: user._id,
+                certification_id: "65ca9a5286e7f38dadf2200e",
+                question_id: question._id,
+            };
+            const formData = new FormData();
+            formData.append('pdf', file);
+            Object.entries(uploadData).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+            try {
+                const response = await axios.post("https://localhost:4000/api/document/upload", formData);
+                
+                console.log("File response is: ", response);
+                setFormValues(prevValues => ({
+                    ...prevValues,
+                    [question._id]: fileName,
+                }));
+            } catch (error) {
+                console.error("Error uploading file:", error);
+            }
+            
         } else {
             setFormValues(prevValues => ({
                 ...prevValues,
@@ -244,7 +266,7 @@ function Women_Business_Enterprise_Fill() {
         updateCertificationRecord();
     }, [formValues, user, certification]);
     const goBackToCertificationPage = () => {
-        window.location.href = "http://localhost:3000/certification/women-business-enterprise"
+        window.location.href = "/certification/women-business-enterprise"
     }
 
     return (

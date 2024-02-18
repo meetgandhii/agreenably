@@ -60,7 +60,7 @@ function Women_Business_Enterprise_Review() {
       };
       const user = JSON.parse(localStorage.getItem("user"));
     const backToCertificate = () => {
-        window.location.href = "http://localhost:3000/certification/women-business-enterprise/fill-questionnaire"
+        window.location.href = "/certification/women-business-enterprise/fill-questionnaire"
     }
     const getQuestionContent = (questionId) => {
         const question = filteredQuestions.find((q) => q._id === questionId);

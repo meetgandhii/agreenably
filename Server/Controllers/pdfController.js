@@ -21,6 +21,7 @@ exports.getPdf = async (req, res) => {
 }
 
 exports.uploadPdf = (req, res) => {
+    console.log("called upload")
     upload(req, res, async function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(400).json({ success: false, message: err.message });
@@ -31,20 +32,32 @@ exports.uploadPdf = (req, res) => {
         try {
             const fileContent = req.file.buffer;
             const fileName = req.file.originalname;
-        
-            const newPdf = new PdfModel({
-              title: req.body.title,
-              content: fileContent,
-              fileName: fileName,
-            });
-        
-            const savedPdf = await newPdf.save();
-        
-            const pdfUrl = `/pdf/${savedPdf._id}`;
-        
-            res.json({ success: true, message: 'PDF uploaded successfully', pdfUrl: pdfUrl });
+            const { user_id, certification_id, question_id } = req.body;
+
+            // Check if an entry with the specified user_id, certification_id, and question_id exists
+            const existingPdf = await PdfModel.findOne({ user_id, certification_id, question_id });
+
+            if (existingPdf) {
+                // Update the existing entry
+                existingPdf.content = fileContent;
+                existingPdf.fileName = fileName;
+                await existingPdf.save();
+                res.json({ success: true, message: 'PDF updated successfully', pdfUrl: `/pdf/${existingPdf._id}` });
+            } else {
+                // Create a new entry
+                const newPdf = new PdfModel({
+                    content: fileContent,
+                    fileName,
+                    user_id,
+                    certification_id,
+                    question_id
+                });
+
+                const savedPdf = await newPdf.save();
+                res.json({ success: true, message: 'PDF uploaded successfully', pdfUrl: `/pdf/${savedPdf._id}` });
+            }
         } catch (error) {
             res.status(500).json({ success: false, error: error.message });
         }
     });
-}
+};

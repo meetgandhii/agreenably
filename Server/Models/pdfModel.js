@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
 const pdfSchema = new mongoose.Schema({
-    title: String,
     content: Buffer,
     fileName: String,
-    q_id: String
+    question_id: String,
+    certification_id: String,
+    user_id: String
 },
 {
     collection: "PDF_Response",
@@ -12,4 +13,4 @@ const pdfSchema = new mongoose.Schema({
 });
 
 const PdfModel = mongoose.model('PDF_Response', pdfSchema);
-module.exports = PdfModel; // Export the PdfModel, not pdfSchema
+module.exports = PdfModel;
