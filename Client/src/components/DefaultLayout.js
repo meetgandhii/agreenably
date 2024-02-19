@@ -27,7 +27,7 @@ function DefaultLayout(props) {
     fetchUserData();
   }, []);
   const redirectToProfile = () => {
-    navigate(`/profile/${user._id}`);
+    navigate(`/profile/my-profile`);
   };
   return (
     <div className="d-flex">

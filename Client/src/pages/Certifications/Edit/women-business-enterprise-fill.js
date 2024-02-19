@@ -123,7 +123,7 @@ function Women_Business_Enterprise_Fill() {
                 formData.append(key, value);
             });
             try {
-                const response = await axios.post("https://localhost:4000/api/document/upload", formData);
+                const response = await axios.post("https://agreenably-website-server.onrender.com/api/document/upload", formData);
                 
                 console.log("File response is: ", response);
                 setFormValues(prevValues => ({
@@ -166,7 +166,29 @@ function Women_Business_Enterprise_Fill() {
         }
         return false;
     };
-
+    const getPdfUrl = async (certification_id, user_id, question_id) => {
+        const startUrl = "http://localhost:4000/api/document/pdf/";
+    
+        try {
+            const response = await axios.get("https://agreenably-website-server.onrender.com/api/document/get_id", {
+                params: {
+                    user_id: user_id,
+                    certification_id: certification_id,
+                    question_id: question_id
+                }
+            });
+    
+            const endUrl = response.data.pdfId;
+            const pdf_url = startUrl + endUrl;
+            console.log("pdf_url: ", pdf_url);
+            return pdf_url;
+        } catch (error) {
+            console.error("Error fetching PDF ID:", error.message);
+            // Handle the error, e.g., return a default URL or throw an error
+            return "http://localhost:4000/default-pdf-url";
+        }
+    };
+    
     const renderQuestionInput = (question, index) => {
 
         const isVisibleCheck = isVisible(question, index);
@@ -236,6 +258,7 @@ function Women_Business_Enterprise_Fill() {
                             />
                             Choose a File
                         </label>
+                        
                         <p>Choosen file: {answer}</p>
                     </div>
                 );

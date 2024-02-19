@@ -30,7 +30,7 @@ function CertificateNav(props) {
         fetchUserData();
     }, []);
     const redirectToProfile = () => {
-        navigate(`/profile/${user._id}`);
+        navigate(`/profile/my-profile`);
     };
 
     return (

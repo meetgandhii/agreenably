@@ -66,6 +66,46 @@ function Women_Business_Enterprise_Review() {
         const question = filteredQuestions.find((q) => q._id === questionId);
         return question ? question.content : "Question not found";
     };
+    
+    const [pdfUrls, setPdfUrls] = useState({});
+    useEffect(() => {
+        const getPdfUrl = async (certification_id, user_id, question_id) => {
+            const startUrl = "https://agreenably-website-server.onrender.com/api/document/pdf/";
+
+            try {
+                const response = await axios.get("https://agreenably-website-server.onrender.com/api/document/get_id", {
+                    params: {
+                        user_id: user_id,
+                        certification_id: certification_id,
+                        question_id: question_id
+                    }
+                });
+
+                const endUrl = response.data.pdfId;
+                const pdf_url = startUrl + endUrl;
+                console.log("pdf_url: ", pdf_url);
+                return pdf_url;
+            } catch (error) {
+                console.error("Error fetching PDF ID:", error.message);
+                return ""; // Return an empty string if PDF is not available
+            }
+        };
+
+        // Create an object of question_id: pdf_url
+        const pdfUrlsObject = {};
+        const pdfUrlPromises = Object.keys(formData).map(async (question_id) => {
+            const pdf_url = await getPdfUrl("65ca9a5286e7f38dadf2200e", user._id, question_id);
+            pdfUrlsObject[question_id] = pdf_url;
+        });
+
+        // Update the state when all PDF URLs are fetched
+        Promise.all(pdfUrlPromises).then(() => {
+            setPdfUrls(pdfUrlsObject);
+        });
+
+    }, [formData, user._id]);
+
+
     return (
         <div className="booking-car-container">
             <CertificateNav2 />
@@ -85,8 +125,12 @@ function Women_Business_Enterprise_Review() {
                     {Object.entries(formData).map(([key, value], index) => (
                         <div className="questionStyle" key={index}>
                         <h6 className="question">{`Question ${index + 1}`}: {getQuestionContent(key)}</h6>
-                        <h6 className="question">{`Answer ${index + 1}`}: {JSON.stringify(value)}</h6>
                         
+                        {pdfUrls[key] ? (
+                                <h6 className="question">{`Answer ${index + 1}`}: <a href ={pdfUrls[key]}>{JSON.stringify(value)}</a></h6>
+                            ) : (
+                                <h6 className="question">{`Answer ${index + 1}`}: {JSON.stringify(value)}</h6>
+                            )}
                         <Divider />
                     </div>
                 ))}

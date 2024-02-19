@@ -7,6 +7,48 @@ import '../Stylesheet/profile.css'
 import '../Stylesheet/certifications.css';
 import axios from "axios";
 import { getAllCertifications } from "../redux/actions/certificationsAction";
+
+const usePdfUrls = (certificationId, user_id, selectedCertificationData) => {
+  const [pdfUrls, setPdfUrls] = useState({});
+
+  useEffect(() => {
+    const getPdfUrl = async (question_id) => {
+      const startUrl = "https://agreenably-website-server.onrender.com/api/document/pdf/";
+
+      try {
+        const response = await axios.get("https://agreenably-website-server.onrender.com/api/document/get_id", {
+          params: {
+            user_id: user_id,
+            certification_id: certificationId,
+            question_id: question_id
+          }
+        });
+
+        const endUrl = response.data.pdfId;
+        const pdf_url = startUrl + endUrl;
+        return pdf_url;
+      } catch (error) {
+        console.error("Error fetching PDF ID:", error.message);
+      }
+    };
+
+    // Create an object of question_id: pdf_url
+    const pdfUrlsObject = {};
+    const pdfUrlPromises = Object.keys(selectedCertificationData).map(async (question_id) => {
+      const pdf_url = await getPdfUrl(question_id);
+      pdfUrlsObject[question_id] = pdf_url;
+    });
+
+    // Update the state when all PDF URLs are fetched
+    Promise.all(pdfUrlPromises).then(() => {
+      setPdfUrls(pdfUrlsObject);
+    });
+
+  }, [certificationId, selectedCertificationData, user_id]);
+
+  return pdfUrls;
+};
+
 function Profile() {
   const user = JSON.parse(localStorage.getItem("user"));
   const [userData, setUserData] = useState(null);
@@ -27,9 +69,10 @@ function Profile() {
       }
     });
     const dbAnswers = getCertificateOptions.data.certification_response;
-    console.log("!!", dbAnswers)
     setSelectedCertificationData(dbAnswers);
   }
+
+  const pdfUrls = usePdfUrls(selectedCertification?._id, user._id, selectedCertificationData);
 
   const toggleReadMore = (certification) => {
     setSelectedCertification(certification);
@@ -89,7 +132,36 @@ function Profile() {
     setEditedCompanyName(userData.company_name);
     setEditedInterestedCertifications([...userData.interested_certifications]);
   };
+  const getAllQuestions = async () => {
+    try {
+      const response = await axios.get("https://agreenably-website-server.onrender.com/api/certification/questions/getallcertificationquestions");
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+      throw error;
+    }
+  };
 
+  const [allQuestions, setAllQuestions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const questions = await getAllQuestions();
+        setAllQuestions(questions);
+      } catch (error) {
+        // Handle error if needed
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  const getQuestionContent = (questionId) => {
+    const question = allQuestions.find((q) => q._id === questionId);
+    return question ? question.content : "Question not found";
+  };
   const handleSave = async () => {
     console.log(editedInterestedCertifications);
     console.log(editedCompanyName);
@@ -119,6 +191,7 @@ function Profile() {
       console.error("Error updating user data:", error);
     }
   };
+
 
   return (
     <div className="booking-car-container">
@@ -317,8 +390,12 @@ function Profile() {
         {Object.entries(selectedCertificationData).map(([key, value], index) => (
           <div key={index}>
             <div className="reviewBox">
-              <h6 className="questionReview">{`Question ${index + 1}`}: {key}</h6>
-              <h6 className="answerReview">{`Answer ${index + 1}`}: {value}</h6>
+              <h6 className="questionReview">{`Question ${index + 1}`}: {getQuestionContent(key)}</h6>
+              {pdfUrls[key] ? (
+                <h6 className="answerReview">{`Answer ${index + 1}`}: <a href={pdfUrls[key]}>{JSON.stringify(value)}</a></h6>
+              ) : (
+                <h6 className="answerReview">{`Answer ${index + 1}`}: {JSON.stringify(value)}</h6>
+              )}
             </div>
           </div>
         ))}
