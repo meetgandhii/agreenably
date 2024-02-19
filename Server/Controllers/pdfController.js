@@ -1,8 +1,8 @@
 const PdfModel = require("../Models/pdfModel");
 const multer = require('multer');
 
-const storage = multer.memoryStorage(); 
-const upload = multer({ storage: storage }).single('pdf'); 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage }).single('pdf');
 
 exports.getPdf = async (req, res) => {
     try {
@@ -60,4 +60,22 @@ exports.uploadPdf = (req, res) => {
             res.status(500).json({ success: false, error: error.message });
         }
     });
+};
+
+exports.getPdfId = async (req, res) => {
+    try {
+        const { user_id, certification_id, question_id } = req.body;
+        const pdfEntry = await PdfModel.findOne({ user_id, certification_id, question_id });
+
+        if (pdfEntry) {
+            pdfId = pdfEntry._id;
+            res.json({ success: true, pdfId});
+        } else {
+            res.status(404).json({ success: false, message: "PDF entry not found" });
+        }
+    } catch (error) {
+        console.error("Error fetching PDF ID:", error.message);
+        // Handle the error, e.g., return an error response
+        res.status(500).json({ success: false, error: error.message });
+    }
 };
