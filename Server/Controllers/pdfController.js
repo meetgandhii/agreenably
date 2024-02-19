@@ -63,8 +63,11 @@ exports.uploadPdf = (req, res) => {
 };
 
 exports.getPdfId = async (req, res) => {
+    console.log("hit at getpdfid");
+    console.log("Received parameters:", req.query);
+
     try {
-        const { user_id, certification_id, question_id } = req.body;
+        const { user_id, certification_id, question_id } = req.query;
         const pdfEntry = await PdfModel.findOne({ user_id, certification_id, question_id });
 
         if (pdfEntry) {
