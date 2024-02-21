@@ -89,7 +89,7 @@ function Women_Business_Enterprise_Fill() {
         fetchCertificate();
     }, []);
 
-    const questions = filteredQuestions || [];
+    const questions = (filteredQuestions || []).sort((a, b) => a.index - b.index);
     const questions_no_heading = questions.filter(question => question.heading === "No Heading");
     const questions_business_lookup = questions.filter(question => question.heading === "Business Lookup");
     const questions_business_information = questions.filter(question => question.heading === "Business Information");
