@@ -94,19 +94,21 @@ function Women_Owned_Small_Businesses_Fill() {
     }, []);
 
     const questions = (filteredQuestions || []).sort((a, b) => a.index - b.index);
-    const questions_women_owned = questions.filter(question => question.heading === "Women-owned Small Businesses (wosb) Notice");
-    const questions_eligibility_requirements = questions.filter(question => question.heading === "Eligibility Requirements");
-    const questions_registration = questions.filter(question => question.heading === "Registration");
-    const questions_general_information_status = questions.filter(question => question.heading === "General Information Section Status");
-    const questions_real_estate = questions.filter(question => question.heading === "Real Estate");
-    const questions_business_credit_references = questions.filter(question => question.heading === "Business/credit References");
-    const questions_ownership_management_status = questions.filter(question => question.heading === "Ownership / Management Section Status");
-    const questions_additional_information_status = questions.filter(question => question.heading === "Additional Information Section Status");
-    const questions_wosb_certification_status = questions.filter(question => question.heading === "WOSB Certification Section Status");
-    const questions_corporation_documents = questions.filter(question => question.heading === "Corporation Documents");
-    const questions_sole_proprietorship_documents = questions.filter(question => question.heading === "Sole Proprietorship Documents");
-    const questions_partnership_documents = questions.filter(question => question.heading === "Partnership Documents");
-    const questions_llc_documents = questions.filter(question => question.heading === "LLC Documents");
+    const questions_women_owned = questions.filter(question => question.heading === "Women-owned Small Businesses (wosb) Notice").sort((a, b) => a.index - b.index);
+    const questions_eligibility_requirements = questions.filter(question => question.heading === "Eligibility Requirements").sort((a, b) => a.index - b.index);
+    const questions_registration = questions.filter(question => question.heading === "Registration").sort((a, b) => a.index - b.index);
+    const questions_general_information_status = questions.filter(question => question.heading === "General Information Section Status").sort((a, b) => a.index - b.index);
+    const questions_real_estate = questions.filter(question => question.heading === "Real Estate").sort((a, b) => a.index - b.index);
+    const questions_business_credit_references = questions.filter(question => question.heading === "Business/credit References").sort((a, b) => a.index - b.index);
+    const questions_ownership_management_status = questions.filter(question => question.heading === "Ownership / Management Section Status").sort((a, b) => a.index - b.index);
+    const questions_additional_information_status = questions.filter(question => question.heading === "Additional Information Section Status").sort((a, b) => a.index - b.index);
+    const questions_wosb_certification_status = questions.filter(question => question.heading === "WOSB Certification Section Status").sort((a, b) => a.index - b.index);
+    const questions_corporation_documents = questions.filter(question => question.heading === "Corporation Documents").sort((a, b) => a.index - b.index);
+    console.log("questions_corporation_documents", questions_corporation_documents)
+
+    const questions_sole_proprietorship_documents = questions.filter(question => question.heading === "Sole Proprietorship Documents").sort((a, b) => a.index - b.index);
+    const questions_partnership_documents = questions.filter(question => question.heading === "Partnership Documents").sort((a, b) => a.index - b.index);
+    const questions_llc_documents = questions.filter(question => question.heading === "LLC Documents").sort((a, b) => a.index - b.index);
 
 
     const onFinish = (values, e) => {
@@ -122,6 +124,41 @@ function Women_Owned_Small_Businesses_Fill() {
     const [formValues, setFormValues] = useState({});
 
     const handleInputChange = async (question, value) => {
+        if (question._id === "65e0091dc9fae0151421ca02") { //country
+            setFormValues(prevValues => ({
+                ...prevValues,
+                ["65e0091dc9fae0151421ca23"]: value,
+                ["65e0091dc9fae0151421ca2f"]: value
+            }));
+
+        } else if (question._id === "65e0091dc9fae0151421ca03") { //street
+            setFormValues(prevValues => ({
+                ...prevValues,
+                ["65e0091dc9fae0151421ca24"]: value,
+                ["65e0091dc9fae0151421ca30"]: value
+            }));
+        }
+        else if (question._id === "65e0091dc9fae0151421ca04") { //city
+            setFormValues(prevValues => ({
+                ...prevValues,
+                ["65e0091dc9fae0151421ca25"]: value,
+                ["65e0091dc9fae0151421ca31"]: value
+            }));
+        }
+        else if (question._id === "65e0091dc9fae0151421ca05") { //state
+            setFormValues(prevValues => ({
+                ...prevValues,
+                ["65e0091dc9fae0151421ca26"]: value,
+                ["65e0091dc9fae0151421ca32"]: value
+            }));
+        }
+        else if (question._id === "65e0091dc9fae0151421ca06") { //zip
+            setFormValues(prevValues => ({
+                ...prevValues,
+                ["65e0091dc9fae0151421ca27"]: value,
+                ["65e0091dc9fae0151421ca33"]: value
+            }));
+        }
         if (question.type === 'file') {
             const file = value;
             const fileName = file.name;
@@ -147,7 +184,27 @@ function Women_Owned_Small_Businesses_Fill() {
                 console.error("Error uploading file:", error);
             }
 
-        } else {
+        } else if (question.type === 'multi') {
+            setFormValues(prevValues => {
+                const updatedValues = [...prevValues[question._id]];
+
+                if (updatedValues.includes(value)) {
+                    // If value exists, remove it
+                    const index = updatedValues.indexOf(value);
+                    updatedValues.splice(index, 1);
+                } else {
+                    // If value doesn't exist, add it
+                    updatedValues.push(value);
+                }
+
+                return {
+                    ...prevValues,
+                    [question._id]: updatedValues,
+                };
+            });
+        }
+
+        else {
             setFormValues(prevValues => ({
                 ...prevValues,
                 [question._id]: value,
@@ -325,7 +382,7 @@ function Women_Owned_Small_Businesses_Fill() {
                             placeholder="Enter text here..."
                             value={answer || ''}
                             onChange={(e) => handleInputChange(question, e.target.value)} {...isRequired} />
-                    {question.notes && question.notes!=="" &&(
+                        {question.notes && question.notes !== "" && (
                             <h6 className="note">Note - {question.notes}</h6>
                         )}
                     </div>
@@ -347,7 +404,7 @@ function Women_Owned_Small_Businesses_Fill() {
                                 {option}
                             </label>
                         ))}
-                    {question.notes && question.notes!=="" &&(
+                        {question.notes && question.notes !== "" && (
                             <h6 className="note">Note - {question.notes}</h6>
                         )}
                     </div>
@@ -369,7 +426,7 @@ function Women_Owned_Small_Businesses_Fill() {
                                 {option}
                             </label>
                         ))}
-                    {question.notes && question.notes!=="" &&(
+                        {question.notes && question.notes !== "" && (
                             <h6 className="note">Note - {question.notes}</h6>
                         )}
                     </div>
@@ -388,7 +445,7 @@ function Women_Owned_Small_Businesses_Fill() {
                         </label>
 
                         <p>Choosen file: {answer}</p>
-                    {question.notes && question.notes!=="" &&(
+                        {question.notes && question.notes !== "" && (
                             <h6 className="note">Note - {question.notes}</h6>
                         )}
                     </div>
@@ -409,7 +466,7 @@ function Women_Owned_Small_Businesses_Fill() {
                                 <option key={index} value={option}>{option}</option>
                             ))}
                         </select>
-                    {question.notes && question.notes!=="" &&(
+                        {question.notes && question.notes !== "" && (
                             <h6 className="note">Note - {question.notes}</h6>
                         )}
                     </div>
@@ -434,7 +491,7 @@ function Women_Owned_Small_Businesses_Fill() {
                                 </Option>
                             ))}
                         </Select>
-                    {question.notes && question.notes!=="" &&(
+                        {question.notes && question.notes !== "" && (
                             <h6 className="note">Note - {question.notes}</h6>
                         )}
                     </div>
@@ -471,7 +528,7 @@ function Women_Owned_Small_Businesses_Fill() {
     }
 
     return (
-        <div className="booking-car-container">
+        <div className="booking-car-container" style={{ height: !formValues["65e0091dc9fae0151421c9f1"] || formValues["65e0091dc9fae0151421c9f1"] !== "Yes - I would like to apply for WOSB certification" ? "100vh" : "auto" }}>
             <CertificateNav />
             <div className="booking-car-content">
                 <div style={{ position: 'sticky', top: 0, backgroundColor: '#f2f1f2', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -495,189 +552,246 @@ function Women_Owned_Small_Businesses_Fill() {
                                 </div>
                             ))}
                         </div>
-
                         <div className="sectionStyle">
                             <h1 className="question-type">Eligibility Requirements</h1>
                             <Divider className="todo-news-divider" />
                             {questions_eligibility_requirements.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="sectionStyle">
-                            <h1 className="question-type">Registration</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_registration.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                            <div className="questionStyle">
-                                <h6 className="question">Select the STATE / COUNTY where your company's headquarters is located:</h6>
-                                <div className="answer-area">
-                                    <select
-                                        name={`dropdown_single_65e0091dc9fae0151421ca0a`}
-                                        className="selectStyle"
-                                        onChange={(e) => setFormValues(prevValues => ({
-                                            ...prevValues,
-                                            ["65e0091dc9fae0151421ca0a"]: e.target.value,
-                                        }))}
-                                        required
-                                    >
-                                        <option value="" disabled>Select a state</option>
-                                        {Array.isArray(statesOnly) && statesOnly.map((option, index) => (
-                                            <option key={index} value={option}>{option}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                {stateDict[formValues["65e0091dc9fae0151421ca0a"]] && stateDict[formValues["65e0091dc9fae0151421ca0a"]].length > 1 && (
-                                    <div className="answer-area">
-                                        <select
-                                            name={`dropdown_single_65e0091dc9fae0151421ca0a_county`}
-                                            className="selectStyle"
-                                            onChange={(e) => setFormValues(prevValues => ({
-                                                ...prevValues,
-                                                ["65e0091dc9fae0151421ca0a_county"]: `${prevValues["65e0091dc9fae0151421ca0a"]} - ${e.target.value}`,
-                                            }))}
-                                            required
-                                        >
-                                            <option value="" disabled>Select a county</option>
-                                            {Array.isArray(stateDict[formValues["65e0091dc9fae0151421ca0a"]]) && stateDict[formValues["65e0091dc9fae0151421ca0a"]].map((option, index) => (
-                                                <option key={index} value={option}>{option}</option>
-                                            ))}
-                                        </select>
+                                (index <= 0 || formValues["65e0091dc9fae0151421c9f2"] === "Yes") &&
+                                (index <= 1 || formValues["65e0091dc9fae0151421c9f3"] === "Yes") &&
+                                (index <= 2 || formValues["65e0091dc9fae0151421c9f4"] === "Yes") &&
+                                (index <= 3 || formValues["65e0091dc9fae0151421c9f5"] === "Yes") &&
+                                (index <= 4 || formValues["65e0091dc9fae0151421c9f6"] === "No") &&
+                                (index <= 6 || formValues["65e0091dc9fae0151421c9f8"] === "Yes") &&
+                                (index <= 7 || formValues["65e0091dc9fae0151421c9f9"] === "Yes") &&
+                                (index <= 8 || formValues["65e0091dc9fae0151421c9fa"] === "Yes") &&
+                                (index <= 9 || formValues["65e0091dc9fae0151421c9fb"] === "Yes") &&
+                                (index <= 10 || formValues["65e0091dc9fae0151421c9fc"] === "No") &&
+                                (
+                                    <div className="questionStyle" key={index}>
+                                        <h6 className="question">{question.content}</h6>
+                                        {renderQuestionInput(question)}
+                                        <Divider />
                                     </div>
-                                )}
-                                <Divider />
-                            </div>
+                                )
 
-                        </div>
-
-                        <div className="sectionStyle">
-                            <h1 className="question-type">General Information Section Status</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_general_information_status.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
                             ))}
                         </div>
+                        {((formValues["65e0091dc9fae0151421c9f2"] === "Yes") &&
+                            (formValues["65e0091dc9fae0151421c9f3"] === "Yes") &&
+                            (formValues["65e0091dc9fae0151421c9f4"] === "Yes") &&
+                            (formValues["65e0091dc9fae0151421c9f5"] === "Yes") &&
+                            (formValues["65e0091dc9fae0151421c9f6"] === "No") &&
+                            (formValues["65e0091dc9fae0151421c9f8"] === "Yes") &&
+                            (formValues["65e0091dc9fae0151421c9f9"] === "Yes") &&
+                            (formValues["65e0091dc9fae0151421c9fa"] === "Yes") &&
+                            (formValues["65e0091dc9fae0151421c9fb"] === "Yes") &&
+                            (formValues["65e0091dc9fae0151421c9fc"] === "No"))
+                            &&
+                            (
+                                <>
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">Registration</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_registration.map((question, index) => (
+                                            <div className="questionStyle" key={index}>
+                                                <h6 className="question">{question.content}</h6>
+                                                {renderQuestionInput(question)}
+                                                <Divider />
+                                            </div>
+                                        ))}
+                                        <div className="questionStyle">
+                                            <h6 className="question">Select the STATE / COUNTY where your company's headquarters is located:</h6>
+                                            <div className="answer-area">
+                                                <select
+                                                    name={`dropdown_single_65e0091dc9fae0151421ca0a`}
+                                                    className="selectStyle"
+                                                    onChange={(e) => setFormValues(prevValues => ({
+                                                        ...prevValues,
+                                                        ["65e0091dc9fae0151421ca0a"]: e.target.value,
+                                                    }))}
+                                                    required
+                                                >
+                                                    <option value="" disabled>Select a state</option>
+                                                    {Array.isArray(statesOnly) && statesOnly.map((option, index) => (
+                                                        <option key={index} value={option}>{option}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            {stateDict[formValues["65e0091dc9fae0151421ca0a"]] && stateDict[formValues["65e0091dc9fae0151421ca0a"]].length > 1 && (
+                                                <div className="answer-area">
+                                                    <select
+                                                        name={`dropdown_single_65e0091dc9fae0151421ca0a_county`}
+                                                        className="selectStyle"
+                                                        onChange={(e) => setFormValues(prevValues => ({
+                                                            ...prevValues,
+                                                            ["65e0091dc9fae0151421ca0a_county"]: `${prevValues["65e0091dc9fae0151421ca0a"]} - ${e.target.value}`,
+                                                        }))}
+                                                        required
+                                                    >
+                                                        <option value="" disabled>Select a county</option>
+                                                        {Array.isArray(stateDict[formValues["65e0091dc9fae0151421ca0a"]]) && stateDict[formValues["65e0091dc9fae0151421ca0a"]].map((option, index) => (
+                                                            <option key={index} value={option}>{option}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            )}
+                                            <Divider />
+                                        </div>
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">Real Estate</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_real_estate.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
+                                    </div>
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">Business/Credit References</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_business_credit_references.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">General Information Section Status</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_general_information_status.map((question, index) => (
+                                            ((index !== 2 || formValues["65e0091dc9fae0151421ca0c"] === "Yes") &&
+                                                (index !== 6 || formValues["65e0091dc9fae0151421ca10"].includes("Other")))
+                                            && (
+                                                <div className="questionStyle" key={index}>
+                                                    <h6 className="question">{question.content}</h6>
+                                                    {renderQuestionInput(question)}
+                                                    <Divider />
+                                                </div>
+                                            )
+                                        ))}
+                                    </div>
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">Ownership/Management Section Status</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_ownership_management_status.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">Real Estate</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_real_estate.map((question, index) => (
+                                            ((index !== 11 || formValues["65e0091dc9fae0151421ca2c"] === "No") &&
+                                                (index !== 30 || formValues["65e0091dc9fae0151421ca3f"] === "Yes") &&
+                                                (index !== 35 || formValues["65e0091dc9fae0151421ca44"] === "Yes") &&
+                                                (index !== 38 || formValues["65e0091dc9fae0151421ca47"] === "Yes")
+                                            )
+                                            &&
+                                            (<div className="questionStyle" key={index}>
+                                                <h6 className="question">{question.content}</h6>
+                                                {renderQuestionInput(question)}
+                                                <Divider />
+                                            </div>)
+                                        ))}
+                                    </div>
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">Additional Information Section Status</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_additional_information_status.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">Business/Credit References</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_business_credit_references.map((question, index) => (
+                                            <div className="questionStyle" key={index}>
+                                                <h6 className="question">{question.content}</h6>
+                                                {renderQuestionInput(question)}
+                                                <Divider />
+                                            </div>
+                                        ))}
+                                    </div>
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">WOSB Certification Section Status</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_wosb_certification_status.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">Ownership/Management Section Status</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_ownership_management_status.map((question, index) => (
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">Corporation Documents</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_corporation_documents.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
+                                            ((index !== 9 || formValues["65e0091dc9fae0151421ca61"] === "Permanent Legal Resident") &&
+                                                (index !== 25 || formValues["65e0091dc9fae0151421ca71"] === "Yes") &&
+                                                (index !== 20 || formValues["65e0091dc9fae0151421ca6c"] === "Yes")
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">Sole Proprietorship Documents</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_sole_proprietorship_documents.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">Partnership Documents</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_partnership_documents.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
+                                            )
+                                            &&
+                                            (<div className="questionStyle" key={index}>
+                                                <h6 className="question">{question.content}</h6>
+                                                {renderQuestionInput(question)}
+                                                <Divider />
+                                            </div>)
+                                        ))}
+                                    </div>
 
-                        <div className="sectionStyle">
-                            <h1 className="question-type">LLC Documents</h1>
-                            <Divider className="todo-news-divider" />
-                            {questions_llc_documents.map((question, index) => (
-                                <div className="questionStyle" key={index}>
-                                    <h6 className="question">{question.content}</h6>
-                                    {renderQuestionInput(question)}
-                                    <Divider />
-                                </div>
-                            ))}
-                        </div>
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">Additional Information Section Status</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_additional_information_status.map((question, index) => (
+
+                                            (
+                                                (index !== 1 || formValues["65e0091dc9fae0151421ca7f"] === "Yes")
+                                            )
+                                            &&
+                                            (
+                                                <div className="questionStyle" key={index}>
+                                                    <h6 className="question">{question.content}</h6>
+                                                    {renderQuestionInput(question)}
+                                                    <Divider />
+                                                </div>)
+                                        ))}
+                                    </div>
+                                    {((formValues["65e0091dc9fae0151421c9f1"] === "Yes - I would like to apply for WOSB certification")
+                                    ) &&
+                                        (
+                                            <div className="sectionStyle">
+                                                <h1 className="question-type">WOSB Certification Section Status</h1>
+                                                <Divider className="todo-news-divider" />
+                                                {questions_wosb_certification_status.map((question, index) => (
+                                                    <div className="questionStyle" key={index}>
+                                                        <h6 className="question">{question.content}</h6>
+                                                        {renderQuestionInput(question)}
+                                                        <Divider />
+                                                    </div>
+                                                ))}
+                                            </div>)}
+
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">Corporation Documents</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_corporation_documents.map((question, index) => (
+                                            (
+                                                (index !== 19 || formValues["65e0091dc9fae0151421c9f1"] === "Yes - I would like to apply for WOSB certification")
+                                            )
+                                            &&
+                                            (<div className="questionStyle" key={index}>
+                                                <h6 className="question">{question.content}</h6>
+                                                {renderQuestionInput(question)}
+                                                <Divider />
+                                            </div>)
+                                        ))}
+                                    </div>
+
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">Sole Proprietorship Documents</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_sole_proprietorship_documents.map((question, index) => (
+                                            <div className="questionStyle" key={index}>
+                                                <h6 className="question">{question.content}</h6>
+                                                {renderQuestionInput(question)}
+                                                <Divider />
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">Partnership Documents</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_partnership_documents.map((question, index) => (
+                                            <div className="questionStyle" key={index}>
+                                                <h6 className="question">{question.content}</h6>
+                                                {renderQuestionInput(question)}
+                                                <Divider />
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="sectionStyle">
+                                        <h1 className="question-type">LLC Documents</h1>
+                                        <Divider className="todo-news-divider" />
+                                        {questions_llc_documents.map((question, index) => (
+                                            <div className="questionStyle" key={index}>
+                                                <h6 className="question">{question.content}</h6>
+                                                {renderQuestionInput(question)}
+                                                <Divider />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+
 
                         <button type="submit" className="agreenably-btn">
                             Go next step
