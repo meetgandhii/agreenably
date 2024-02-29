@@ -325,6 +325,9 @@ function Women_Owned_Small_Businesses_Fill() {
                             placeholder="Enter text here..."
                             value={answer || ''}
                             onChange={(e) => handleInputChange(question, e.target.value)} {...isRequired} />
+                    {question.notes && question.notes!=="" &&(
+                            <h6 className="note">Note - {question.notes}</h6>
+                        )}
                     </div>
                 );
             case 'single':
@@ -344,6 +347,9 @@ function Women_Owned_Small_Businesses_Fill() {
                                 {option}
                             </label>
                         ))}
+                    {question.notes && question.notes!=="" &&(
+                            <h6 className="note">Note - {question.notes}</h6>
+                        )}
                     </div>
                 );
             case 'multi':
@@ -363,6 +369,9 @@ function Women_Owned_Small_Businesses_Fill() {
                                 {option}
                             </label>
                         ))}
+                    {question.notes && question.notes!=="" &&(
+                            <h6 className="note">Note - {question.notes}</h6>
+                        )}
                     </div>
                 );
             case 'file':
@@ -379,6 +388,9 @@ function Women_Owned_Small_Businesses_Fill() {
                         </label>
 
                         <p>Choosen file: {answer}</p>
+                    {question.notes && question.notes!=="" &&(
+                            <h6 className="note">Note - {question.notes}</h6>
+                        )}
                     </div>
                 );
             case 'heading':
@@ -397,6 +409,9 @@ function Women_Owned_Small_Businesses_Fill() {
                                 <option key={index} value={option}>{option}</option>
                             ))}
                         </select>
+                    {question.notes && question.notes!=="" &&(
+                            <h6 className="note">Note - {question.notes}</h6>
+                        )}
                     </div>
 
                 );
@@ -419,6 +434,9 @@ function Women_Owned_Small_Businesses_Fill() {
                                 </Option>
                             ))}
                         </Select>
+                    {question.notes && question.notes!=="" &&(
+                            <h6 className="note">Note - {question.notes}</h6>
+                        )}
                     </div>
                 );
 

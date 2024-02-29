@@ -2,8 +2,16 @@
     /* display: block; */
     text-align: left;
 }
+
 .answer-area {
     margin-top: 10px;
     overflow: hidden;
     max-width: 80vh;
+}
+
+.note {
+    color: #999;
+    font-style: italic;
+    font-size: 11px;
+    margin-top: 20px;
 }
