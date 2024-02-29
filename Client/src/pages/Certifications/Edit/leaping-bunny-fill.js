@@ -202,7 +202,7 @@ function Leaping_Bunny_Fill() {
     };
 
     const getPdfUrl = async (certification_id, user_id, question_id) => {
-        const startUrl = "http://localhost:4000/api/document/pdf/";
+        const startUrl = "https://agreenably-website-server.onrender.com/api/document/pdf/";
 
         try {
             const response = await axios.get("https://agreenably-website-server.onrender.com/api/document/get_id", {
@@ -220,7 +220,7 @@ function Leaping_Bunny_Fill() {
         } catch (error) {
             console.error("Error fetching PDF ID:", error.message);
             // Handle the error, e.g., return a default URL or throw an error
-            return "http://localhost:4000/default-pdf-url";
+            return "https://agreenably-website-server.onrender.com/default-pdf-url";
         }
     };
 

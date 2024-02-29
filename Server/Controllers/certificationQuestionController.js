@@ -7,3 +7,12 @@ exports.getAllCertificationQuestions = async (req, res) => {
     return res.status(400).json(error);
   }
 };
+
+// exports.updateField = async (req, res) => {
+//   try {
+//     await Certification_Questions.updateMany({}, { $set: { notes: "" } });
+//     console.log("Notes field updated successfully.");
+//   } catch (error) {
+//     return res.status(400).json(error);
+//   }
+// };
