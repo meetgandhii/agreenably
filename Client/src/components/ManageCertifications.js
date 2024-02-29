@@ -125,7 +125,7 @@ function ManageCertifications(props) {
                                     console.log("certification._id: ", certification._id);
                                     console.log("total cert: ", totalCertifications);
                                     return (
-                                        <span key={certification.name} className="interested_certifications">
+                                        <span style={{display: "block"}} key={certification.name} className="interested_certifications">
                                             <input
                                                 type="checkbox"
                                                 id={`certification-${certification.name}`}
