@@ -4,4 +4,6 @@
 }
 .answer-area {
     margin-top: 10px;
+    overflow: hidden;
+    max-width: 80vh;
 }

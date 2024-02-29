@@ -19,7 +19,9 @@ import Leaping_Bunny_Review from "./pages/Certifications/Review/leaping-bunny-re
 import Women_Business_Enterprise from "./pages/Certifications/women-business-enterprise.js";
 import Women_Business_Enterprise_Fill from "./pages/Certifications/Edit/women-business-enterprise-fill.js";
 import Women_Business_Enterprise_Review from "./pages/Certifications/Review/women-business-enterprise-review.js";
-
+import Women_Owned_Small_Businesses from "./pages/Certifications/women-owned-small-businesses.js";
+import Women_Owned_Small_Businesses_Fill from "./pages/Certifications/Edit/women-owned-small-businesses-fill.js";
+import Women_Owned_Small_Businesses_Review from "./pages/Certifications/Review/women-owned-small-businesses-review.js";
 function App() {
   function ProtectedRoute({ children }) {
     const auth = localStorage.getItem("user");
@@ -49,6 +51,11 @@ function App() {
           <Route path="/certification/women-business-enterprise" exact element={<ProtectedRoute><Women_Business_Enterprise /></ProtectedRoute>} />
           <Route path="/certification/women-business-enterprise/fill-questionnaire" exact element={<ProtectedRoute><Women_Business_Enterprise_Fill /></ProtectedRoute>} />
           <Route path="/certification/women-business-enterprise/fill-questionnaire/review" exact element={<ProtectedRoute><Women_Business_Enterprise_Review /></ProtectedRoute>} />
+
+          <Route path="/certification/women-owned-small-businesses" exact element={<ProtectedRoute><Women_Owned_Small_Businesses /></ProtectedRoute>} />
+          <Route path="/certification/women-owned-small-businesses/fill-questionnaire" exact element={<ProtectedRoute><Women_Owned_Small_Businesses_Fill /></ProtectedRoute>} />
+          <Route path="/certification/women-owned-small-businesses/fill-questionnaire/review" exact element={<ProtectedRoute><Women_Owned_Small_Businesses_Review /></ProtectedRoute>} />
+
           <Route path="/userbookings" exact element={<ProtectedRoute><UserBooking /></ProtectedRoute>} />
           <Route path="/userbookings/:id" exact element={<ProtectedRoute><UserBooking /></ProtectedRoute>} />
           <Route path="/addcar" exact element={<ProtectedRoute><AddCar /></ProtectedRoute>} />
