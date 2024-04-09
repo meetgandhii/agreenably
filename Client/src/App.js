@@ -7,9 +7,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import FillCertification from "./pages/Certification.js";
 import UserBooking from "./pages/UserBooking";
-import AddCar from "./pages/AddCar";
-import EditCar from "./pages/EditCar";
-import AdminHome from "./pages/AdminHome";
 import Contact from "./components/Contact";
 import Profile from "./pages/Profile";
 import Recommendation from "./pages/Recommendations.js";
@@ -58,9 +55,6 @@ function App() {
 
           <Route path="/userbookings" exact element={<ProtectedRoute><UserBooking /></ProtectedRoute>} />
           <Route path="/userbookings/:id" exact element={<ProtectedRoute><UserBooking /></ProtectedRoute>} />
-          <Route path="/addcar" exact element={<ProtectedRoute><AddCar /></ProtectedRoute>} />
-          <Route path="/editcar/:carid" exact element={<ProtectedRoute><EditCar /></ProtectedRoute>} />
-          <Route path="/admin" exact element={<ProtectedRoute><AdminHome /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -98,6 +98,17 @@ function Register() {
               />
             </Form.Item>
             <Form.Item
+              name="website_address"
+              label="Company Website"
+              rules={[{ required: true }]}
+            >
+              <input
+                type="text"
+                placeholder="Enter your website..."
+                className="p-2"
+              />
+            </Form.Item>
+            <Form.Item
               name="password"
               label="Password"
               rules={[{ required: true }]}
