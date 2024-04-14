@@ -12,7 +12,7 @@ exports.addCertificationRecord = async (req, res) => {
       // If a record exists
       existingRecord.ongoing = req.body.ongoing || existingRecord.ongoing;
       existingRecord.timestamp = req.body.timestamp || existingRecord.timestamp;
-
+      existingRecord.page_number = req.body.page_number || existingRecord.page_number;
       await existingRecord.save();
       res.send("Certification record updated successfully");
     } else {
@@ -70,6 +70,46 @@ exports.getCertificationRecord = async (req, res) => {
     }
   } catch (error) {
     // Handle errors
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.getCertificationPage = async (req, res) => {
+  try {
+    const { user_id, certification_id } = req.query;
+
+    const existingRecord = await Certification_Record.findOne({
+      user_id: user_id,
+      certification_id: certification_id,
+    },
+    );
+
+    if (existingRecord) {
+      res.json({ page_number: existingRecord.page_number });
+    } else {
+      res.json({ page_number: "1" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.putCertificationPage = async (req, res) => {
+  try {
+    const { user_id, certification_id } = req.body;
+
+    const existingRecord = await Certification_Record.findOne({
+      user_id: user_id,
+      certification_id: certification_id,
+    },
+    );
+
+    if (existingRecord) {
+      existingRecord.page_number = req.body.page_number;
+      await existingRecord.save();
+      res.send("Certification page updated successfully");
+    }
+  } catch (error) {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 };

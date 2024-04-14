@@ -3,16 +3,16 @@ import { Row, Divider } from "antd";
 import axios from "axios";
 import moment from "moment";
 import { useSelector } from "react-redux";
-import DefaultLayout from "../../components/DefaultLayout";
-import Spinner from "../../components/Spinner";
-import '../../Stylesheet/certifications.css';
+import DefaultLayout from "../../../components/DefaultLayout";
+import Spinner from "../../../components/Spinner";
+import '../../../Stylesheet/certifications.css';
 import { useNavigate } from "react-router-dom";
-function Women_Business_Enterprise() {
-    const slug = 'women-business-enterprise'
+function Women_Owned_Small_Businesses_Home() {
+    const slug = 'women-owned-small-businesses';
     const navigate = useNavigate();
     const { loading } = useSelector((state) => state.alertsReducer);
     const [certification, setCertification] = useState({});
-
+    const [pageNumber, setPageNumber] = useState(1);
 
     const user = JSON.parse(localStorage.getItem("user"));
 
@@ -25,26 +25,41 @@ function Women_Business_Enterprise() {
                 console.error("Error fetching user data:", error);
             }
         };
-
+        const getRecord = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certification/records/getcertificationpage`, {
+                    params: {
+                        user_id: user._id,
+                        certification_id: "661af7bafc61456139f44154"
+                    }
+                });
+                setPageNumber(parseInt(response.data.page_number));
+            }
+            catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
         fetchCertificate();
+        getRecord();
     }, []);
     const begin_certificate = async () => {
         const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
         try {
             const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/certification/records/addcertificationrecord`, {
-              user_id: user._id,
-              timestamp: timestamp,
-              ongoing: "1",
-              certification_id: certification._id,
-              certification_response: []
+                user_id: user._id,
+                timestamp: timestamp,
+                ongoing: "1",
+                certification_id: certification._id,
+                certification_response: [],
+                page_number: pageNumber
             });
             setTimeout(() => {
-                window.location.href = `${window.location.href}/fill-questionnaire`;
-              }, 500);
+                window.location.href = `${window.location.href}/fill-questionnaire/page${pageNumber}`;
+            }, 500);
         } catch (error) {
             console.error("Error while adding certification record:", error);
-          }
-        };
+        }
+    };
     return (
         <div className="booking-car-container">
 
@@ -52,7 +67,7 @@ function Women_Business_Enterprise() {
                 <DefaultLayout />
                 <div className="managecertifications certificateCard" style={{ height: "100vh" }}>
                     <h1 className="heading_managecertifications">Get Certified</h1>
-                    
+
 
                     {certification && (
                         <>
@@ -110,4 +125,4 @@ function Women_Business_Enterprise() {
     );
 }
 
-export default Women_Business_Enterprise;
+export default Women_Owned_Small_Businesses_Home;

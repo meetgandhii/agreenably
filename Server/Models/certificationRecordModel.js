@@ -7,6 +7,9 @@ const certificationRecordSchema = new mongoose.Schema(
             type: "String"
 
         },
+        page_number: {
+            type: "String"
+        },
         user_id: {
             type: "String",
 

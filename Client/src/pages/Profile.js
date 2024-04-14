@@ -13,10 +13,10 @@ const usePdfUrls = (certificationId, user_id, selectedCertificationData) => {
 
   useEffect(() => {
     const getPdfUrl = async (question_id) => {
-      const startUrl = "https://agreenably-website-server.onrender.com/api/document/pdf/";
+      const startUrl = `${process.env.REACT_APP_SERVER_API}/api/document/pdf/`;
 
       try {
-        const response = await axios.get("https://agreenably-website-server.onrender.com/api/document/get_id", {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/document/get_id`, {
           params: {
             user_id: user_id,
             certification_id: certificationId,
@@ -62,7 +62,7 @@ function Profile() {
   const [selectedCertificationData, setSelectedCertificationData] = useState([]);
 
   const getCertificationData = async (certificationId) => {
-    const getCertificateOptions = await axios.get("https://agreenably-website-server.onrender.com/api/certification/records/getcertificationrecord", {
+    const getCertificateOptions = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certification/records/getcertificationrecord`, {
       params: {
         user_id: user._id,
         certification_id: certificationId
@@ -100,7 +100,7 @@ function Profile() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`
+          `${process.env.REACT_APP_SERVER_API}/api/users/profile/${user._id}`
         );
         console.log(response.data[0]);
         setUserData(response.data[0]);
@@ -134,7 +134,7 @@ function Profile() {
   };
   const getAllQuestions = async () => {
     try {
-      const response = await axios.get("https://agreenably-website-server.onrender.com/api/certification/questions/getallcertificationquestions");
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certification/questions/getallcertificationquestions`);
       return response.data;
     } catch (error) {
       console.error("Error fetching questions:", error);
@@ -169,7 +169,7 @@ function Profile() {
     console.log(editedPassword);
     try {
       await axios.put(
-        `https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`,
+        `${process.env.REACT_APP_SERVER_API}/api/users/profile/${user._id}`,
         {
           name: editedName,
           password: editedPassword,

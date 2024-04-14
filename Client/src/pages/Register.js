@@ -12,16 +12,6 @@ function Register() {
   const dispatch = useDispatch();
   const [certifications, setCertifications] = useState([]);
 
-  // useEffect(() => {
-  //   fetch("https://agreenably-website-server.onrender.com/api/certifications/getallcertifications")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setCertifications(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching certifications:", error);
-  //     });
-  // }, []);
   function onFinish(values) {
     if (
       values.password.length >= 8 &&

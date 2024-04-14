@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Form, Select, Divider, Radio, Slider, message } from "antd";
 import axios from "axios";
 import moment from "moment";
@@ -64,7 +65,7 @@ const Recommendation = () => {
                 return; // Do not proceed if any required field is not filled
             }
             // Send the email to the new 'Get in Touch' API endpoint
-            const response = await axios.post('https://agreenably-website-server.onrender.com/api/recommendation/getintouch', {
+            const response = await axios.post('${process.env.REACT_APP_SERVER_API}/api/recommendation/getintouch', {
                 userId: user._id,
                 timeStamp: timestamp, email, website
             });
@@ -93,7 +94,7 @@ const Recommendation = () => {
                     preferences: values.preferences.join(', '),
                 }
             );
-            const response = await axios.post("https://agreenably-website-server.onrender.com/api/recommendation/addrecommendation", {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/recommendation/addrecommendation`, {
                 userId: user._id,
                 timeStamp: timestamp,
                 ...values,
@@ -105,14 +106,17 @@ const Recommendation = () => {
             console.error("Error while adding recommendation:", error);
         }
     };
-
+    const navigate = useNavigate();
+    const goBack = () => {
+        navigate(`/`);
+    }
     return (
         <div className="booking-car-container">
             <DefaultLayout />
             <div style={{ display: "flex", width: "100%" }}>
                 <div className="booking-car-content">
                     <div style={{ position: 'sticky', top: 0, backgroundColor: '#f2f1f2', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <button onClick={{}} style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                    <button onClick={goBack} style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                             <FaArrowLeft style={{ fontSize: '1.5rem', marginRight: '10px' }} />
                         </button>
                         <h1 className="certification-name" style={{ margin: 0 }}> {"Recommendation Engine"}</h1>

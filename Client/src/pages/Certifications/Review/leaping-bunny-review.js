@@ -22,7 +22,7 @@ function Leaping_Bunny_Review() {
     const formDataArray = Object.entries(formData);
     const fetchCertificate = async () => {
         try {
-            const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${slug}`);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certifications/certificate/${slug}`);
             const fetchedCertification = response.data;
             setCertification(fetchedCertification);
 
@@ -41,7 +41,7 @@ function Leaping_Bunny_Review() {
         try {
           
     
-          const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
+          const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/certification/records/editcertificationrecord`, {
             user_id: user._id,
             certification_response: formData,
             timestamp: timestamp,
@@ -49,7 +49,7 @@ function Leaping_Bunny_Review() {
             certification_id: certification._id,
           });
     
-          const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/submitcertificate", {
+          const updateUserResponse = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/users/submitcertificate`, {
             userId: user._id,
             certificateId: certification._id
           });
@@ -70,10 +70,10 @@ function Leaping_Bunny_Review() {
     const [pdfUrls, setPdfUrls] = useState({});
     useEffect(() => {
         const getPdfUrl = async (certification_id, user_id, question_id) => {
-            const startUrl = "https://agreenably-website-server.onrender.com/api/document/pdf/";
+            const startUrl = `${process.env.REACT_APP_SERVER_API}/api/document/pdf/`;
 
             try {
-                const response = await axios.get("https://agreenably-website-server.onrender.com/api/document/get_id", {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/document/get_id`, {
                     params: {
                         user_id: user_id,
                         certification_id: certification_id,

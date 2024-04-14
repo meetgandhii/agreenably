@@ -19,7 +19,7 @@ function Leaping_Bunny() {
     useEffect(() => {
         const fetchCertificate = async () => {
             try {
-                const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${slug}`);
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certifications/certificate/${slug}`);
                 setCertification(response.data);
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -31,7 +31,7 @@ function Leaping_Bunny() {
     const begin_certificate = async () => {
         const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
         try {
-            const response = await axios.post("https://agreenably-website-server.onrender.com/api/certification/records/addcertificationrecord", {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/certification/records/addcertificationrecord`, {
               user_id: user._id,
               timestamp: timestamp,
               ongoing: "1",

@@ -7,9 +7,9 @@ export const userLogin = (reqObj) => async (dispatch) => {
   try {
     
     console.log(reqObj);
-
+    console.log(process.env.REACT_APP_SERVER_API)
     const response = await axios.post(
-      "https://agreenably-website-server.onrender.com/api/users/login",
+      `${process.env.REACT_APP_SERVER_API}/api/users/login`,
       reqObj
     );
 
@@ -37,7 +37,7 @@ export const userRegister = (reqObj) => async (dispatch) => {
 
   try {
     const response = await axios.post(
-      "https://agreenably-website-server.onrender.com/api/users/register",
+      `${process.env.REACT_APP_SERVER_API}/api/users/register`,
       reqObj
     );
     message.success("Registration successfull");

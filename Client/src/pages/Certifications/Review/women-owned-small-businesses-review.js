@@ -15,14 +15,14 @@ import { useNavigate } from "react-router-dom";
 function Women_Owned_Small_Businesses_Review() {
     const slug = 'women-owned-small-businesses'
     const { state } = useLocation();
-    
+
     const formData = state && state.formData;
     const filteredQuestions = state && state.filteredQuestions;
     console.log("filteredQuestions", filteredQuestions)
     const formDataArray = Object.entries(formData);
     const fetchCertificate = async () => {
         try {
-            const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${slug}`);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certifications/certificate/${slug}`);
             const fetchedCertification = response.data;
             setCertification(fetchedCertification);
 
@@ -37,28 +37,28 @@ function Women_Owned_Small_Businesses_Review() {
     const [certification, setCertification] = useState({});
     const save = async () => {
         const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
-    
+
         try {
-          
-    
-          const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
-            user_id: user._id,
-            certification_response: formData,
-            timestamp: timestamp,
-            ongoing: "0",
-            certification_id: certification._id,
-          });
-    
-          const updateUserResponse = await axios.put("https://agreenably-website-server.onrender.com/api/users/submitcertificate", {
-            userId: user._id,
-            certificateId: certification._id
-          });
-          window.location.href = "/"
+
+
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/certification/records/editcertificationrecord`, {
+                user_id: user._id,
+                certification_response: formData,
+                timestamp: timestamp,
+                ongoing: "0",
+                certification_id: certification._id,
+            });
+
+            const updateUserResponse = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/users/submitcertificate`, {
+                userId: user._id,
+                certificateId: certification._id
+            });
+            window.location.href = "/"
         } catch (error) {
-          console.error("Error while editing certification record:", error);
-        } 
-      };
-      const user = JSON.parse(localStorage.getItem("user"));
+            console.error("Error while editing certification record:", error);
+        }
+    };
+    const user = JSON.parse(localStorage.getItem("user"));
     const backToCertificate = () => {
         window.location.href = "/certification/women-business-enterprise/fill-questionnaire"
     }
@@ -66,14 +66,14 @@ function Women_Owned_Small_Businesses_Review() {
         const question = filteredQuestions.find((q) => q._id === questionId);
         return question ? question.content : "Question not found";
     };
-    
+
     const [pdfUrls, setPdfUrls] = useState({});
     useEffect(() => {
         const getPdfUrl = async (certification_id, user_id, question_id) => {
-            const startUrl = "https://agreenably-website-server.onrender.com/api/document/pdf/";
+            const startUrl = `${process.env.REACT_APP_SERVER_API}/api/document/pdf/`;
 
             try {
-                const response = await axios.get("https://agreenably-website-server.onrender.com/api/document/get_id", {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/document/get_id`, {
                     params: {
                         user_id: user_id,
                         certification_id: certification_id,
@@ -124,17 +124,17 @@ function Women_Owned_Small_Businesses_Review() {
 
                     {Object.entries(formData).map(([key, value], index) => (
                         <div className="questionStyle" key={index}>
-                        <h6 className="question">{`Question ${index + 1}`}: {getQuestionContent(key)}</h6>
-                        
-                        {pdfUrls[key] ? (
-                                <h6 className="question">{`Answer ${index + 1}`}: <a href ={pdfUrls[key]}>{JSON.stringify(value)}</a></h6>
+                            <h6 className="question">{`Question ${index + 1}`}: {getQuestionContent(key)}</h6>
+
+                            {pdfUrls[key] ? (
+                                <h6 className="question">{`Answer ${index + 1}`}: <a href={pdfUrls[key]}>{JSON.stringify(value)}</a></h6>
                             ) : (
                                 <h6 className="question">{`Answer ${index + 1}`}: {JSON.stringify(value)}</h6>
                             )}
-                        <Divider />
-                    </div>
-                ))}
-            </div>
+                            <Divider />
+                        </div>
+                    ))}
+                </div>
                 <button onClick={backToCertificate} className="agreenably-btn-edit">Edit</button>
                 <button onClick={save} className="agreenably-btn-submit">Submit</button>
             </div>

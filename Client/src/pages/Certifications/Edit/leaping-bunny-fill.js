@@ -27,7 +27,7 @@ function Leaping_Bunny_Fill() {
     const user = JSON.parse(localStorage.getItem("user"));
     const getAllQuestions = async () => {
         try {
-            const response = await axios.get("https://agreenably-website-server.onrender.com/api/certification/questions/getallcertificationquestions");
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certification/questions/getallcertificationquestions`);
             return response.data;
         } catch (error) {
             console.error("Error fetching questions:", error);
@@ -50,7 +50,7 @@ function Leaping_Bunny_Fill() {
     useEffect(() => {
         const fetchCertificateRecords = async () => {
             try {
-                const certificationResponse = await axios.get("https://agreenably-website-server.onrender.com/api/certification/records/getcertificationrecord", {
+                const certificationResponse = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certification/records/getcertificationrecord`, {
                     params: {
                         user_id: user._id,
                         certification_id: "65c8eee6e1b1ab8b8db37c5d"
@@ -74,7 +74,7 @@ function Leaping_Bunny_Fill() {
 
     const fetchCertificate = async () => {
         try {
-            const response = await axios.get(`https://agreenably-website-server.onrender.com/api/certifications/certificate/${slug}`);
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/certifications/certificate/${slug}`);
             const fetchedCertification = response.data;
             setCertification(fetchedCertification);
 
@@ -131,7 +131,7 @@ function Leaping_Bunny_Fill() {
                 formData.append(key, value);
             });
             try {
-                const response = await axios.post("https://agreenably-website-server.onrender.com/api/document/upload", formData);
+                const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/document/upload`, formData);
 
                 console.log("File response is: ", response);
                 setFormValues(prevValues => ({
@@ -202,10 +202,10 @@ function Leaping_Bunny_Fill() {
     };
 
     const getPdfUrl = async (certification_id, user_id, question_id) => {
-        const startUrl = "https://agreenably-website-server.onrender.com/api/document/pdf/";
+        const startUrl = `${process.env.REACT_APP_SERVER_API}/api/document/pdf/`;
 
         try {
-            const response = await axios.get("https://agreenably-website-server.onrender.com/api/document/get_id", {
+            const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/document/get_id`, {
                 params: {
                     user_id: user_id,
                     certification_id: certification_id,
@@ -220,7 +220,7 @@ function Leaping_Bunny_Fill() {
         } catch (error) {
             console.error("Error fetching PDF ID:", error.message);
             // Handle the error, e.g., return a default URL or throw an error
-            return "https://agreenably-website-server.onrender.com/default-pdf-url";
+            return `${process.env.REACT_APP_SERVER_API}/default-pdf-url`;
         }
     };
 
@@ -306,7 +306,7 @@ function Leaping_Bunny_Fill() {
             if (Object.keys(formValues).length > 0) {
                 try {
                     const timestamp = moment().format("HH:mm:ss-DD/MM/YYYY");
-                    const response = await axios.put("https://agreenably-website-server.onrender.com/api/certification/records/editcertificationrecord", {
+                    const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/certification/records/editcertificationrecord`, {
                         user_id: user._id,
                         certification_response: formValues,
                         timestamp: timestamp,

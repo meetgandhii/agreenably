@@ -15,9 +15,9 @@ function DefaultLayout(props) {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `https://agreenably-website-server.onrender.com/api/users/profile/${user._id}`
+          `${process.env.REACT_APP_SERVER_API}/api/users/profile/${user._id}`
         );
-        console.log(response.data[0]);
+        // console.log(response.data[0]);
         setUserData(response.data[0]);
       } catch (error) {
         console.error("Error fetching user data:", error);

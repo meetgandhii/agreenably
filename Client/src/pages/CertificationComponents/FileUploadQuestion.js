@@ -17,7 +17,7 @@ const FileUploadQuestion = ({ heading, question, updateAnswers, markedAnswer, ha
   };
   const openPdfInNewTab = async () => {
     try {
-      const response = await axios.get(`https://agreenably-website-server.onrender.com/api/document/${markedAnswer}`, { responseType: 'arraybuffer' });
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_API}/api/document/${markedAnswer}`, { responseType: 'arraybuffer' });
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       window.open(url, '_blank');
