@@ -237,8 +237,22 @@ function Women_Owned_Small_Businesses_Page3() {
 
     const onFinish = async (values, e) => {
         e.preventDefault();
-        save();
-        navigate('/certification/thankyou')
+        {
+            // console.log("formValues when you go ahead: " + JSON.stringify(formValues))
+            try {
+                const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/certification/records/editcertificationpage`, {
+                    user_id: user._id,
+                    page_number: "_review",
+                    certification_id: "661af7bafc61456139f44154"
+                });
+                console.log(response.data)
+            } catch (error) {
+                console.error("Error while editing certification record:", error);
+            }
+            navigate(`/certification/women-owned-small-businesses/fill-questionnaire/page_review`, { state: { formData: values, filteredQuestions: filteredQuestions } });
+        }
+        // save();
+        // navigate('/certification/thankyou')
         // Pass form data as state
 
     };
@@ -273,6 +287,13 @@ function Women_Owned_Small_Businesses_Page3() {
             } catch (error) {
                 console.error("Error uploading file:", error);
             }
+        } else if (question.type === 'multi') {
+            setFormValues(prevValues => ({
+                ...prevValues,
+                [question._id]: prevValues[question._id]
+                    ? [...prevValues[question._id], value]  // If array exists, append value
+                    : [value]  // If array doesn't exist, create new array with value
+            }));
         }
         else {
             setFormValues(prevValues => ({
@@ -335,7 +356,7 @@ function Women_Owned_Small_Businesses_Page3() {
                             <label key={index} className="labelStyle">
                                 <input
                                     type="checkbox"
-                                    name={`checkbox_${question._id}`}
+                                    name={`checkbox_${question._id}_${index}`}
                                     value={option}
                                     className="inputStyleMulti"
                                     checked={answer && answer.includes(option)}
@@ -439,8 +460,18 @@ function Women_Owned_Small_Businesses_Page3() {
 
         updateCertificationRecord();
     }, [formValues, user, certification]);
-    const goBackToCertificationPage = () => {
-        window.location.href = "/certification/women-business-enterprise"
+    const goBackToCertificationPage =  async() => {
+        try {
+            const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/certification/records/editcertificationpage`, {
+                user_id: user._id,
+                page_number: "2",
+                certification_id: "661af7bafc61456139f44154"
+            });
+            console.log(response.data)
+        } catch (error) {
+            console.error("Error while editing certification record:", error);
+        }
+        window.location.href = "/certification/women-owned-small-businesses/fill-questionnaire/page2"
     }
 
     return (
@@ -514,22 +545,39 @@ function Women_Owned_Small_Businesses_Page3() {
                                     <h1 className="question-type">General Information Section Status</h1>
                                     <Divider className="todo-news-divider" />
                                     {general_information_section_status_questions.map((question, index) => (
-                                        <div className="questionStyle" key={index}>
-                                            <h6 className="question" style={{ textTransform: 'capitalize' }}>{question.content}</h6>
-                                            {renderQuestionInput(question, index)}
-                                            <Divider />
-                                        </div>
+                                        ((index != "2" || formValues["661a0d9552c3ee0e2f865a55"] === "Yes") &&
+                                            (index != "6" || formValues["661a0d9552c3ee0e2f865a59"]?.includes("Other")))
+                                        && (
+                                            <div className="questionStyle" key={index}>
+                                                <h6 className="question" style={{ textTransform: 'capitalize' }}>{question.content}</h6>
+                                                {renderQuestionInput(question, index)}
+                                                <Divider />
+                                            </div>
+                                        )
                                     ))}
+
                                 </div>
                                 <div className="sectionStyle">
                                     <h1 className="question-type">Real Estate</h1>
                                     <Divider className="todo-news-divider" />
                                     {real_estate_questions.map((question, index) => (
-                                        <div className="questionStyle" key={index}>
+                                        (
+                                            (index != "10" || formValues["661a0d9552c3ee0e2f865a75"] === "No") &&
+                                            (index != "8" || formValues["661a0d9552c3ee0e2f865a73"] === "Leased") &&
+                                            (index != "22" || (formValues["661a0d9552c3ee0e2f865a82"]?.includes('31') || formValues["661a0d9552c3ee0e2f865a82"]?.includes('32') || formValues["661a0d9552c3ee0e2f865a82"]?.includes('33'))) &&
+                                            (index != "25" || formValues["661a0d9552c3ee0e2f865a85"] === "Yes") &&
+                                            (index != "26" || formValues["661a0d9552c3ee0e2f865a85"] === "Yes") &&
+                                            (index != "28" || formValues["661a0d9552c3ee0e2f865a88"] === "Yes") &&
+                                            (index != "33" || formValues["661a0d9552c3ee0e2f865a8d"] === "Yes") &&
+                                            (index != "34" || formValues["661a0d9552c3ee0e2f865a8d"] === "Yes") &&
+                                            (index != "36" || formValues["661a0d9552c3ee0e2f865a90"] === "Yes") &&
+                                            (index != "37" || formValues["661a0d9552c3ee0e2f865a90"] === "Yes")
+                                        ) &&
+                                        (<div className="questionStyle" key={index}>
                                             <h6 className="question" style={{ textTransform: 'capitalize' }}>{question.content}</h6>
                                             {renderQuestionInput(question, index)}
                                             <Divider />
-                                        </div>
+                                        </div>)
                                     ))}
                                 </div>
                                 <div className="sectionStyle">
@@ -547,22 +595,25 @@ function Women_Owned_Small_Businesses_Page3() {
                                     <h1 className="question-type">Ownership / Management Section Status</h1>
                                     <Divider className="todo-news-divider" />
                                     {ownership_management_section_status_questions.map((question, index) => (
-                                        <div className="questionStyle" key={index}>
+                                        ((index != "20" || formValues["661a0d9552c3ee0e2f865ab5"] === "Yes") &&
+                                            (index != "25" || formValues["661a0d9552c3ee0e2f865aba"] === "Yes"))
+                                        && (<div className="questionStyle" key={index}>
                                             <h6 className="question" style={{ textTransform: 'capitalize' }}>{question.content}</h6>
                                             {renderQuestionInput(question, index)}
                                             <Divider />
-                                        </div>
+                                        </div>)
                                     ))}
                                 </div>
                                 <div className="sectionStyle">
                                     <h1 className="question-type">Additional Information Section Status</h1>
                                     <Divider className="todo-news-divider" />
                                     {additional_information_section_status_questions.map((question, index) => (
-                                        <div className="questionStyle" key={index}>
-                                            <h6 className="question" style={{ textTransform: 'capitalize' }}>{question.content}</h6>
-                                            {renderQuestionInput(question, index)}
-                                            <Divider />
-                                        </div>
+                                        ((index != "1" || formValues["661a0d9552c3ee0e2f865ac8"] === "Yes")) && (
+                                            <div className="questionStyle" key={index}>
+                                                <h6 className="question" style={{ textTransform: 'capitalize' }}>{question.content}</h6>
+                                                {renderQuestionInput(question, index)}
+                                                <Divider />
+                                            </div>)
                                     ))}
                                 </div>
                                 <div className="sectionStyle">
@@ -578,7 +629,7 @@ function Women_Owned_Small_Businesses_Page3() {
                                 </div>
 
                                 <button type="submit" className="agreenably-btn">
-                                    Submit
+                                    Go to review
                                 </button>
                             </form>
                         </div>

@@ -18,11 +18,12 @@ import Women_Business_Enterprise_Fill from "./pages/Certifications/Edit/women-bu
 import Women_Business_Enterprise_Review from "./pages/Certifications/Review/women-business-enterprise-review.js";
 import Women_Owned_Small_Businesses from "./pages/Certifications/women-owned-small-businesses.js";
 import Women_Owned_Small_Businesses_Fill from "./pages/Certifications/Edit/women-owned-small-businesses-fill.js";
-import Women_Owned_Small_Businesses_Review from "./pages/Certifications/Review/women-owned-small-businesses-review.js";
+// import Women_Owned_Small_Businesses_Review from "./pages/Certifications/Review/women-owned-small-businesses-review.js";
 import Women_Owned_Small_Businesses_Home from "./pages/Certifications/Women-Owned-Business/home.js";
 import Women_Owned_Small_Businesses_Page1 from "./pages/Certifications/Women-Owned-Business/page1.js";
 import Women_Owned_Small_Businesses_Page2 from "./pages/Certifications/Women-Owned-Business/page2.js";
 import Women_Owned_Small_Businesses_Page3 from "./pages/Certifications/Women-Owned-Business/page3.js";
+import Women_Owned_Small_Businesses_Review from "./pages/Certifications/Women-Owned-Business/review.js";
 import Thankyou from "./pages/Certifications/thankyou.js";
 function App() {
   function ProtectedRoute({ children }) {
@@ -59,6 +60,7 @@ function App() {
           <Route path="/certification/women-owned-small-businesses/fill-questionnaire/page1" exact element={<ProtectedRoute><Women_Owned_Small_Businesses_Page1 /></ProtectedRoute>} />
           <Route path="/certification/women-owned-small-businesses/fill-questionnaire/page2" exact element={<ProtectedRoute><Women_Owned_Small_Businesses_Page2 /></ProtectedRoute>} />
           <Route path="/certification/women-owned-small-businesses/fill-questionnaire/page3" exact element={<ProtectedRoute><Women_Owned_Small_Businesses_Page3 /></ProtectedRoute>} />
+          <Route path="/certification/women-owned-small-businesses/fill-questionnaire/page_review" exact element={<ProtectedRoute><Women_Owned_Small_Businesses_Review /></ProtectedRoute>} />
           {/* <Route path="/certification/women-owned-small-businesses/fill-questionnaire" exact element={<ProtectedRoute><Women_Owned_Small_Businesses_Fill /></ProtectedRoute>} />
           <Route path="/certification/women-owned-small-businesses/fill-questionnaire/review" exact element={<ProtectedRoute><Women_Owned_Small_Businesses_Review /></ProtectedRoute>} /> */}
 

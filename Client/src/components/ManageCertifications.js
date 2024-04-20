@@ -193,23 +193,23 @@ function ManageCertifications(props) {
                                             To Do
                                         </h3>
                                         <Divider className="todo-news-divider" />
-                                        <ul>
+                                        {/* <ul> */}
 
-                                            {/* <ul>
+                                            <ul>
                                                 {certification.todos.slice(0, 2).map((todo, todoIndex) => (
-                                                    <li key={todoIndex}>{todo}</li>
+                                                    <li className="todo-news-item" key={todoIndex}>{todo}</li>
                                                 ))}
                                                 {certification.todos.length > 2 && (
                                                     <li>
-                                                        <button onClick={() => toggleReadMore(certification)}>
-                                                            Read More...
+                                                        <button className="readMoreButton" onClick={() => toggleReadMore(certification)}>
+                                                        View All Tasks
                                                         </button>
                                                     </li>
-                                                )}w
-                                            </ul> */}
+                                                )}
+                                            </ul>
 
                                             {/* map li for displaying all, use .length for if else in more button */}
-                                            <li className="todo-news-item">
+                                            {/* <li className="todo-news-item">
                                                 Update Supplier List for Leaping Bunny Leaping Bunny
                                             </li>
                                             <li className="todo-news-item">
@@ -219,8 +219,8 @@ function ManageCertifications(props) {
                                                 <button className="readMoreButton" onClick={toggleReadMore}>
                                                     View All Tasks
                                                 </button>
-                                            </li>
-                                        </ul>
+                                            </li> */}
+                                        {/* </ul> */}
 
                                     </Col>
                                     <Col xl={2} xs={2}><span className="spacer">
@@ -233,18 +233,17 @@ function ManageCertifications(props) {
                                         </h3>
                                         <Divider className="todo-news-divider" />
                                         <ul>
-                                            <li className="todo-news-item">
-                                                Update Supplier List for Leaping Bunny
-                                            </li>
-                                            <li className="todo-news-item">
-                                                Update Supplier List for Leaping Bunny
-                                            </li>
-                                            <li className="readMoreButton">
-                                                <button className="readMoreButton" onClick={toggleReadMore}>
-                                                    View All News
-                                                </button>
-                                            </li>
-                                        </ul>
+                                                {certification.todos.slice(0, 2).map((todo, todoIndex) => (
+                                                    <li className="todo-news-item" key={todoIndex}>{todo}</li>
+                                                ))}
+                                                {certification.todos.length > 2 && (
+                                                    <li>
+                                                        <button className="readMoreButton" onClick={() => toggleReadMore(certification)}>
+                                                        View All Tasks
+                                                        </button>
+                                                    </li>
+                                                )}
+                                            </ul>
 
                                     </Col>
                                 </Row>
@@ -260,10 +259,10 @@ function ManageCertifications(props) {
                 footer={null}
             >
                 <ul>
-                    {/* {selectedCertification && selectedCertification.todos.map((todo, todoIndex) => ( */}
-                    {/* <li key={todoIndex}>{todo}</li> */}
-                    {/* ))} */}
-                    <li>
+                    {selectedCertification && selectedCertification.todos.map((todo, todoIndex) => (
+                    <li key={todoIndex}>{todo}</li>
+                    ))} 
+                    {/* <li>
                         Update Supplier List for Leaping Bunny
                     </li>
                     <li>
@@ -286,7 +285,7 @@ function ManageCertifications(props) {
                     </li>
                     <li>
                         Update Supplier List for Leaping Bunny
-                    </li>
+                    </li> */}
                 </ul>
             </Modal>
         </div>

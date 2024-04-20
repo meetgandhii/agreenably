@@ -77,6 +77,12 @@ const certificationSchema = new mongoose.Schema(
         workflow: [{
             type: "String"
         }],
+        image: {
+            type: "String"
+        },
+        todos: [{
+            type: "String"
+        }]
     },
     { collection: "Certifications" }
 

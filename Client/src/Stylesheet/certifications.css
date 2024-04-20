@@ -233,3 +233,9 @@ input.inputStyleFile[type="file"] {
   border-radius: 5px;
   font-size: 12px;
 }
+.disabled_input {
+  opacity: 0.5;
+cursor: not-allowed;
+background-color: #898989;
+color: white;
+}
