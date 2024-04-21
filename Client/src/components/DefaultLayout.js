@@ -32,15 +32,15 @@ function DefaultLayout(props) {
   return (
     <div className="d-flex">
 
-      <ul className="kanbas-navigation-ul" style={{ padding: "0 25px", height: "100%", display: "flex", flexDirection: "column" }}>
+      <ul className="kanbas-navigation-ul" style={{ padding: "20px 25px", height: "100%", display: "flex", flexDirection: "column" }}>
         <li className="kanbas-navigation-li">
           <a href="/">
             <img src="/images/agreenably_logo.svg" width="25px" alt="Logoo" />
-            <img src="/images/agreenably_name.svg" style={{ display: "inline", marginLeft: "20px" }}/>
+            <img src="/images/agreenably_name.svg" style={{ display: "inline", marginLeft: "20px" }} />
           </a>
         </li>
         <li style={{ margin: "60px 0" }}>
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          {/* <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
             <input
               type="text"
               placeholder="Search..."
@@ -54,14 +54,14 @@ function DefaultLayout(props) {
             <div style={{ position: 'absolute', right: '220px' }}>
               <FaSearch style={{ color: '#777', cursor: 'pointer' }} />
             </div>
-          </div>
+          </div> */}
         </li>
         <li>
           <UserNavigation />
         </li>
-        <li>
+        {/* <li>
           <CertificationsNavigation />
-        </li>
+        </li> */}
         <li style={{ display: 'flex', alignItems: 'center', marginTop: 'auto' }}>
           {user && (
             <button

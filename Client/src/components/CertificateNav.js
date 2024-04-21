@@ -36,7 +36,7 @@ function CertificateNav(props) {
     return (
         <div className="d-flex">
             <div>
-                <ul className="kanbas-navigation-ul" style={{ padding: "0 25px", height: "100%", display: "flex", flexDirection: "column" }}>
+            <ul className="kanbas-navigation-ul" style={{ padding: "20px 25px", height: "100%", display: "flex", flexDirection: "column" }}>
                     <li className="kanbas-navigation-li">
                         <a href="/">
                             <img src="/images/logo.png" width="25px" alt="Logoo" />

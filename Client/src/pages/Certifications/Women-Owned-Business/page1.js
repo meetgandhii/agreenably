@@ -150,7 +150,7 @@ function Women_Owned_Small_Businesses_Page1() {
             } catch (error) {
                 console.error("Error while editing certification record:", error);
             }
-            navigate(`/certification/women-owned-small-businesses/fill-questionnaire/page2`, { state: { formData: values, filteredQuestions: filteredQuestions } });
+            navigate(`/certification/${slug}/fill-questionnaire/page2`, { state: { formData: values, filteredQuestions: filteredQuestions } });
         }
         // Pass form data as state
 
@@ -226,7 +226,7 @@ function Women_Owned_Small_Businesses_Page1() {
         updateCertificationRecord();
     }, [formValues, user, certification]);
     const goBackToCertificationPage = () => {
-        window.location.href = "/certification/women-business-enterprise"
+        window.location.href = `/certification/${slug}`
     }
 
     return (

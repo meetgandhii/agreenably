@@ -27,14 +27,14 @@ function UserNavigation() {
                         Recommendations
                     </h6></a>
             </li>
-            <li>
+            {/* <li>
                 <img src="/images/Manage.png" width="15px" alt="Manage" />
                 <a href="/">
                     <h6 className='user-menu'>
                         Manage
                     </h6>
                 </a>
-            </li>
+            </li> */}
         </ul>
     );
 }

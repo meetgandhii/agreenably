@@ -4,7 +4,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import axios from "axios";
 import moment from "moment";
 import { useSelector } from "react-redux";
-import CertificateNav from "../../../components/CertificateNav";
+import CertificateNav2 from "../../../components/CertificateNav2";
 import DefaultLayout from "../../../components/DefaultLayout";
 import Spinner from "../../../components/Spinner";
 import '../../../Stylesheet/certifications.css';
@@ -67,7 +67,7 @@ function Women_Owned_Small_Businesses_Review() {
 
             const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/certification/records/editcertificationrecord`, {
                 user_id: user._id,
-                certification_response: formValues,
+                certification_response: filteredFormValues,
                 timestamp: timestamp,
                 ongoing: "0",
                 certification_id: "661af7bafc61456139f44154",
@@ -83,12 +83,9 @@ function Women_Owned_Small_Businesses_Review() {
     };
 
 
-    const onFinish = async (values, e) => {
-        e.preventDefault();
-
+    const onFinish = async () => {
         save();
-        navigate('/certification/thankyou')
-
+        navigate('/certification/thankyou');
     };
     const [questions, setQuestions] = useState([]);
 
@@ -107,7 +104,11 @@ function Women_Owned_Small_Businesses_Review() {
     };
 
     const [formValues, setFormValues] = useState({});
-
+    const filteredFormValues = Object.fromEntries(
+        Object.entries(formValues).filter(([questionId, answer]) => (
+            answer !== "" && !(Array.isArray(answer) && answer.every(item => item === ""))
+        ))
+    );
     const backToCertificate = async () => {
         try {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/certification/records/editcertificationpage`, {
@@ -137,7 +138,7 @@ function Women_Owned_Small_Businesses_Review() {
 
     return (
         <div className="booking-car-container" style={{ height: loading ? "100vh" : "auto" }}>
-            <CertificateNav />
+            <CertificateNav2 />
             <div className="booking-car-content">
                 <div style={{ position: 'sticky', top: 0, backgroundColor: '#f2f1f2', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <button onClick={goBackToCertificationPage} style={{ border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
@@ -148,18 +149,19 @@ function Women_Owned_Small_Businesses_Review() {
                 </div>
                 {loading ? (<Spinner />) : (
                     <>
-
                         <div className="certificate_questionnaire">
-                            {Object.entries(formValues).map(([questionId, answer], index) => (
+                            {Object.entries(filteredFormValues).map(([questionId, answer], index) => (
+
                                 <div className="questionStyle" key={index}>
                                     <h6 className="question">{`Question ${index + 1}`}: {getQuestionContent(questionId)}</h6>
                                     <h6 className="question">{`Answer ${index + 1}`}: {JSON.stringify(answer)}</h6>
                                 </div>
+
                             ))}
                         </div>
+
                         <button onClick={backToCertificate} className="agreenably-btn-edit">Edit</button>
                         <button onClick={onFinish} className="agreenably-btn-submit">Submit</button>
-
                     </>
                 )}
 

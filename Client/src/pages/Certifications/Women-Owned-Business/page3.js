@@ -262,90 +262,200 @@ function Women_Owned_Small_Businesses_Page3() {
     const [formValues, setFormValues] = useState({});
 
     const handleInputChange = async (question, value) => {
+        if (!(question._id in multiple_answer_dict)) {
+            if (question.type === 'file') {
+                const file = value;
+                const fileName = file.name;
+                const uploadData = {
+                    user_id: user._id,
+                    certification_id: "65e00a20d84f77326c4b0bba",
+                    question_id: question._id,
+                };
+                const formData = new FormData();
+                formData.append('pdf', file);
+                Object.entries(uploadData).forEach(([key, value]) => {
+                    formData.append(key, value);
+                });
+                try {
+                    const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/document/upload`, formData);
 
-        if (question.type === 'file') {
-            const file = value;
-            const fileName = file.name;
-            const uploadData = {
-                user_id: user._id,
-                certification_id: "65e00a20d84f77326c4b0bba",
-                question_id: question._id,
-            };
-            const formData = new FormData();
-            formData.append('pdf', file);
-            Object.entries(uploadData).forEach(([key, value]) => {
-                formData.append(key, value);
-            });
-            try {
-                const response = await axios.post(`${process.env.REACT_APP_SERVER_API}/api/document/upload`, formData);
-
-                console.log("File response is: ", response);
+                    console.log("File response is: ", response);
+                    setFormValues(prevValues => ({
+                        ...prevValues,
+                        [question._id]: fileName,
+                    }));
+                } catch (error) {
+                    console.error("Error uploading file:", error);
+                }
+            } else if (question.type === 'multi') {
                 setFormValues(prevValues => ({
                     ...prevValues,
-                    [question._id]: fileName,
+                    [question._id]: prevValues[question._id]
+                        ? [...prevValues[question._id], value]  // If array exists, append value
+                        : [value]  // If array doesn't exist, create new array with value
                 }));
-            } catch (error) {
-                console.error("Error uploading file:", error);
             }
-        } else if (question.type === 'multi') {
-            setFormValues(prevValues => ({
-                ...prevValues,
-                [question._id]: prevValues[question._id]
-                    ? [...prevValues[question._id], value]  // If array exists, append value
-                    : [value]  // If array doesn't exist, create new array with value
-            }));
-        }
-        else {
-            setFormValues(prevValues => ({
-                ...prevValues,
-                [question._id]: value,
-            }));
+            else {
+                setFormValues(prevValues => ({
+                    ...prevValues,
+                    [question._id]: value,
+                }));
+            }
         }
     };
 
+    // const multiple_answer_dict = {
+    //     "661a0d9552c3ee0e2f865a8e": 10, "661a0d9552c3ee0e2f865a8f": 10,
+    //     "661a0d9552c3ee0e2f865a91": 10, "661a0d9552c3ee0e2f865a92": 10,
+    //     "661a0d9552c3ee0e2f865a94": 10, "661a0d9552c3ee0e2f865a95": 10, "661a0d9552c3ee0e2f865a96": 10, "661a0d9552c3ee0e2f865a97": 10, "661a0d9552c3ee0e2f865a98": 10, "661a0d9552c3ee0e2f865a99": 10,
+    //     "661a0d9552c3ee0e2f865a9b": 10, "661a0d9552c3ee0e2f865a9c": 10, "661a0d9552c3ee0e2f865a9d": 10, "661a0d9552c3ee0e2f865a9e": 10, "661a0d9552c3ee0e2f865a9f": 10, "661a0d9552c3ee0e2f865aa0": 10, "661a0d9552c3ee0e2f865aa1": 10,
+    //     "661a0d9552c3ee0e2f865aa4": 10, "661a0d9552c3ee0e2f865aa5": 10, "661a0d9552c3ee0e2f865aa6": 10, "661a0d9552c3ee0e2f865aa7": 10, "661a0d9552c3ee0e2f865aa8": 10,
+    // }
+
+    const multiple_answer_dict = {
+        "661a0d9552c3ee0e2f865a8e": ["661a0d9552c3ee0e2f865a8e", "661a0d9552c3ee0e2f865a8f"], "661a0d9552c3ee0e2f865a8f": ["661a0d9552c3ee0e2f865a8e", "661a0d9552c3ee0e2f865a8f"],
+        "661a0d9552c3ee0e2f865a91": ["661a0d9552c3ee0e2f865a91", "661a0d9552c3ee0e2f865a92"], "661a0d9552c3ee0e2f865a92": ["661a0d9552c3ee0e2f865a91", "661a0d9552c3ee0e2f865a92"],
+        "661a0d9552c3ee0e2f865a94": ["661a0d9552c3ee0e2f865a94", "661a0d9552c3ee0e2f865a95", "661a0d9552c3ee0e2f865a96", "661a0d9552c3ee0e2f865a97", "661a0d9552c3ee0e2f865a98", "661a0d9552c3ee0e2f865a99"], "661a0d9552c3ee0e2f865a95": ["661a0d9552c3ee0e2f865a94", "661a0d9552c3ee0e2f865a95", "661a0d9552c3ee0e2f865a96", "661a0d9552c3ee0e2f865a97", "661a0d9552c3ee0e2f865a98", "661a0d9552c3ee0e2f865a99"], "661a0d9552c3ee0e2f865a96": ["661a0d9552c3ee0e2f865a94", "661a0d9552c3ee0e2f865a95", "661a0d9552c3ee0e2f865a96", "661a0d9552c3ee0e2f865a97", "661a0d9552c3ee0e2f865a98", "661a0d9552c3ee0e2f865a99"], "661a0d9552c3ee0e2f865a97": ["661a0d9552c3ee0e2f865a94", "661a0d9552c3ee0e2f865a95", "661a0d9552c3ee0e2f865a96", "661a0d9552c3ee0e2f865a97", "661a0d9552c3ee0e2f865a98", "661a0d9552c3ee0e2f865a99"], "661a0d9552c3ee0e2f865a98": ["661a0d9552c3ee0e2f865a94", "661a0d9552c3ee0e2f865a95", "661a0d9552c3ee0e2f865a96", "661a0d9552c3ee0e2f865a97", "661a0d9552c3ee0e2f865a98", "661a0d9552c3ee0e2f865a99"], "661a0d9552c3ee0e2f865a99": ["661a0d9552c3ee0e2f865a94", "661a0d9552c3ee0e2f865a95", "661a0d9552c3ee0e2f865a96", "661a0d9552c3ee0e2f865a97", "661a0d9552c3ee0e2f865a98", "661a0d9552c3ee0e2f865a99"],
+        "661a0d9552c3ee0e2f865a9b": ["661a0d9552c3ee0e2f865a9b", "661a0d9552c3ee0e2f865a9c", "661a0d9552c3ee0e2f865a9d", "661a0d9552c3ee0e2f865a9e", "661a0d9552c3ee0e2f865a9f", "661a0d9552c3ee0e2f865aa0", "661a0d9552c3ee0e2f865aa1"], "661a0d9552c3ee0e2f865a9c": ["661a0d9552c3ee0e2f865a9b", "661a0d9552c3ee0e2f865a9c", "661a0d9552c3ee0e2f865a9d", "661a0d9552c3ee0e2f865a9e", "661a0d9552c3ee0e2f865a9f", "661a0d9552c3ee0e2f865aa0", "661a0d9552c3ee0e2f865aa1"], "661a0d9552c3ee0e2f865a9d": ["661a0d9552c3ee0e2f865a9b", "661a0d9552c3ee0e2f865a9c", "661a0d9552c3ee0e2f865a9d", "661a0d9552c3ee0e2f865a9e", "661a0d9552c3ee0e2f865a9f", "661a0d9552c3ee0e2f865aa0", "661a0d9552c3ee0e2f865aa1"], "661a0d9552c3ee0e2f865a9e": ["661a0d9552c3ee0e2f865a9b", "661a0d9552c3ee0e2f865a9c", "661a0d9552c3ee0e2f865a9d", "661a0d9552c3ee0e2f865a9e", "661a0d9552c3ee0e2f865a9f", "661a0d9552c3ee0e2f865aa0", "661a0d9552c3ee0e2f865aa1"], "661a0d9552c3ee0e2f865a9f": ["661a0d9552c3ee0e2f865a9b", "661a0d9552c3ee0e2f865a9c", "661a0d9552c3ee0e2f865a9d", "661a0d9552c3ee0e2f865a9e", "661a0d9552c3ee0e2f865a9f", "661a0d9552c3ee0e2f865aa0", "661a0d9552c3ee0e2f865aa1"], "661a0d9552c3ee0e2f865aa0": ["661a0d9552c3ee0e2f865a9b", "661a0d9552c3ee0e2f865a9c", "661a0d9552c3ee0e2f865a9d", "661a0d9552c3ee0e2f865a9e", "661a0d9552c3ee0e2f865a9f", "661a0d9552c3ee0e2f865aa0", "661a0d9552c3ee0e2f865aa1"], "661a0d9552c3ee0e2f865aa1": ["661a0d9552c3ee0e2f865a9b", "661a0d9552c3ee0e2f865a9c", "661a0d9552c3ee0e2f865a9d", "661a0d9552c3ee0e2f865a9e", "661a0d9552c3ee0e2f865a9f", "661a0d9552c3ee0e2f865aa0", "661a0d9552c3ee0e2f865aa1"],
+        "661a0d9552c3ee0e2f865aa4": ["661a0d9552c3ee0e2f865aa4", "661a0d9552c3ee0e2f865aa5", "661a0d9552c3ee0e2f865aa6", "661a0d9552c3ee0e2f865aa7", "661a0d9552c3ee0e2f865aa8"], "661a0d9552c3ee0e2f865aa5": ["661a0d9552c3ee0e2f865aa4", "661a0d9552c3ee0e2f865aa5", "661a0d9552c3ee0e2f865aa6", "661a0d9552c3ee0e2f865aa7", "661a0d9552c3ee0e2f865aa8"], "661a0d9552c3ee0e2f865aa6": ["661a0d9552c3ee0e2f865aa4", "661a0d9552c3ee0e2f865aa5", "661a0d9552c3ee0e2f865aa6", "661a0d9552c3ee0e2f865aa7", "661a0d9552c3ee0e2f865aa8"], "661a0d9552c3ee0e2f865aa7": ["661a0d9552c3ee0e2f865aa4", "661a0d9552c3ee0e2f865aa5", "661a0d9552c3ee0e2f865aa6", "661a0d9552c3ee0e2f865aa7", "661a0d9552c3ee0e2f865aa8"], "661a0d9552c3ee0e2f865aa8": ["661a0d9552c3ee0e2f865aa4", "661a0d9552c3ee0e2f865aa5", "661a0d9552c3ee0e2f865aa6", "661a0d9552c3ee0e2f865aa7", "661a0d9552c3ee0e2f865aa8"]
+    }
+    const handleAddMore = (questionId) => {
+        const questionIds = multiple_answer_dict[questionId];
+        if (questionIds) {
+            const updatedFormValues = { ...formValues };
+            questionIds.forEach(id => {
+                updatedFormValues[id] = [...(updatedFormValues[id] || []), ""];
+            });
+            setFormValues(updatedFormValues);
+        }
+    };
+    const handleInputChangeMore = async (question, value, index) => {
+        setFormValues(prevValues => {
+            const newArray = [...prevValues[question._id]];
+            newArray[index] = value;
+            return {
+                ...prevValues,
+                [question._id]: newArray,
+            };
+        });
+    };
     const renderQuestionInput = (question, index) => {
 
         const answer = formValues[question._id];
 
         switch (question.type) {
             case 'text':
-                return (
-                    <div className="answer-area">
-                        {question.notes && question.notes !== "" && (
-                            <h6 className="note">Note - {question.notes}</h6>
-                        )}
-                        <input type="text"
-                            name={`text_${question._id}`}
-                            className="inputStyleText"
-                            placeholder="Enter text here..."
-                            value={answer || ''}
-                            onChange={(e) => handleInputChange(question, e.target.value)} />
+                if (question._id in multiple_answer_dict) {
+                    return (
+                        <>
+                            {answer && answer.map((ans, index) => (
+                                <div className="answer-area">
+                                    <h6 className="question">Entry {index+1} - </h6>
+                                    {question.notes && question.notes !== "" && (
+                                        <h6 className="note">Note - {question.notes}</h6>
+                                    )}
 
-                    </div>
-                );
+                                    <input
+                                        type="text"
+                                        name={`text_${question._id}_${index}`}
+                                        className="inputStyleText"
+                                        placeholder="Enter text here..."
+                                        value={ans || ''}
+                                        onChange={(e) => handleInputChangeMore(question, e.target.value, index)}
+                                    />
+
+                                </div>
+                            ))}
+                            <button type="button" onClick={() => handleAddMore(question._id)} className="agreenably-btn">Add more</button>
+                        </>
+                    );
+                } else {
+                    return (
+                        <div className="answer-area">
+                            {question.notes && question.notes !== "" && (
+                                <h6 className="note">Note - {question.notes}</h6>
+                            )}
+                            <input type="text"
+                                name={`text_${question._id}`}
+                                className="inputStyleText"
+                                placeholder="Enter text here..."
+                                value={answer || ''}
+                                onChange={(e) => handleInputChange(question, e.target.value)} />
+
+                        </div>
+                    );
+                }
+
             case 'single':
-                return (
-                    <div className="answer-area">
-                        {question.notes && question.notes !== "" && (
-                            <h6 className="note">Note - {question.notes}</h6>
-                        )}
-                        {Array.isArray(question.type_content) && question.type_content.map((option, index) => (
-                            <label key={index} className="labelStyle">
-                                <input
-                                    type="radio"
-                                    value={option}
+                if (question._id in multiple_answer_dict) {
+                    return (
+                        <>{answer && answer.map((ans, index) => (
+                            <div className="answer-area">
+                                <h6 className="question">Entry {index+1} - </h6>
+                                {question.notes && question.notes !== "" && (
+                                    <h6 className="note">Note - {question.notes}</h6>
+                                )}
+                                {Array.isArray(question.type_content) && question.type_content.map((option, indexx) => (
+                                    <label key={indexx} className="labelStyle">
+                                        <input
+                                            type="radio"
+                                            value={option}
+                                            onChange={() => handleInputChangeMore(question, option, index)}
+                                            checked={option === ans}
+                                            className="inputStyle"
+                                            name={`radio_${question._id}_${index}`}
+                                        />
+                                        {option}
+                                    </label>
+                                ))}
 
-                                    onChange={() => handleInputChange(question, option)}
-                                    checked={option === answer}
-                                    className="inputStyle"
-                                    name={`radio_${question._id}`}
-                                />
-                                {option}
-                            </label>
+                            </div>
                         ))}
+                            <button type="button" onClick={() => handleAddMore(question._id)} className="agreenably-btn">Add more</button>
 
-                    </div>
-                );
+                        </>
+                        // <div className="answer-area">
+                        //     {question.notes && question.notes !== "" && (
+                        //         <h6 className="note">Note - {question.notes}</h6>
+                        //     )}
+                        //     {answer && answer.map((ans, index) => (
+                        //         <input
+                        //             type="text"
+                        //             name={`text_${question._id}_${index}`}
+                        //             className="inputStyleText"
+                        //             placeholder="Enter text here..."
+                        //             value={ans || ''}
+                        //             onChange={(e) => handleInputChangeMore(question, e.target.value, index)}
+                        //         />
+                        //     ))}
+                        //     <button type="button" onClick={() => handleAddMore(question._id)} className="agreenably-btn">Add more</button>
+
+                        // </div>
+                    );
+                } else {
+                    return (
+                        <div className="answer-area">
+                            {question.notes && question.notes !== "" && (
+                                <h6 className="note">Note - {question.notes}</h6>
+                            )}
+                            {Array.isArray(question.type_content) && question.type_content.map((option, index) => (
+                                <label key={index} className="labelStyle">
+                                    <input
+                                        type="radio"
+                                        value={option}
+
+                                        onChange={() => handleInputChange(question, option)}
+                                        checked={option === answer}
+                                        className="inputStyle"
+                                        name={`radio_${question._id}`}
+                                    />
+                                    {option}
+                                </label>
+                            ))}
+
+                        </div>
+                    );
+                }
             case 'multi':
                 return (
                     <div className="answer-area">
@@ -460,7 +570,7 @@ function Women_Owned_Small_Businesses_Page3() {
 
         updateCertificationRecord();
     }, [formValues, user, certification]);
-    const goBackToCertificationPage =  async() => {
+    const goBackToCertificationPage = async () => {
         try {
             const response = await axios.put(`${process.env.REACT_APP_SERVER_API}/api/certification/records/editcertificationpage`, {
                 user_id: user._id,

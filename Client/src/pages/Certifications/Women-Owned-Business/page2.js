@@ -269,7 +269,7 @@ function Women_Owned_Small_Businesses_Page2() {
                             )}
                             {answer && answer.map((file, index) => (
                                 <label className="custom-file-upload">
-                                    <input required type="file"
+                                    <input type="file"
                                         className="inputStyleFile"
                                         name={`file_${question._id}`}
                                         onChange={(e) => handleSingleChangeFile(question, e.target.files[0], index)}
@@ -280,7 +280,7 @@ function Women_Owned_Small_Businesses_Page2() {
                             ))}
                             {(answer ? answer.length : 0) < multiple_file_dict[question._id] && (
                                 <label className="custom-file-upload">
-                                    <input required type="file"
+                                    <input type="file"
                                         className="inputStyleFile"
                                         name={`file_${question._id}`}
                                         onChange={(e) => handleMultipleInputChange(question, e.target.files[0])}
@@ -298,7 +298,7 @@ function Women_Owned_Small_Businesses_Page2() {
                                 <h6 className="note">Note - {question.notes}</h6>
                             )}
                             <label className="custom-file-upload">
-                                <input required type="file"
+                                <input type="file"
                                     className="inputStyleFile"
                                     name={`file_${question._id}`}
                                     onChange={(e) => handleInputChange(question, e.target.files[0])}
@@ -320,7 +320,7 @@ function Women_Owned_Small_Businesses_Page2() {
                         {question.notes && question.notes !== "" && (
                             <h6 className="note">Note - {question.notes}</h6>
                         )}
-                        <select required
+                        <select
                             name={`dropdown_single_${question._id}`}
                             className="selectStyle"
                             value={answer || ''}
